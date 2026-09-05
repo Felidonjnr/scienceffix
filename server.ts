@@ -1,7 +1,7 @@
 import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
-import { GoogleGenAI, Type, Schema } from "@google/genai";
+import OpenAI from "openai";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -17,33 +17,15 @@ async function startServer() {
     try {
       const { student, answers, report } = req.body;
       
-      const apiKey = process.env.GEMINI_API_KEY;
+      const apiKey = process.env.DEEPSEEK_API_KEY;
       if (!apiKey) {
-        return res.status(500).json({ error: "GEMINI_API_KEY is not configured on the server." });
+        return res.status(500).json({ error: "DEEPSEEK_API_KEY is not configured on the server." });
       }
 
-      const ai = new GoogleGenAI({ apiKey });
-
-      const schema: Schema = {
-        type: Type.OBJECT,
-        properties: {
-          hiddenBottleneck: {
-            type: Type.STRING,
-            description: "The 'Aha!' moment diagnosis. Don't just tell them what they failed, tell them WHY. (e.g., 'You don't have a Physics problem, you have a mathematical translation problem...')"
-          },
-          unfairAdvantage: {
-            type: Type.ARRAY,
-            items: { type: Type.STRING },
-            description: "3 strict, powerful rules or strategies tailored exactly to their learning style."
-          },
-          sevenDayBlueprint: {
-            type: Type.ARRAY,
-            items: { type: Type.STRING },
-            description: "A highly actionable 7-day schedule based on their available study hours. Make each string a day's plan (e.g., 'Day 1: 40 mins active recall on Biology...')."
-          }
-        },
-        required: ["hiddenBottleneck", "unfairAdvantage", "sevenDayBlueprint"]
-      };
+      const openai = new OpenAI({
+        baseURL: 'https://api.deepseek.com',
+        apiKey: apiKey
+      });
 
       const prompt = `
         You are an elite academic consultant and strategist charging premium rates for your insights.
@@ -58,25 +40,34 @@ async function startServer() {
         Write your response with intense rigor, making them feel like they just received a highly premium, insider document. 
         Be extremely direct, deeply analytical about why they failed, and provide an actionable 7-day roadmap based exactly on the time they said they had available.
         Act like a mentor setting them up for their final strategy session. Do NOT mention money or sell programs.
+
+        You MUST respond ONLY with a valid JSON object. Do not include any markdown formatting like \`\`\`json.
+        The JSON must follow this exact structure:
+        {
+          "hiddenBottleneck": "The 'Aha!' moment diagnosis string. Don't just tell them what they failed, tell them WHY.",
+          "unfairAdvantage": ["rule 1", "rule 2", "rule 3"],
+          "sevenDayBlueprint": ["Day 1: ...", "Day 2: ...", "Day 3: ...", "Day 4: ...", "Day 5: ...", "Day 6: ...", "Day 7: ..."]
+        }
       `;
 
-      const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: prompt,
-        config: {
-          responseMimeType: "application/json",
-          responseSchema: schema,
-          temperature: 0.2
-        }
+      const response = await openai.chat.completions.create({
+        model: "deepseek-chat",
+        messages: [{ role: "user", content: prompt }],
+        response_format: { type: "json_object" },
+        temperature: 0.2
       });
 
-      if (!response.text) {
+      if (!response.choices[0].message.content) {
         throw new Error("No response generated");
       }
+      
+      let rawText = response.choices[0].message.content.trim();
+      if (rawText.startsWith("\`\`\`")) {
+        rawText = rawText.replace(/^\`\`\`(?:json)?\n?/, "").replace(/\n?\`\`\`$/, "");
+      }
+      const analysis = JSON.parse(rawText);
 
-      let rawText = response.text.trim(); if (rawText.startsWith("```")) { rawText = rawText.replace(/^```(?:json)?\n?/, "").replace(/\n?```$/, ""); } const analysis = JSON.parse(rawText);
       res.json(analysis);
-
     } catch (error) {
       console.error("AI Analysis Error:", error);
       res.status(500).json({ error: "Failed to generate AI analysis" });

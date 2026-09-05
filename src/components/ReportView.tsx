@@ -5,6 +5,8 @@ import { FileText, Download, RotateCcw, AlertTriangle, CheckCircle, XCircle, Inf
 import { motion, AnimatePresence } from 'motion/react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 import { QUESTIONS } from '../data/questions';
+// @ts-ignore
+import html2pdf from 'html2pdf.js';
 
 interface AIAnalysis {
   hiddenBottleneck: string;
@@ -17,6 +19,18 @@ export default function ReportView({ student, answers, onRestart }: { student: S
   const [aiAnalysis, setAiAnalysis] = useState<AIAnalysis | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(true);
   const [showDetailedReview, setShowDetailedReview] = useState(false);
+  const handleDownloadPdf = () => {
+    const element = document.getElementById("report-content");
+    if (!element) return;
+    const opt = {
+      margin:       0.2,
+      filename:     `${student.name.replace(/\s+/g, "_")}_Academic_Blueprint.pdf`,
+      image:        { type: "jpeg" as const, quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true },
+      jsPDF:        { unit: "in", format: "letter", orientation: "portrait" as const }
+    };
+    html2pdf().set(opt).from(element).save();
+  };
 
   useEffect(() => {
     const generatedReport = computeReport(answers);
@@ -51,12 +65,9 @@ export default function ReportView({ student, answers, onRestart }: { student: S
     fetchAnalysis();
   }, [answers, student]);
 
-  if (!report) return null;
-
-  const { subjectScores, overallProfileName, avgOverall } = report;
-
   const radarData = useMemo(() => {
-    return Object.entries(subjectScores).map(([subject, data]) => {
+    if (!report) return [];
+    return Object.entries(report.subjectScores).map(([subject, data]) => {
       const subjectData = data as { rawScore: number, level: string, status: string };
       return {
         subject: subject.substring(0, 4), // abbreviate for chart
@@ -64,7 +75,11 @@ export default function ReportView({ student, answers, onRestart }: { student: S
         benchmark: 85, // Premium target
       };
     });
-  }, [subjectScores]);
+  }, [report]);
+
+  if (!report) return null;
+
+  const { subjectScores, overallProfileName, avgOverall } = report;
 
   if (isAnalyzing) {
     return (
@@ -89,7 +104,7 @@ export default function ReportView({ student, answers, onRestart }: { student: S
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-2xl shadow-sm border border-[#E2E8F0] overflow-hidden print:shadow-none print:border-none"
+        id="report-content" className="bg-white rounded-2xl shadow-sm border border-[#E2E8F0] overflow-hidden print:shadow-none print:border-none"
       >
         <div className="bg-[#0F172A] text-white p-8 md:p-12 print:bg-white print:text-[#0F172A]">
           <div className="flex justify-between items-start mb-8">
@@ -387,7 +402,7 @@ export default function ReportView({ student, answers, onRestart }: { student: S
               Start Over
             </button>
             <button 
-              onClick={() => window.print()}
+              onClick={() => handleDownloadPdf()}
               className="px-4 py-2 bg-slate-900 text-white rounded-md text-sm font-semibold hover:bg-slate-800 shadow-sm transition-colors flex items-center gap-2"
             >
               <Download className="w-4 h-4" />
