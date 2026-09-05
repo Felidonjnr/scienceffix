@@ -1,0 +1,6 @@
+{
+  "name": "The Science Foundation Lab",
+  "description": "Diagnostic and adaptive learning framework for identifying student science readiness.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
