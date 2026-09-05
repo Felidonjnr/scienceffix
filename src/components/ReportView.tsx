@@ -168,31 +168,31 @@ export default function ReportView({ student, answers, onRestart }: { student: S
             </div>
           </div>
 
-          {/* AI Analysis Section */}
-          {aiAnalysis && (
-            <div className="space-y-8">
-              <div className="grid md:grid-cols-2 gap-8">
-                {/* Radar Chart */}
-                <div className="bg-white rounded-2xl p-8 border border-[#E2E8F0] flex flex-col items-center justify-center">
-                  <h3 className="text-lg font-bold text-[#0F172A] w-full text-left mb-6">Competency Radar</h3>
-                  <div className="w-full h-[250px]">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
-                        <PolarGrid stroke="#E2E8F0" />
-                        <PolarAngleAxis dataKey="subject" tick={{ fill: '#64748B', fontSize: 12, fontWeight: 'bold' }} />
-                        <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
-                        <Radar name="Your Score" dataKey="score" stroke="#2563EB" fill="#3B82F6" fillOpacity={0.5} />
-                        <Radar name="Target Benchmark" dataKey="benchmark" stroke="#10B981" fill="#34D399" fillOpacity={0.2} strokeDasharray="3 3" />
-                      </RadarChart>
-                    </ResponsiveContainer>
-                  </div>
-                  <div className="flex gap-4 mt-4 text-[10px] font-bold uppercase tracking-wider">
-                    <div className="flex items-center gap-1"><div className="w-2 h-2 bg-blue-500 rounded-full"></div> Your Score</div>
-                    <div className="flex items-center gap-1"><div className="w-2 h-2 bg-green-500 rounded-full"></div> Target (85%)</div>
-                  </div>
+          {/* Competency Visualization & AI Analysis Section */}
+          <div className="space-y-8">
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Radar Chart (Always Visible) */}
+              <div className="bg-white rounded-2xl p-8 border border-[#E2E8F0] flex flex-col items-center justify-center">
+                <h3 className="text-lg font-bold text-[#0F172A] w-full text-left mb-6">Competency Radar</h3>
+                <div className="w-full h-[250px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
+                      <PolarGrid stroke="#E2E8F0" />
+                      <PolarAngleAxis dataKey="subject" tick={{ fill: '#64748B', fontSize: 12, fontWeight: 'bold' }} />
+                      <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
+                      <Radar name="Your Score" dataKey="score" stroke="#2563EB" fill="#3B82F6" fillOpacity={0.5} />
+                      <Radar name="Target Benchmark" dataKey="benchmark" stroke="#10B981" fill="#34D399" fillOpacity={0.2} strokeDasharray="3 3" />
+                    </RadarChart>
+                  </ResponsiveContainer>
                 </div>
+                <div className="flex gap-4 mt-4 text-[10px] font-bold uppercase tracking-wider">
+                  <div className="flex items-center gap-1"><div className="w-2 h-2 bg-blue-500 rounded-full"></div> Your Score</div>
+                  <div className="flex items-center gap-1"><div className="w-2 h-2 bg-green-500 rounded-full"></div> Target (85%)</div>
+                </div>
+              </div>
 
-                {/* Hidden Bottleneck */}
+              {/* Hidden Bottleneck */}
+              {aiAnalysis ? (
                 <div className="bg-blue-50/50 rounded-2xl p-8 border border-blue-100 flex flex-col justify-center">
                   <div className="flex items-center gap-3 mb-4">
                     <BrainCircuit className="w-6 h-6 text-blue-600" />
@@ -202,8 +202,16 @@ export default function ReportView({ student, answers, onRestart }: { student: S
                     {aiAnalysis.hiddenBottleneck}
                   </p>
                 </div>
-              </div>
+              ) : (
+                <div className="bg-blue-50/50 rounded-2xl p-8 border border-blue-100 flex flex-col justify-center items-center text-center">
+                  <Loader2 className="w-8 h-8 text-blue-600 animate-spin mb-4" />
+                  <h3 className="text-lg font-bold text-[#0F172A] mb-2">Analyzing Deep Bottlenecks...</h3>
+                  <p className="text-[#334155] text-sm font-medium">The AI is connecting the dots on your performance.</p>
+                </div>
+              )}
+            </div>
 
+            {aiAnalysis && (
               <div className="grid md:grid-cols-2 gap-8">
                 {/* 7-Day Blueprint */}
                 <div className="bg-white rounded-2xl p-8 border border-[#E2E8F0]">
@@ -240,8 +248,8 @@ export default function ReportView({ student, answers, onRestart }: { student: S
                   </ul>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
 
           {/* Collapsible Question Review */}
           <div className="border-t border-[#E2E8F0] pt-8">
