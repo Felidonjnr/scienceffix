@@ -3,7 +3,7 @@ import { Question } from '../types';
 export const mathQuestions: Question[] = [
   // --- LEVEL Z: ZERO FOUNDATION (Contextual / Everyday) ---
   {
-    id: 'MAT_Z_01', subject: 'Mathematics', profileLevel: 'Z', knowledgeType: 'K1', topic: 'Fractions',
+    id: 'MAT_Z_01', subject: 'Mathematics', profileLevel: 'Z', knowledgeType: 'K1', topic: 'Fractions', cognitiveSkills: ["Formula Dependency","Graph Illiteracy"], difficulty: 1,
     text: 'You have one whole pizza. You give 1/3 of it to your brother and 1/3 to your sister. How much is left for you?',
     options: [
       { id: 'a', text: '1/3', points: 5 },
@@ -13,7 +13,7 @@ export const mathQuestions: Question[] = [
     ]
   },
   {
-    id: 'MAT_Z_02', subject: 'Mathematics', profileLevel: 'Z', knowledgeType: 'K2', topic: 'Proportions',
+    id: 'MAT_Z_02', subject: 'Mathematics', profileLevel: 'Z', knowledgeType: 'K2', topic: 'Proportions', cognitiveSkills: ["Formula Dependency","Graph Illiteracy"], difficulty: 1,
     text: 'If a tailor needs 3 yards of fabric to sew 1 native attire, how many yards does she need to sew 4 identical attires?',
     options: [
       { id: 'a', text: '7 yards', points: 0 }, // Added instead of multiplying
@@ -23,7 +23,7 @@ export const mathQuestions: Question[] = [
     ]
   },
   {
-    id: 'MAT_Z_03', subject: 'Mathematics', profileLevel: 'Z', knowledgeType: 'K3', topic: 'Percentages',
+    id: 'MAT_Z_03', subject: 'Mathematics', profileLevel: 'Z', knowledgeType: 'K3', topic: 'Percentages', cognitiveSkills: ["Formula Dependency","Conceptual Application"], difficulty: 2,
     text: 'A shoe at the market costs ₦10,000. The seller gives you a 20% discount. How much do you pay?',
     options: [
       { id: 'a', text: '₦2,000', points: 1 }, // Found the discount, didn't subtract
@@ -33,7 +33,7 @@ export const mathQuestions: Question[] = [
     ]
   },
   {
-    id: 'MAT_Z_04', subject: 'Mathematics', profileLevel: 'Z', knowledgeType: 'K4', topic: 'Estimation',
+    id: 'MAT_Z_04', subject: 'Mathematics', profileLevel: 'Z', knowledgeType: 'K4', topic: 'Estimation', cognitiveSkills: ["Graph Illiteracy","Formula Dependency"], difficulty: 2,
     text: 'You have ₦500. You want to buy Gala (₦120), LaCasera (₦150), and groundnut (₦100). Do you have enough money?',
     options: [
       { id: 'a', text: 'No, I need exactly ₦500 more.', points: 0 },
@@ -45,7 +45,7 @@ export const mathQuestions: Question[] = [
 
   // --- LEVEL F: FRAGMENTED (Mixed / Rote recall with gaps) ---
   {
-    id: 'MAT_F_01', subject: 'Mathematics', profileLevel: 'F', knowledgeType: 'K1', topic: 'Order of Operations (BODMAS)',
+    id: 'MAT_F_01', subject: 'Mathematics', profileLevel: 'F', knowledgeType: 'K1', topic: 'Order of Operations (BODMAS)', cognitiveSkills: ["Logical Deduction","Reading Comprehension"], difficulty: 3,
     text: 'Calculate: 5 + 3 × 2',
     options: [
       { id: 'a', text: '16', points: 1 }, // Left to right error (5+3=8, 8x2=16)
@@ -55,7 +55,7 @@ export const mathQuestions: Question[] = [
     ]
   },
   {
-    id: 'MAT_F_02', subject: 'Mathematics', profileLevel: 'F', knowledgeType: 'K2', topic: 'Adding Fractions',
+    id: 'MAT_F_02', subject: 'Mathematics', profileLevel: 'F', knowledgeType: 'K2', topic: 'Adding Fractions', cognitiveSkills: ["Reading Comprehension","Spatial Reasoning"], difficulty: 1,
     text: 'What is 1/2 + 1/3 ?',
     options: [
       { id: 'a', text: '2/5', points: 1 }, // Common misconception: adding numerators and denominators
@@ -65,7 +65,7 @@ export const mathQuestions: Question[] = [
     ]
   },
   {
-    id: 'MAT_F_03', subject: 'Mathematics', profileLevel: 'F', knowledgeType: 'K3', topic: 'Negative Numbers',
+    id: 'MAT_F_03', subject: 'Mathematics', profileLevel: 'F', knowledgeType: 'K3', topic: 'Negative Numbers', cognitiveSkills: ["Spatial Reasoning","Formula Dependency"], difficulty: 2,
     text: 'Calculate: -4 - (-6)',
     options: [
       { id: 'a', text: '-10', points: 1 },
@@ -75,7 +75,7 @@ export const mathQuestions: Question[] = [
     ]
   },
   {
-    id: 'MAT_F_04', subject: 'Mathematics', profileLevel: 'F', knowledgeType: 'K4', topic: 'Basic Algebra',
+    id: 'MAT_F_04', subject: 'Mathematics', profileLevel: 'F', knowledgeType: 'K4', topic: 'Basic Algebra', cognitiveSkills: ["Graph Illiteracy","Reading Comprehension"], difficulty: 1,
     text: 'If 2x + 5 = 11, what is x?',
     options: [
       { id: 'a', text: '8', points: 0 },
@@ -87,7 +87,7 @@ export const mathQuestions: Question[] = [
 
   // --- LEVEL P: PROCEDURAL (Formulaic / Abstract calculations) ---
   {
-    id: 'MAT_P_01', subject: 'Mathematics', profileLevel: 'P', knowledgeType: 'K1', topic: 'Quadratic Equations',
+    id: 'MAT_P_01', subject: 'Mathematics', profileLevel: 'P', knowledgeType: 'K1', topic: 'Quadratic Equations', cognitiveSkills: ["Spatial Reasoning"], difficulty: 2,
     text: 'Solve for x: x² - 5x + 6 = 0',
     options: [
       { id: 'a', text: 'x = -2 or x = -3', points: 1 }, // Sign error
@@ -97,7 +97,7 @@ export const mathQuestions: Question[] = [
     ]
   },
   {
-    id: 'MAT_P_02', subject: 'Mathematics', profileLevel: 'P', knowledgeType: 'K2', topic: 'Indices/Exponents',
+    id: 'MAT_P_02', subject: 'Mathematics', profileLevel: 'P', knowledgeType: 'K2', topic: 'Indices/Exponents', cognitiveSkills: ["Logical Deduction"], difficulty: 2,
     text: 'Simplify: (x³)(x²)',
     textLength: 'short',
     options: [
@@ -108,7 +108,7 @@ export const mathQuestions: Question[] = [
     ]
   },
   {
-    id: 'MAT_P_03', subject: 'Mathematics', profileLevel: 'P', knowledgeType: 'K3', topic: 'Trigonometry',
+    id: 'MAT_P_03', subject: 'Mathematics', profileLevel: 'P', knowledgeType: 'K3', topic: 'Trigonometry', cognitiveSkills: ["Conceptual Application"], difficulty: 1,
     text: 'In a right-angled triangle, if the side opposite angle θ is 3 and the adjacent side is 4, what is tan(θ)?',
     options: [
       { id: 'a', text: '3/5', points: 0 }, // Sine
@@ -118,7 +118,7 @@ export const mathQuestions: Question[] = [
     ]
   },
   {
-    id: 'MAT_P_04', subject: 'Mathematics', profileLevel: 'P', knowledgeType: 'K4', topic: 'Logarithms',
+    id: 'MAT_P_04', subject: 'Mathematics', profileLevel: 'P', knowledgeType: 'K4', topic: 'Logarithms', cognitiveSkills: ["Spatial Reasoning","Formula Dependency"], difficulty: 3,
     text: 'Evaluate: log₁₀(100)',
     textLength: 'short',
     options: [
@@ -131,7 +131,7 @@ export const mathQuestions: Question[] = [
 
   // --- LEVEL C: CONCEPTUAL (Deep understanding / Transfer) ---
   {
-    id: 'MAT_C_01', subject: 'Mathematics', profileLevel: 'C', knowledgeType: 'K1', topic: 'Functions',
+    id: 'MAT_C_01', subject: 'Mathematics', profileLevel: 'C', knowledgeType: 'K1', topic: 'Functions', cognitiveSkills: ["Reading Comprehension","Formula Dependency"], difficulty: 3,
     text: 'What does finding the roots (or zeros) of a function f(x) actually mean graphically?',
     options: [
       { id: 'a', text: 'Finding where the graph crosses the y-axis.', points: 1 },
@@ -141,7 +141,7 @@ export const mathQuestions: Question[] = [
     ]
   },
   {
-    id: 'MAT_C_02', subject: 'Mathematics', profileLevel: 'C', knowledgeType: 'K2', topic: 'Calculus (Derivative)',
+    id: 'MAT_C_02', subject: 'Mathematics', profileLevel: 'C', knowledgeType: 'K2', topic: 'Calculus (Derivative)', cognitiveSkills: ["Logical Deduction","Reading Comprehension"], difficulty: 3,
     text: 'If the position of a moving car is represented by the function P(t), what does the derivative P\'(t) represent?',
     options: [
       { id: 'a', text: 'The total distance the car has traveled.', points: 0 },
@@ -151,7 +151,7 @@ export const mathQuestions: Question[] = [
     ]
   },
   {
-    id: 'MAT_C_03', subject: 'Mathematics', profileLevel: 'C', knowledgeType: 'K3', topic: 'Probability',
+    id: 'MAT_C_03', subject: 'Mathematics', profileLevel: 'C', knowledgeType: 'K3', topic: 'Probability', cognitiveSkills: ["Spatial Reasoning","Formula Dependency"], difficulty: 1,
     text: 'If you flip a fair coin 5 times and it lands on Heads every single time, what is the probability it lands on Heads on the 6th flip?',
     options: [
       { id: 'a', text: 'Almost impossible, since Tails is "due".', points: 1 }, // Gambler's Fallacy
@@ -161,7 +161,7 @@ export const mathQuestions: Question[] = [
     ]
   },
   {
-    id: 'MAT_C_04', subject: 'Mathematics', profileLevel: 'C', knowledgeType: 'K4', topic: 'Inequalities',
+    id: 'MAT_C_04', subject: 'Mathematics', profileLevel: 'C', knowledgeType: 'K4', topic: 'Inequalities', cognitiveSkills: ["Graph Illiteracy","Spatial Reasoning"], difficulty: 1,
     text: 'When solving the inequality -2x < 6, why do we flip the inequality sign to get x > -3?',
     options: [
       { id: 'a', text: 'Because you always flip the sign in algebra.', points: 0 },

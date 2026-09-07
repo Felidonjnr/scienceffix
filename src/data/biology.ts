@@ -3,7 +3,7 @@ import { Question } from '../types';
 export const biologyQuestions: Question[] = [
   // --- LEVEL Z: ZERO FOUNDATION (Contextual / Everyday) ---
   {
-    id: 'BIO_Z_01', subject: 'Biology', profileLevel: 'Z', knowledgeType: 'K1', topic: 'Photosynthesis',
+    id: 'BIO_Z_01', subject: 'Biology', profileLevel: 'Z', knowledgeType: 'K1', topic: 'Photosynthesis', cognitiveSkills: ["Conceptual Application","Graph Illiteracy"], difficulty: 1,
     text: 'A huge Iroko tree grows from a tiny seed. Where does the tree get MOST of its massive physical weight/matter from as it grows?',
     options: [
       { id: 'a', text: 'From the soil and dirt it absorbs through its roots.', points: 0 }, // Very common misconception
@@ -13,7 +13,7 @@ export const biologyQuestions: Question[] = [
     ]
   },
   {
-    id: 'BIO_Z_02', subject: 'Biology', profileLevel: 'Z', knowledgeType: 'K2', topic: 'Respiration',
+    id: 'BIO_Z_02', subject: 'Biology', profileLevel: 'Z', knowledgeType: 'K2', topic: 'Respiration', cognitiveSkills: ["Reading Comprehension","Spatial Reasoning"], difficulty: 1,
     text: 'Why do humans need to breathe in oxygen continuously?',
     options: [
       { id: 'a', text: 'To fill up our lungs so we don\'t collapse.', points: 0 },
@@ -23,7 +23,7 @@ export const biologyQuestions: Question[] = [
     ]
   },
   {
-    id: 'BIO_Z_03', subject: 'Biology', profileLevel: 'Z', knowledgeType: 'K3', topic: 'Genetics',
+    id: 'BIO_Z_03', subject: 'Biology', profileLevel: 'Z', knowledgeType: 'K3', topic: 'Genetics', cognitiveSkills: ["Reading Comprehension","Logical Deduction"], difficulty: 3,
     text: 'If a father is very good at playing football and trains hard every day, will his new baby automatically be born with strong football muscles?',
     options: [
       { id: 'a', text: 'Yes, traits acquired during life are passed to children.', points: 0 }, // Lamarckian misconception
@@ -33,7 +33,7 @@ export const biologyQuestions: Question[] = [
     ]
   },
   {
-    id: 'BIO_Z_04', subject: 'Biology', profileLevel: 'Z', knowledgeType: 'K4', topic: 'Ecology',
+    id: 'BIO_Z_04', subject: 'Biology', profileLevel: 'Z', knowledgeType: 'K4', topic: 'Ecology', cognitiveSkills: ["Graph Illiteracy","Logical Deduction"], difficulty: 3,
     text: 'In a village farm, hawks eat snakes, snakes eat rats, and rats eat corn. What would happen if farmers killed all the snakes?',
     options: [
       { id: 'a', text: 'The hawks would start eating corn.', points: 0 },
@@ -45,7 +45,7 @@ export const biologyQuestions: Question[] = [
 
   // --- LEVEL F: FRAGMENTED (Mixed / Rote recall with gaps) ---
   {
-    id: 'BIO_F_01', subject: 'Biology', profileLevel: 'F', knowledgeType: 'K1', topic: 'Cell Structure',
+    id: 'BIO_F_01', subject: 'Biology', profileLevel: 'F', knowledgeType: 'K1', topic: 'Cell Structure', cognitiveSkills: ["Formula Dependency","Spatial Reasoning"], difficulty: 2,
     text: 'What is the primary function of the cell membrane?',
     options: [
       { id: 'a', text: 'To act as the brain of the cell.', points: 0 },
@@ -55,7 +55,7 @@ export const biologyQuestions: Question[] = [
     ]
   },
   {
-    id: 'BIO_F_02', subject: 'Biology', profileLevel: 'F', knowledgeType: 'K2', topic: 'Digestive System',
+    id: 'BIO_F_02', subject: 'Biology', profileLevel: 'F', knowledgeType: 'K2', topic: 'Digestive System', cognitiveSkills: ["Reading Comprehension","Formula Dependency"], difficulty: 1,
     text: 'Where does most of the ABSORPTION of nutrients into the bloodstream occur in the human body?',
     options: [
       { id: 'a', text: 'In the stomach.', points: 1 }, // Common misconception
@@ -65,7 +65,7 @@ export const biologyQuestions: Question[] = [
     ]
   },
   {
-    id: 'BIO_F_03', subject: 'Biology', profileLevel: 'F', knowledgeType: 'K3', topic: 'Circulation',
+    id: 'BIO_F_03', subject: 'Biology', profileLevel: 'F', knowledgeType: 'K3', topic: 'Circulation', cognitiveSkills: ["Reading Comprehension","Logical Deduction"], difficulty: 3,
     text: 'Which blood vessels carry oxygen-rich blood away from the heart to the rest of the body?',
     options: [
       { id: 'a', text: 'Veins', points: 1 },
@@ -75,7 +75,7 @@ export const biologyQuestions: Question[] = [
     ]
   },
   {
-    id: 'BIO_F_04', subject: 'Biology', profileLevel: 'F', knowledgeType: 'K4', topic: 'Reproduction',
+    id: 'BIO_F_04', subject: 'Biology', profileLevel: 'F', knowledgeType: 'K4', topic: 'Reproduction', cognitiveSkills: ["Logical Deduction","Conceptual Application"], difficulty: 1,
     text: 'In human reproduction, what is the role of the placenta?',
     options: [
       { id: 'a', text: 'To protect the baby from physical bumps.', points: 1 },
@@ -87,7 +87,7 @@ export const biologyQuestions: Question[] = [
 
   // --- LEVEL P: PROCEDURAL (Formulaic / Abstract calculations) ---
   {
-    id: 'BIO_P_01', subject: 'Biology', profileLevel: 'P', knowledgeType: 'K1', topic: 'Genetics (Punnett Squares)',
+    id: 'BIO_P_01', subject: 'Biology', profileLevel: 'P', knowledgeType: 'K1', topic: 'Genetics (Punnett Squares)', cognitiveSkills: ["Formula Dependency","Graph Illiteracy"], difficulty: 2,
     text: 'In peas, tall (T) is dominant over short (t). If you cross two heterozygous tall plants (Tt x Tt), what percentage of offspring will be short?',
     options: [
       { id: 'a', text: '0%', points: 0 },
@@ -97,7 +97,7 @@ export const biologyQuestions: Question[] = [
     ]
   },
   {
-    id: 'BIO_P_02', subject: 'Biology', profileLevel: 'P', knowledgeType: 'K2', topic: 'DNA Base Pairing',
+    id: 'BIO_P_02', subject: 'Biology', profileLevel: 'P', knowledgeType: 'K2', topic: 'DNA Base Pairing', cognitiveSkills: ["Formula Dependency","Logical Deduction"], difficulty: 3,
     text: 'If one strand of DNA has the sequence A-T-C-G, what is the sequence of the complementary strand?',
     options: [
       { id: 'a', text: 'A-T-C-G', points: 0 },
@@ -107,7 +107,7 @@ export const biologyQuestions: Question[] = [
     ]
   },
   {
-    id: 'BIO_P_03', subject: 'Biology', profileLevel: 'P', knowledgeType: 'K3', topic: 'Enzyme Action',
+    id: 'BIO_P_03', subject: 'Biology', profileLevel: 'P', knowledgeType: 'K3', topic: 'Enzyme Action', cognitiveSkills: ["Graph Illiteracy","Logical Deduction"], difficulty: 2,
     text: 'An enzyme is a biological catalyst. How does it speed up a chemical reaction?',
     options: [
       { id: 'a', text: 'By increasing the temperature of the cell.', points: 0 },
@@ -117,7 +117,7 @@ export const biologyQuestions: Question[] = [
     ]
   },
   {
-    id: 'BIO_P_04', subject: 'Biology', profileLevel: 'P', knowledgeType: 'K4', topic: 'Cell Division',
+    id: 'BIO_P_04', subject: 'Biology', profileLevel: 'P', knowledgeType: 'K4', topic: 'Cell Division', cognitiveSkills: ["Spatial Reasoning","Graph Illiteracy"], difficulty: 3,
     text: 'A human skin cell has 46 chromosomes. After undergoing mitosis, how many chromosomes are in each new daughter cell?',
     options: [
       { id: 'a', text: '23', points: 1 }, // Meiosis trap
@@ -129,7 +129,7 @@ export const biologyQuestions: Question[] = [
 
   // --- LEVEL C: CONCEPTUAL (Deep understanding / Transfer) ---
   {
-    id: 'BIO_C_01', subject: 'Biology', profileLevel: 'C', knowledgeType: 'K1', topic: 'Evolutionary Theory',
+    id: 'BIO_C_01', subject: 'Biology', profileLevel: 'C', knowledgeType: 'K1', topic: 'Evolutionary Theory', cognitiveSkills: ["Graph Illiteracy","Spatial Reasoning"], difficulty: 3,
     text: 'Why are some bacteria becoming resistant to antibiotics over time?',
     options: [
       { id: 'a', text: 'The antibiotics teach the bacteria how to fight back.', points: 1 },
@@ -139,7 +139,7 @@ export const biologyQuestions: Question[] = [
     ]
   },
   {
-    id: 'BIO_C_02', subject: 'Biology', profileLevel: 'C', knowledgeType: 'K2', topic: 'Osmosis & Diffusion',
+    id: 'BIO_C_02', subject: 'Biology', profileLevel: 'C', knowledgeType: 'K2', topic: 'Osmosis & Diffusion', cognitiveSkills: ["Conceptual Application","Formula Dependency"], difficulty: 3,
     text: 'If you place a freshwater fish into the salty ocean, what will happen to its cells?',
     options: [
       { id: 'a', text: 'Salt will rush in and cause the cells to burst.', points: 1 },
@@ -149,7 +149,7 @@ export const biologyQuestions: Question[] = [
     ]
   },
   {
-    id: 'BIO_C_03', subject: 'Biology', profileLevel: 'C', knowledgeType: 'K3', topic: 'Cellular Respiration vs Photosynthesis',
+    id: 'BIO_C_03', subject: 'Biology', profileLevel: 'C', knowledgeType: 'K3', topic: 'Cellular Respiration vs Photosynthesis', cognitiveSkills: ["Graph Illiteracy","Conceptual Application"], difficulty: 2,
     text: 'Which organisms perform cellular respiration (using oxygen to break down sugar)?',
     options: [
       { id: 'a', text: 'Only animals.', points: 1 }, // Common misconception
@@ -159,7 +159,7 @@ export const biologyQuestions: Question[] = [
     ]
   },
   {
-    id: 'BIO_C_04', subject: 'Biology', profileLevel: 'C', knowledgeType: 'K4', topic: 'Feedback Mechanisms',
+    id: 'BIO_C_04', subject: 'Biology', profileLevel: 'C', knowledgeType: 'K4', topic: 'Feedback Mechanisms', cognitiveSkills: ["Formula Dependency","Graph Illiteracy"], difficulty: 2,
     text: 'When your blood sugar rises after eating cake, your pancreas releases insulin to lower it. This is an example of:',
     options: [
       { id: 'a', text: 'Positive feedback.', points: 1 },

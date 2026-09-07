@@ -4,6 +4,7 @@
  */
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import LandingView from './components/LandingView';
 import IntakeForm from './components/IntakeForm';
 import DiagnosticView from './components/DiagnosticView';
@@ -43,7 +44,9 @@ export default function App() {
         dummyAnswers.push({
           questionId: q.id,
           optionId: randomOption.id,
-          points: randomOption.points
+          points: randomOption.points,
+          timeSpent: Math.floor(Math.random() * 120) + 10,
+          confidence: ["High", "Medium", "Low"][Math.floor(Math.random() * 3)] as "High" | "Medium" | "Low"
         });
       });
     });
@@ -53,41 +56,59 @@ export default function App() {
     setStep('report');
   };
 
+  const pageVariants = {
+    initial: { opacity: 0, y: 15 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -15 }
+  };
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100">
-      {step === 'landing' && <LandingView onStart={() => setStep('intake')} />}
-      
-      {step === 'intake' && (
-        <IntakeForm 
-          onSubmit={(data) => {
-            setStudent(data);
-            setStep('diagnostic');
-          }} 
-          onDevSkip={handleDevSkip}
-        />
-      )}
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 overflow-x-hidden">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={step}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          variants={pageVariants}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="min-h-screen"
+        >
+          {step === 'landing' && <LandingView onStart={() => setStep('intake')} />}
+          
+          {step === 'intake' && (
+            <IntakeForm 
+              onSubmit={(data) => {
+                setStudent(data);
+                setStep('diagnostic');
+              }} 
+              onDevSkip={handleDevSkip}
+            />
+          )}
 
-      {step === 'diagnostic' && student && (
-        <DiagnosticView 
-          student={student}
-          onComplete={(finalAnswers) => {
-            setAnswers(finalAnswers);
-            setStep('report');
-          }} 
-        />
-      )}
+          {step === 'diagnostic' && student && (
+            <DiagnosticView 
+              student={student}
+              onComplete={(finalAnswers) => {
+                setAnswers(finalAnswers);
+                setStep('report');
+              }} 
+            />
+          )}
 
-      {step === 'report' && student && (
-        <ReportView 
-          student={student}
-          answers={answers}
-          onRestart={() => {
-            setAnswers([]);
-            setStudent(null);
-            setStep('landing');
-          }}
-        />
-      )}
+          {step === 'report' && student && (
+            <ReportView 
+              student={student}
+              answers={answers}
+              onRestart={() => {
+                setAnswers([]);
+                setStudent(null);
+                setStep('landing');
+              }}
+            />
+          )}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

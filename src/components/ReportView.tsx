@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { StudentData, Answer } from '../types';
 import { computeReport } from '../utils/engine';
-import { FileText, Download, RotateCcw, AlertTriangle, CheckCircle, XCircle, Info, ChevronDown, ChevronUp, Loader2, Sparkles, UserCheck, Clock, BrainCircuit } from 'lucide-react';
+import { FileText, Download, BookOpen, ListTodo, RotateCcw, AlertTriangle, CheckCircle, XCircle, Info, ChevronDown, ChevronUp, Loader2, Sparkles, UserCheck, Clock, BrainCircuit, ShieldAlert, TrendingUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 import { QUESTIONS } from '../data/questions';
@@ -12,13 +12,116 @@ interface AIAnalysis {
   hiddenBottleneck: string;
   unfairAdvantage: string[];
   sevenDayBlueprint: string[];
+  fourMonthPrescription?: string[];
 }
 
 export default function ReportView({ student, answers, onRestart }: { student: StudentData, answers: Answer[], onRestart: () => void }) {
   const [report, setReport] = useState<ReturnType<typeof computeReport> | null>(null);
   const [aiAnalysis, setAiAnalysis] = useState<AIAnalysis | null>(null);
+  const [clinicalInsight, setClinicalInsight] = useState<{highLevelSummary: string, technicalBreakdown: string} | null>(null);
+  const [insightMode, setInsightMode] = useState<'highLevel' | 'technical'>('highLevel');
+  const [roadmapMode, setRoadmapMode] = useState<'weekly' | '4month'>('4month');
+  const [isInsightLoading, setIsInsightLoading] = useState(true);
   const [isAnalyzing, setIsAnalyzing] = useState(true);
   const [showDetailedReview, setShowDetailedReview] = useState(false);
+  const [showStudyPlan, setShowStudyPlan] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<string | null>(null);
+  const [quickReviewContent, setQuickReviewContent] = useState<string | null>(null);
+  const [isReviewLoading, setIsReviewLoading] = useState(false);
+
+  const studyPlanTopics = useMemo(() => {
+    if (!answers.length) return [];
+
+    const topicStats: Record<string, { topic: string, subject: string, earned: number, max: number }> = {};
+
+    answers.forEach(ans => {
+      const q = QUESTIONS.find(q => q.id === ans.questionId);
+      if (!q) return;
+
+      const maxQPoints = Math.max(...q.options.map(o => o.points));
+      
+      if (!topicStats[q.topic]) {
+        topicStats[q.topic] = { topic: q.topic, subject: q.subject, earned: 0, max: 0 };
+      }
+      
+      topicStats[q.topic].earned += ans.points;
+      topicStats[q.topic].max += maxQPoints;
+    });
+
+    const ranked = Object.values(topicStats).map(stat => ({
+      ...stat,
+      percentage: stat.max > 0 ? (stat.earned / stat.max) * 100 : 0
+    })).sort((a, b) => a.percentage - b.percentage);
+
+    return ranked.filter(t => t.percentage < 100);
+  }, [answers]);
+
+  const subjectInsights = useMemo(() => {
+    if (!answers.length) return null;
+    const insights: Record<string, { strengths: string[], needsImprovement: string[] }> = {
+      Mathematics: { strengths: [], needsImprovement: [] },
+      Physics: { strengths: [], needsImprovement: [] },
+      Chemistry: { strengths: [], needsImprovement: [] },
+      Biology: { strengths: [], needsImprovement: [] }
+    };
+
+    const topicStats: Record<string, { topic: string, subject: string, earned: number, max: number }> = {};
+    answers.forEach(ans => {
+      const q = QUESTIONS.find(q => q.id === ans.questionId);
+      if (!q) return;
+      const maxQPoints = Math.max(...q.options.map(o => o.points));
+      if (!topicStats[q.topic]) {
+        topicStats[q.topic] = { topic: q.topic, subject: q.subject, earned: 0, max: 0 };
+      }
+      topicStats[q.topic].earned += ans.points;
+      topicStats[q.topic].max += maxQPoints;
+    });
+
+    Object.values(topicStats).forEach(stat => {
+      const percentage = stat.max > 0 ? (stat.earned / stat.max) * 100 : 0;
+      if (percentage >= 70) {
+        insights[stat.subject].strengths.push(stat.topic);
+      } else {
+        insights[stat.subject].needsImprovement.push(stat.topic);
+      }
+    });
+
+    return insights;
+  }, [answers]);
+
+  
+  const pathologyData = useMemo(() => {
+    if (!report?.cognitivePathology) return [];
+    return Object.entries(report.cognitivePathology as Record<string, {score: number}>).map(([skill, data]) => ({
+      skill,
+      score: data.score
+    })).sort((a, b) => b.score - a.score);
+  }, [report]);
+  
+  const behavioral = report?.behavioralMetrics;
+
+
+  const handleTaskClick = async (task: string) => {
+    setSelectedTask(task);
+    setQuickReviewContent(null);
+    setIsReviewLoading(true);
+    try {
+      const response = await fetch('/api/quick-review', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ task })
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setQuickReviewContent(data.reviewContent);
+      }
+    } catch (error) {
+      console.error("Failed to fetch quick review", error);
+    } finally {
+      setIsReviewLoading(false);
+    }
+  };
+
   const handleDownloadPdf = () => {
     const element = document.getElementById("report-content");
     if (!element) return;
@@ -63,6 +166,26 @@ export default function ReportView({ student, answers, onRestart }: { student: S
     };
 
     fetchAnalysis();
+
+    const fetchClinicalInsight = async () => {
+      try {
+        const response = await fetch('/api/clinical-insight', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ answers })
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setClinicalInsight({ highLevelSummary: data.highLevelSummary, technicalBreakdown: data.technicalBreakdown });
+        }
+      } catch (error) {
+        console.error("Failed to fetch clinical insight", error);
+      } finally {
+        setIsInsightLoading(false);
+      }
+    };
+    fetchClinicalInsight();
+
   }, [answers, student]);
 
   const radarData = useMemo(() => {
@@ -77,9 +200,46 @@ export default function ReportView({ student, answers, onRestart }: { student: S
     });
   }, [report]);
 
-  if (!report) return null;
+  const percentileData = useMemo(() => {
+    let base = 50;
+    const course = student.courseGoal.toLowerCase();
+    if (course.includes('med') || course.includes('surg') || course.includes('law')) base = 70;
+    else if (course.includes('eng') || course.includes('tech') || course.includes('comp') || course.includes('nurs') || course.includes('pharm')) base = 65;
+    else if (course.includes('art') || course.includes('edu')) base = 55;
+    
+    let p = 50 + (((report?.avgOverall || 0) - base) * 1.5);
+    if (p > 99) p = 99;
+    if (p < 1) p = 1;
+    p = Math.round(p);
+    
+    let message = "";
+    let color = "";
+    let textColor = "";
+    
+    if (p >= 90) {
+      message = "Top 10% - Highly Competitive";
+      color = "bg-green-50 border-green-200";
+      textColor = "text-green-700";
+    } else if (p >= 75) {
+      message = "Strong Candidate - On Track";
+      color = "bg-emerald-50 border-emerald-200";
+      textColor = "text-emerald-700";
+    } else if (p >= 50) {
+      message = "Average - Needs Polish";
+      color = "bg-yellow-50 border-yellow-200";
+      textColor = "text-yellow-700";
+    } else {
+      message = "Below Average - High Risk";
+      color = "bg-red-50 border-red-200";
+      textColor = "text-red-700";
+    }
+    
+    return { p, message, color, textColor };
+  }, [student.courseGoal, report?.avgOverall]);
 
+  if (!report) return null;
   const { subjectScores, overallProfileName, avgOverall } = report;
+
 
   if (isAnalyzing) {
     return (
@@ -112,8 +272,17 @@ export default function ReportView({ student, answers, onRestart }: { student: S
               <h1 className="text-3xl font-bold tracking-tight mb-2">AI READINESS REPORT</h1>
               <p className="text-[#94A3B8] print:text-[#64748B]">Personalized Diagnostic & Strategy Analysis</p>
             </div>
-            <div className="p-3 bg-white/10 rounded-lg hidden md:block print:hidden">
-              <Sparkles className="w-8 h-8 text-[#60A5FA]" />
+            <div className="flex items-center gap-4 hidden md:flex print:hidden">
+              <button 
+                onClick={() => handleDownloadPdf()}
+                className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-lg transition-colors shadow-sm"
+              >
+                <Download className="w-4 h-4" />
+                Download PDF
+              </button>
+              <div className="p-3 bg-white/10 rounded-lg">
+                <Sparkles className="w-8 h-8 text-[#60A5FA]" />
+              </div>
             </div>
           </div>
           
@@ -139,8 +308,8 @@ export default function ReportView({ student, answers, onRestart }: { student: S
 
         <div className="p-8 md:p-12 space-y-12">
           
-          {/* Core Score Section */}
-          <div className="flex flex-col md:flex-row gap-8 items-center bg-[#F8FAFC] rounded-2xl p-8 border border-[#E2E8F0] print:bg-white">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="md:col-span-2 flex flex-col md:flex-row gap-8 items-center bg-[#F8FAFC] rounded-2xl p-8 border border-[#E2E8F0] print:bg-white">
             <div className="w-32 h-32 rounded-full border-[8px] border-white shadow-sm flex items-center justify-center shrink-0 bg-[#2563EB]">
               <span className="text-4xl font-black text-white">{Math.round(avgOverall)}%</span>
             </div>
@@ -165,6 +334,21 @@ export default function ReportView({ student, answers, onRestart }: { student: S
                   );
                 })}
               </div>
+            </div>
+          </div>
+            
+            {/* Percentile Ranking Card */}
+            <div className={`rounded-2xl p-8 border flex flex-col items-center justify-center text-center ${percentileData.color}`}>
+              <TrendingUp className={`w-8 h-8 mb-4 ${percentileData.textColor}`} />
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Historical Percentile</p>
+              <div className="flex items-baseline gap-1 mb-2">
+                <span className={`text-5xl font-black ${percentileData.textColor}`}>{percentileData.p}</span>
+                <span className={`text-xl font-bold ${percentileData.textColor}`}>th</span>
+              </div>
+              <p className={`text-sm font-bold mb-4 ${percentileData.textColor}`}>{percentileData.message}</p>
+              <p className="text-xs text-slate-600 leading-relaxed">
+                Based on historical data for students targeting <strong className="text-slate-800">{student.courseGoal}</strong>.
+              </p>
             </div>
           </div>
 
@@ -211,26 +395,46 @@ export default function ReportView({ student, answers, onRestart }: { student: S
               )}
             </div>
 
-            {aiAnalysis && (
-              <div className="grid md:grid-cols-2 gap-8">
-                {/* 7-Day Blueprint */}
-                <div className="bg-white rounded-2xl p-8 border border-[#E2E8F0]">
-                  <div className="flex items-center gap-3 mb-6 border-b border-[#E2E8F0] pb-4">
-                    <Clock className="w-6 h-6 text-slate-800" />
-                    <h3 className="text-xl font-bold text-[#0F172A]">7-Day Micro-Blueprint</h3>
-                  </div>
-                  <ul className="space-y-4">
-                    {Array.isArray(aiAnalysis.sevenDayBlueprint) ? aiAnalysis.sevenDayBlueprint.map((dayPlan, idx) => (
-                      <li key={idx} className="flex gap-4 items-start">
-                        <div className="w-6 h-6 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center shrink-0 text-xs font-bold mt-0.5">
-                          {idx + 1}
-                        </div>
-                        <span className="text-sm text-[#334155] leading-relaxed">{dayPlan}</span>
-                      </li>
-                    )) : <li className="text-sm text-[#334155]">Focus on consistent daily review and active recall.</li>}
-                  </ul>
+            {/* Clinical Insight */}
+            <div className="bg-white rounded-2xl p-8 border border-[#E2E8F0]">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-[#E2E8F0] pb-4">
+                <div className="flex items-center gap-3">
+                  <UserCheck className="w-6 h-6 text-emerald-600" />
+                  <h3 className="text-xl font-bold text-[#0F172A]">Clinical Insight</h3>
                 </div>
+                <div className="flex bg-slate-100 p-1 rounded-lg">
+                  <button 
+                    onClick={() => setInsightMode('highLevel')}
+                    className={`px-4 py-1.5 text-sm font-bold rounded-md transition-colors ${insightMode === 'highLevel' ? 'bg-white shadow-sm text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}
+                  >
+                    High-level Summary
+                  </button>
+                  <button 
+                    onClick={() => setInsightMode('technical')}
+                    className={`px-4 py-1.5 text-sm font-bold rounded-md transition-colors ${insightMode === 'technical' ? 'bg-white shadow-sm text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}
+                  >
+                    Technical Breakdown
+                  </button>
+                </div>
+              </div>
+              <div className="min-h-[100px] flex items-center justify-center">
+                {isInsightLoading ? (
+                  <div className="flex flex-col items-center gap-3">
+                    <Loader2 className="w-6 h-6 text-emerald-600 animate-spin" />
+                    <p className="text-sm font-medium text-slate-500">Generating personalized clinical insights...</p>
+                  </div>
+                ) : clinicalInsight ? (
+                  <p className="text-slate-700 leading-relaxed font-medium">
+                    {insightMode === 'highLevel' ? clinicalInsight.highLevelSummary : clinicalInsight.technicalBreakdown}
+                  </p>
+                ) : (
+                  <p className="text-sm text-slate-500">Clinical insight is not available.</p>
+                )}
+              </div>
+            </div>
 
+            {aiAnalysis && (
+              <>
                 {/* Unfair Advantage */}
                 <div className="bg-[#0F172A] rounded-2xl p-8 border border-[#1E293B] text-white">
                   <div className="flex items-center gap-3 mb-6 border-b border-white/10 pb-4">
@@ -247,8 +451,161 @@ export default function ReportView({ student, answers, onRestart }: { student: S
                     )) : <li className="text-sm text-slate-200">Leverage your unique learning style in every study session.</li>}
                   </ul>
                 </div>
-              </div>
+
+                {/* Interactive Roadmap Widget */}
+                <div className="bg-slate-50 rounded-2xl p-8 border border-[#E2E8F0] mt-8">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 border-b border-[#E2E8F0] pb-4">
+                    <div className="flex items-center gap-3">
+                      <ListTodo className="w-6 h-6 text-indigo-600" />
+                      <h3 className="text-xl font-bold text-[#0F172A]">Targeted Prescription Roadmap</h3>
+                    </div>
+                    <div className="flex bg-slate-200 p-1 rounded-lg">
+                      <button 
+                        onClick={() => setRoadmapMode('4month')}
+                        className={`px-4 py-1.5 text-sm font-bold rounded-md transition-colors ${roadmapMode === '4month' ? 'bg-white shadow-sm text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}
+                      >
+                        4-Month View
+                      </button>
+                      <button 
+                        onClick={() => setRoadmapMode('weekly')}
+                        className={`px-4 py-1.5 text-sm font-bold rounded-md transition-colors ${roadmapMode === 'weekly' ? 'bg-white shadow-sm text-slate-800' : 'text-slate-500 hover:text-slate-700'}`}
+                      >
+                        Weekly Breakdown
+                      </button>
+                    </div>
+                  </div>
+                  
+                  {roadmapMode === '4month' && aiAnalysis.fourMonthPrescription ? (
+                    <div className="grid md:grid-cols-4 gap-6">
+                      {Array.isArray(aiAnalysis.fourMonthPrescription) && aiAnalysis.fourMonthPrescription.map((monthPlan, idx) => (
+                        <div key={idx} onClick={() => handleTaskClick(monthPlan)} className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm relative overflow-hidden cursor-pointer hover:shadow-md transition-shadow">
+                          <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+                          <div className="flex items-center gap-2 mb-3">
+                            <span className="text-xs font-black text-indigo-600 tracking-widest uppercase">Month {idx + 1}</span>
+                          </div>
+                          <p className="text-sm text-slate-600 leading-relaxed font-medium">{monthPlan.replace(/^Month \d+: /, '')}</p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+                      <ul className="space-y-4">
+                        {Array.isArray(aiAnalysis.sevenDayBlueprint) ? aiAnalysis.sevenDayBlueprint.map((dayPlan, idx) => (
+                          <li key={idx} onClick={() => handleTaskClick(dayPlan)} className="flex gap-4 items-start cursor-pointer hover:bg-slate-50 p-3 rounded-lg transition-colors border border-transparent hover:border-slate-100">
+                            <div className="w-8 h-8 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0 text-sm font-bold mt-0.5">
+                              {idx + 1}
+                            </div>
+                            <span className="text-sm text-slate-700 leading-relaxed font-medium pt-1">{dayPlan}</span>
+                          </li>
+                        )) : <li className="text-sm text-slate-600">Focus on consistent daily review and active recall.</li>}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </>
             )}
+          </div>
+
+          {/* Subject Breakdown Insights */}
+          {subjectInsights && (
+            <div className="border-t border-[#E2E8F0] pt-8">
+              <div className="flex items-center gap-3 mb-6">
+                <BookOpen className="w-6 h-6 text-[#0F172A]" />
+                <h3 className="text-2xl font-bold text-[#0F172A]">Subject Breakdown Insights</h3>
+              </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                {Object.entries(subjectInsights).map(([subject, data]) => {
+                  const typedData = data as { strengths: string[], needsImprovement: string[] };
+                  if (typedData.strengths.length === 0 && typedData.needsImprovement.length === 0) return null;
+                  return (
+                    <div key={subject} className="bg-white rounded-xl border border-[#E2E8F0] p-6 shadow-sm">
+                      <h4 className="text-lg font-bold text-[#0F172A] mb-4 border-b border-[#E2E8F0] pb-2">{subject}</h4>
+                      
+                      <div className="space-y-4">
+                        <div>
+                          <p className="text-[10px] font-bold text-green-700 uppercase tracking-wider mb-2 flex items-center gap-1">
+                            <CheckCircle className="w-3 h-3" /> Strengths
+                          </p>
+                          {typedData.strengths.length > 0 ? (
+                            <ul className="flex flex-wrap gap-2">
+                              {typedData.strengths.map((topic, i) => (
+                                <li key={i} className="text-xs font-semibold bg-green-50 text-green-700 px-2 py-1 rounded-md border border-green-100">{topic}</li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="text-xs text-slate-500 italic">No significant strengths detected yet.</p>
+                          )}
+                        </div>
+
+                        <div>
+                          <p className="text-[10px] font-bold text-orange-700 uppercase tracking-wider mb-2 flex items-center gap-1">
+                            <AlertTriangle className="w-3 h-3" /> Needs Improvement
+                          </p>
+                          {typedData.needsImprovement.length > 0 ? (
+                            <ul className="flex flex-wrap gap-2">
+                              {typedData.needsImprovement.map((topic, i) => (
+                                <li key={i} className="text-xs font-semibold bg-orange-50 text-orange-700 px-2 py-1 rounded-md border border-orange-100">{topic}</li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="text-xs text-slate-500 italic">No critical gaps detected.</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Data-Driven Study Plan Section */}
+          <div className="border-t border-[#E2E8F0] pt-8 print:hidden">
+            <div className="flex flex-col items-center justify-center space-y-4">
+              {!showStudyPlan ? (
+                <button 
+                  onClick={() => setShowStudyPlan(true)}
+                  className="px-8 py-4 bg-indigo-600 text-white rounded-xl text-base font-bold hover:bg-indigo-700 shadow-md transition-colors flex items-center gap-3"
+                >
+                  <BookOpen className="w-5 h-5" />
+                  Generate Study Plan
+                </button>
+              ) : (
+                <div className="w-full bg-white rounded-2xl p-8 border border-indigo-100 shadow-sm">
+                  <div className="flex items-center gap-3 mb-6 border-b border-[#E2E8F0] pb-4">
+                    <ListTodo className="w-6 h-6 text-indigo-600" />
+                    <h3 className="text-xl font-bold text-[#0F172A]">Prioritized Study Topics</h3>
+                  </div>
+                  <p className="text-sm text-slate-500 mb-6">Based on your diagnostic answers, here are the exact topics you need to focus on first, ranked by your proficiency gaps.</p>
+                  
+                  <div className="space-y-4">
+                    {studyPlanTopics.length > 0 ? studyPlanTopics.map((topic, idx) => (
+                      <div key={topic.topic} className="flex items-center justify-between p-4 rounded-xl border border-slate-100 bg-slate-50">
+                        <div className="flex items-center gap-4">
+                          <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm ${idx < 3 ? 'bg-red-100 text-red-700' : idx < 6 ? 'bg-orange-100 text-orange-700' : 'bg-blue-100 text-blue-700'}`}>
+                            {idx + 1}
+                          </div>
+                          <div>
+                            <p className="font-bold text-slate-800">{topic.topic}</p>
+                            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">{topic.subject}</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className={`font-bold ${topic.percentage < 40 ? 'text-red-600' : topic.percentage < 70 ? 'text-orange-600' : 'text-blue-600'}`}>
+                            {Math.round(topic.percentage)}%
+                          </p>
+                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Proficiency</p>
+                        </div>
+                      </div>
+                    )) : (
+                      <p className="text-sm font-semibold text-green-600 bg-green-50 p-4 rounded-xl text-center border border-green-200">
+                        You mastered all topics perfectly!
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Collapsible Question Review */}
@@ -419,6 +776,47 @@ export default function ReportView({ student, answers, onRestart }: { student: S
           </div>
         </div>
       </motion.div>
+
+      <AnimatePresence>
+        {selectedTask && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm print:hidden">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-white rounded-2xl p-6 md:p-8 max-w-2xl w-full shadow-2xl relative max-h-[90vh] flex flex-col"
+            >
+              <button 
+                onClick={() => setSelectedTask(null)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-slate-600"
+              >
+                <XCircle className="w-6 h-6" />
+              </button>
+              <div className="flex items-center gap-3 mb-6 border-b border-slate-100 pb-4 shrink-0">
+                <Sparkles className="w-6 h-6 text-indigo-600" />
+                <h3 className="text-xl font-bold text-slate-900">Quick Review</h3>
+              </div>
+              <div className="mb-6 shrink-0">
+                <p className="text-sm font-bold text-indigo-600 uppercase tracking-wider mb-2">Target Task</p>
+                <p className="text-slate-800 font-medium">{selectedTask.replace(/^Month \d+: |^Day \d+: /, '')}</p>
+              </div>
+              <div className="bg-slate-50 rounded-xl p-6 border border-slate-100 flex-1 overflow-y-auto">
+                {isReviewLoading ? (
+                  <div className="flex flex-col items-center justify-center py-8">
+                    <Loader2 className="w-8 h-8 text-indigo-600 animate-spin mb-4" />
+                    <p className="text-sm font-medium text-slate-500">Synthesizing review material...</p>
+                  </div>
+                ) : (
+                  <div className="prose prose-sm max-w-none text-slate-700 whitespace-pre-wrap font-medium leading-relaxed">
+                    {quickReviewContent}
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
+

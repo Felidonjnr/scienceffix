@@ -1,4 +1,6 @@
-import { Question, Subject, ProfileLevel, Answer, StudentData } from '../types';
+const fs = require('fs');
+
+const file = `import { Question, Subject, ProfileLevel, Answer, StudentData } from '../types';
 import { QUESTIONS } from '../data/questions';
 
 const ESCALATION_THRESHOLD = 4;
@@ -181,3 +183,5 @@ export function computeReport(answers: Answer[]) {
     behavioralMetrics
   };
 }
+`;
+fs.writeFileSync('src/utils/engine.ts', file);

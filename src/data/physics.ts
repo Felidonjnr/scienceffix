@@ -3,7 +3,7 @@ import { Question } from '../types';
 export const physicsQuestions: Question[] = [
   // --- LEVEL Z: ZERO FOUNDATION (Contextual / Everyday) ---
   {
-    id: 'PHY_Z_01', subject: 'Physics', profileLevel: 'Z', knowledgeType: 'K1', topic: 'Gravity & Falling Objects',
+    id: 'PHY_Z_01', subject: 'Physics', profileLevel: 'Z', knowledgeType: 'K1', topic: 'Gravity & Falling Objects', cognitiveSkills: ["Reading Comprehension","Spatial Reasoning"], difficulty: 3,
     text: 'You drop a heavy yam and a light pebble from the same height at the exact same time. What happens?',
     options: [
       { id: 'a', text: 'The heavy yam hits the ground first because it has more weight.', points: 0 },
@@ -14,7 +14,7 @@ export const physicsQuestions: Question[] = [
     explanation: 'Galileo proved that gravity accelerates all objects at the exact same rate (9.8 m/s²), regardless of their mass. Air resistance can slow lighter, flatter objects down (like a feather), but for dense objects like a yam and a pebble, the effect of air is negligible. Thus, they hit the ground simultaneously.'
   },
   {
-    id: 'PHY_Z_02', subject: 'Physics', profileLevel: 'Z', knowledgeType: 'K2', topic: 'Force & Motion',
+    id: 'PHY_Z_02', subject: 'Physics', profileLevel: 'Z', knowledgeType: 'K2', topic: 'Force & Motion', cognitiveSkills: ["Spatial Reasoning","Conceptual Application"], difficulty: 3,
     text: 'A boy kicks a football high into the air. While the ball is flying in the air (and ignoring wind), what forces are pushing it FORWARD?',
     options: [
       { id: 'a', text: 'The force of the kick stays with the ball and keeps pushing it.', points: 0 },
@@ -25,7 +25,7 @@ export const physicsQuestions: Question[] = [
     explanation: 'This tests a classic misconception known as "impetus theory". Once the ball leaves the foot, the kick is over; there is no longer any forward force acting on it. It continues to move forward purely because of inertia (Newton\'s First Law). The only force acting on it in flight is gravity pulling it downward.'
   },
   {
-    id: 'PHY_Z_03', subject: 'Physics', profileLevel: 'Z', knowledgeType: 'K3', topic: 'Heat Transfer',
+    id: 'PHY_Z_03', subject: 'Physics', profileLevel: 'Z', knowledgeType: 'K3', topic: 'Heat Transfer', cognitiveSkills: ["Logical Deduction"], difficulty: 3,
     text: 'You are stirring a hot pot of egusi soup. Why does a metal spoon feel hotter in your hand than a wooden spoon?',
     options: [
       { id: 'a', text: 'Metal creates its own heat when it touches the hot soup.', points: 0 },
@@ -35,7 +35,7 @@ export const physicsQuestions: Question[] = [
     ]
   },
   {
-    id: 'PHY_Z_04', subject: 'Physics', profileLevel: 'Z', knowledgeType: 'K4', topic: 'Energy Conservation',
+    id: 'PHY_Z_04', subject: 'Physics', profileLevel: 'Z', knowledgeType: 'K4', topic: 'Energy Conservation', cognitiveSkills: ["Formula Dependency","Logical Deduction"], difficulty: 3,
     text: 'A generator at the market is running, powering a fridge. What is the main energy change happening?',
     options: [
       { id: 'a', text: 'It creates electrical energy from nothing.', points: 0 },
@@ -58,7 +58,7 @@ export const physicsQuestions: Question[] = [
     explanation: 'According to Newton\'s Third Law, every action has an equal and opposite reaction. The force the bus exerts on the bicycle is exactly equal in magnitude to the force the bicycle exerts on the bus. The reason the bicycle is destroyed while the bus is barely dented is because the bicycle has much less mass, so the same force causes a much greater acceleration (damage) on it (F = ma).'
   },
   {
-    id: 'PHY_F_02', subject: 'Physics', profileLevel: 'F', knowledgeType: 'K2', topic: 'Electricity',
+    id: 'PHY_F_02', subject: 'Physics', profileLevel: 'F', knowledgeType: 'K2', topic: 'Electricity', cognitiveSkills: ["Spatial Reasoning","Reading Comprehension"], difficulty: 2,
     text: 'In a basic circuit with a battery and a light bulb, what happens to the electric current after it passes through the bulb?',
     options: [
       { id: 'a', text: 'The current is used up by the bulb to make light.', points: 0 },
@@ -69,7 +69,7 @@ export const physicsQuestions: Question[] = [
     explanation: 'Electric current is the flow of electrons, and electrons are never "used up" or destroyed in a circuit; they simply flow through it like water through a pipe. What gets used up is the electrical potential energy, which the bulb converts into light and heat energy.'
   },
   {
-    id: 'PHY_F_03', subject: 'Physics', profileLevel: 'F', knowledgeType: 'K3', topic: 'Waves & Sound',
+    id: 'PHY_F_03', subject: 'Physics', profileLevel: 'F', knowledgeType: 'K3', topic: 'Waves & Sound', cognitiveSkills: ["Spatial Reasoning","Conceptual Application"], difficulty: 1,
     text: 'When a radio is turned up louder, what physical property of the sound wave changes?',
     options: [
       { id: 'a', text: 'The frequency of the wave increases.', points: 0 },
@@ -79,7 +79,7 @@ export const physicsQuestions: Question[] = [
     ]
   },
   {
-    id: 'PHY_F_04', subject: 'Physics', profileLevel: 'F', knowledgeType: 'K4', topic: 'Density & Buoyancy',
+    id: 'PHY_F_04', subject: 'Physics', profileLevel: 'F', knowledgeType: 'K4', topic: 'Density & Buoyancy', cognitiveSkills: ["Formula Dependency","Reading Comprehension"], difficulty: 1,
     text: 'A heavy steel ship floats on water, but a small steel nail sinks. Why?',
     options: [
       { id: 'a', text: 'The ship has a heavy engine that pushes it up.', points: 0 },
@@ -91,7 +91,7 @@ export const physicsQuestions: Question[] = [
 
   // --- LEVEL P: PROCEDURAL (Formulaic / Abstract calculations) ---
   {
-    id: 'PHY_P_01', subject: 'Physics', profileLevel: 'P', knowledgeType: 'K1', topic: 'Kinematics',
+    id: 'PHY_P_01', subject: 'Physics', profileLevel: 'P', knowledgeType: 'K1', topic: 'Kinematics', cognitiveSkills: ["Spatial Reasoning"], difficulty: 2,
     text: 'A car accelerates from rest at 2 m/s² for 5 seconds. What is its final velocity?',
     options: [
       { id: 'a', text: '7 m/s', points: 0 }, // added instead of multiplied
@@ -101,7 +101,7 @@ export const physicsQuestions: Question[] = [
     ]
   },
   {
-    id: 'PHY_P_02', subject: 'Physics', profileLevel: 'P', knowledgeType: 'K2', topic: 'Work & Energy',
+    id: 'PHY_P_02', subject: 'Physics', profileLevel: 'P', knowledgeType: 'K2', topic: 'Work & Energy', cognitiveSkills: ["Conceptual Application","Formula Dependency"], difficulty: 1,
     text: 'Calculate the work done when a force of 50N pushes a box 4 meters across a frictionless floor.',
     isMathHeavy: true,
     options: [
@@ -123,7 +123,7 @@ export const physicsQuestions: Question[] = [
     ]
   },
   {
-    id: 'PHY_P_04', subject: 'Physics', profileLevel: 'P', knowledgeType: 'K4', topic: 'Gas Laws',
+    id: 'PHY_P_04', subject: 'Physics', profileLevel: 'P', knowledgeType: 'K4', topic: 'Gas Laws', cognitiveSkills: ["Spatial Reasoning","Reading Comprehension"], difficulty: 2,
     text: 'A gas occupies 2.0 L at a pressure of 1.0 atm. If the volume is compressed to 1.0 L at constant temperature, what is the new pressure?',
     isMathHeavy: true,
     options: [
@@ -136,7 +136,7 @@ export const physicsQuestions: Question[] = [
 
   // --- LEVEL C: CONCEPTUAL (Deep understanding / Transfer) ---
   {
-    id: 'PHY_C_01', subject: 'Physics', profileLevel: 'C', knowledgeType: 'K1', topic: 'Projectile Motion',
+    id: 'PHY_C_01', subject: 'Physics', profileLevel: 'C', knowledgeType: 'K1', topic: 'Projectile Motion', cognitiveSkills: ["Graph Illiteracy","Conceptual Application"], difficulty: 2,
     text: 'A bullet is fired perfectly horizontally from a gun, and at the exact same instant, an identical bullet is dropped from the same height. Which hits the flat ground first?',
     options: [
       { id: 'a', text: 'The dropped bullet hits first because it falls straight down.', points: 1 },
@@ -146,7 +146,7 @@ export const physicsQuestions: Question[] = [
     ]
   },
   {
-    id: 'PHY_C_02', subject: 'Physics', profileLevel: 'C', knowledgeType: 'K2', topic: 'Circular Motion',
+    id: 'PHY_C_02', subject: 'Physics', profileLevel: 'C', knowledgeType: 'K2', topic: 'Circular Motion', cognitiveSkills: ["Spatial Reasoning","Conceptual Application"], difficulty: 3,
     text: 'A stone is tied to a string and swung in a horizontal circle. If the string suddenly snaps, what path will the stone take?',
     options: [
       { id: 'a', text: 'It will fly straight outward, away from the center.', points: 0 }, // Centrifugal misconception
@@ -156,7 +156,7 @@ export const physicsQuestions: Question[] = [
     ]
   },
   {
-    id: 'PHY_C_03', subject: 'Physics', profileLevel: 'C', knowledgeType: 'K3', topic: 'Electromagnetic Induction',
+    id: 'PHY_C_03', subject: 'Physics', profileLevel: 'C', knowledgeType: 'K3', topic: 'Electromagnetic Induction', cognitiveSkills: ["Logical Deduction","Conceptual Application"], difficulty: 1,
     text: 'When a solid copper ring is dropped through a strong magnetic field, it falls slower than if dropped outside the field. Why?',
     options: [
       { id: 'a', text: 'The magnetic field physically pushes on the copper atoms to slow them down.', points: 1 },
@@ -166,7 +166,7 @@ export const physicsQuestions: Question[] = [
     ]
   },
   {
-    id: 'PHY_C_04', subject: 'Physics', profileLevel: 'C', knowledgeType: 'K4', topic: 'Quantum/Photoelectric',
+    id: 'PHY_C_04', subject: 'Physics', profileLevel: 'C', knowledgeType: 'K4', topic: 'Quantum/Photoelectric', cognitiveSkills: ["Formula Dependency","Graph Illiteracy"], difficulty: 1,
     text: 'In the photoelectric effect, increasing the INTENSITY (brightness) of the incoming light will...',
     options: [
       { id: 'a', text: 'Increase the kinetic energy (speed) of the emitted electrons.', points: 0 }, // Classic wave theory mistake

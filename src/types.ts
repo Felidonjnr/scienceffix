@@ -1,6 +1,8 @@
 export type Subject = 'Mathematics' | 'Physics' | 'Chemistry' | 'Biology';
 export type ProfileLevel = 'Z' | 'F' | 'P' | 'C';
 export type KnowledgeType = 'K1' | 'K2' | 'K3' | 'K4';
+export type ConfidenceLevel = 'High' | 'Medium' | 'Low';
+export type CognitiveSkill = 'Spatial Reasoning' | 'Formula Dependency' | 'Graph Illiteracy' | 'Reading Comprehension' | 'Logical Deduction' | 'Conceptual Application';
 
 export interface QuestionOption {
   id: string;
@@ -19,6 +21,8 @@ export interface Question {
   explanation?: string;
   isMathHeavy?: boolean;
   textLength?: 'short' | 'medium' | 'long';
+  cognitiveSkills?: CognitiveSkill[];
+  difficulty?: number; // 1 to 3
 }
 
 export interface StudentData {
@@ -39,6 +43,8 @@ export interface Answer {
   questionId: string;
   optionId: string;
   points: number;
+  timeSpent?: number; // in seconds
+  confidence?: ConfidenceLevel;
 }
 
 export interface Scorecard {
@@ -47,3 +53,4 @@ export interface Scorecard {
   level: string;
   status: string;
 }
+
