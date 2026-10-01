@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import LandingView from './components/LandingView';
 import IntakeForm from './components/IntakeForm';
@@ -16,6 +16,32 @@ export default function App() {
   const [step, setStep] = useState<'landing' | 'intake' | 'diagnostic' | 'report'>('landing');
   const [student, setStudent] = useState<StudentData | null>(null);
   const [answers, setAnswers] = useState<Answer[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Load from local storage on mount
+  useEffect(() => {
+    const savedData = localStorage.getItem('clinical_diagnostic_state');
+    if (savedData) {
+      try {
+        const { student: savedStudent, answers: savedAnswers } = JSON.parse(savedData);
+        if (savedStudent && savedAnswers && savedAnswers.length > 0) {
+          setStudent(savedStudent);
+          setAnswers(savedAnswers);
+          setStep('report');
+        }
+      } catch (e) {
+        console.error('Failed to parse saved state', e);
+      }
+    }
+    setIsLoaded(true);
+  }, []);
+
+  // Save to local storage whenever report is reached
+  useEffect(() => {
+    if (step === 'report' && student && answers.length > 0) {
+      localStorage.setItem('clinical_diagnostic_state', JSON.stringify({ student, answers }));
+    }
+  }, [step, student, answers]);
 
   const handleDevSkip = () => {
     const dummyStudent: StudentData = {
@@ -62,6 +88,8 @@ export default function App() {
     exit: { opacity: 0, y: -15 }
   };
 
+  if (!isLoaded) return null;
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 overflow-x-hidden">
       <AnimatePresence mode="wait">
@@ -101,6 +129,7 @@ export default function App() {
               student={student}
               answers={answers}
               onRestart={() => {
+                localStorage.removeItem('clinical_diagnostic_state');
                 setAnswers([]);
                 setStudent(null);
                 setStep('landing');

@@ -57,7 +57,7 @@ async function startServer() {
         model: "deepseek-chat",
         messages: [{ role: "user", content: prompt }],
         response_format: { type: "json_object" },
-        temperature: 0.2
+        temperature: 0.0
       });
 
       if (!response.choices[0].message.content) {
@@ -107,7 +107,7 @@ async function startServer() {
         contents: prompt,
         config: {
           responseMimeType: "application/json",
-          temperature: 0.2
+          temperature: 0.0
         }
       });
       
@@ -143,7 +143,7 @@ async function startServer() {
         contents: prompt,
         config: {
           responseMimeType: "application/json",
-          temperature: 0.2
+          temperature: 0.0
         }
       });
       

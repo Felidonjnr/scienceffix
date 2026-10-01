@@ -65,7 +65,7 @@ export default function LandingView({ onStart }: { onStart: () => void }) {
                 ))}
               </div>
               <div className="text-sm font-medium text-slate-600">
-                Join <strong className="text-slate-900">2,500+</strong> students actively rebuilding their study systems.
+                Join <strong className="text-slate-900">200+</strong> students actively rebuilding their study systems.
               </div>
             </div>
           </motion.div>
