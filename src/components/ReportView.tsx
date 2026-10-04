@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { StudentData, Answer } from '../types';
+import { StudentData, Answer, Question } from '../types';
 import { computeReport } from '../utils/engine';
 import { 
   FileText, 
@@ -52,7 +52,7 @@ export default function ReportView({
 }: { 
   student: StudentData; 
   answers: Answer[]; 
-  questionBank: any[]; 
+  questionBank: Question[]; 
   onRestart: () => void;
   onNavigateHome?: () => void;
 }) {
