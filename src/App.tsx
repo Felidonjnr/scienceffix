@@ -9,6 +9,7 @@ import AcademyHome from './components/AcademyHome';
 import IntakeForm from './components/IntakeForm';
 import DiagnosticView from './components/DiagnosticView';
 import ReportView from './components/ReportView';
+import AdminDashboard from './components/AdminDashboard';
 import { StudentData, Answer, Question } from './types';
 
 
@@ -16,7 +17,8 @@ type AcademySection = 'home' | 'academy' | 'programmes' | 'assessment' | 'learni
 type View = AcademySection | 'intake' | 'diagnostic' | 'report';
 
 export default function App() {
-  const [view, setView] = useState<View>('home');
+  const [view, setView] = useState<View>(() => new URLSearchParams(window.location.search).get('admin') === '1' ? 'home' : 'home');
+  const [isAdminRoute] = useState(() => new URLSearchParams(window.location.search).get('admin') === '1');
   const [student, setStudent] = useState<StudentData | null>(null);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [questionBank, setQuestionBank] = useState<Question[]>([]);
