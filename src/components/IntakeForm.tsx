@@ -62,10 +62,10 @@ export default function IntakeForm({ onSubmit, onDevSkip }: IntakeFormProps) {
             <div className="bg-slate-900 text-white p-8 md:p-10">
               <div className="flex items-center gap-2 text-xs font-semibold text-blue-400 uppercase tracking-wider mb-2">
                 <Sparkles className="w-4 h-4" />
-                <span>Diagnostic Starting Point</span>
+                <span>Science Restart Assessment</span>
               </div>
               <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">
-                Science Readiness Assessment
+                Science Restart Assessment
               </h1>
               <p className="text-slate-300 text-sm mt-2 leading-relaxed">
                 A structured, non-judgmental diagnostic designed to evaluate your current science foundation across four core areas.
