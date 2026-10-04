@@ -40,7 +40,7 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
   };
 
   const sectionCopy: Record<Exclude<Section, 'home'>, { eyebrow: string; title: string; text: string }> = {
-    academy: { eyebrow: 'THE ACADEMY', title: 'Start science again. Learn it properly. Move forward.', text: 'Science Restart Academy helps learners rebuild the foundation they need to enter, understand and progress through science-related education.' },
+    academy: { eyebrow: 'THE ACADEMY', title: 'You don't have to pretend you already know the science. Start from where you are.', text: 'Science Restart Academy helps learners rebuild the foundation they need to enter, understand and progress through science-related education.' },
     programmes: { eyebrow: 'PROGRAMMES', title: 'A staged route from rebuilding to readiness.', text: 'The Academy is designed around progression: strengthen the foundation, build core science understanding, apply it, then prepare for the destination ahead.' },
     assessment: { eyebrow: 'SCIENCE READINESS ASSESSMENT', title: 'Know your starting point before you build.', text: 'The readiness assessment is one section of the Academy. It identifies where your current science foundation is strongest, where it needs rebuilding, and what to work on first.' },
     learning: { eyebrow: 'LEARNING HUB', title: 'Resources built for real learning.', text: 'Lessons, explanations, worksheets, practice and revision resources will live here as the Academy learning library grows.' },
@@ -113,8 +113,8 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/15 bg-white/5 text-blue-200 text-xs font-bold tracking-widest uppercase mb-7">
                 <Sparkles className="w-3.5 h-3.5" /> Science Restart Academy
               </div>
-              <h1 className="text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[.98] max-w-4xl">You don't need another crash course. <span className="text-blue-300">You may need to restart properly.</span></h1>
-              <p className="mt-7 text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">A structured science academy for people who want a science-related future but need to rebuild the foundation they never properly developed.</p>
+              <h1 className="text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[.98] max-w-4xl">You want a science future. <span className="text-blue-300">But your foundation is holding you back.</span></h1>
+              <p className="mt-7 text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">Science Restart Academy helps adults and other learners rebuild the science foundation they need for the next step in their education or career.</p>
               <div className="flex flex-wrap gap-3 mt-9">
                 <button onClick={() => go('assessment')} className="px-6 py-4 rounded-2xl bg-white text-slate-950 font-black hover:bg-blue-50 transition">Check your science readiness <ArrowRight className="inline w-5 h-5 ml-1" /></button>
                 <button onClick={() => go('programmes')} className="px-6 py-4 rounded-2xl border border-white/20 font-bold hover:bg-white/10 transition">Explore the Academy</button>
@@ -139,19 +139,19 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
           <div className="max-w-3xl mb-12">
             <p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">WHY THE ACADEMY EXISTS</p>
             <h2 className="text-4xl md:text-5xl font-black tracking-tight">A different starting point for science learners.</h2>
-            <p className="mt-5 text-lg text-slate-600 leading-relaxed">The Academy is built around the gap between where you are in science today and where you need to be.</p>
+            <p className="mt-5 text-lg text-slate-600 leading-relaxed">You may have the ambition, but your science foundation may not yet match the destination you want.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-5">
             <InfoCard title="Build understanding" text="Learn the concepts and language you missed, in an order that makes sense." />
-            <InfoCard title="Build confidence" text="Replace the feeling that science is 'not for me' with visible, measurable progress." />
-            <InfoCard title="Build a pathway" text="Connect your learning to the course, exam or career direction you are working toward." />
+            <InfoCard title="Build confidence" text="Turn confusion into understanding and uncertainty into measurable progress." />
+            <InfoCard title="Build a pathway" text="Connect your science learning to the course, exam or career direction you are working toward." />
           </div>
         </section>
 
         <section className="bg-slate-50 border-y border-slate-100">
           <div className="max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-24">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-              <div><p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">THE LEARNING JOURNEY</p><h2 className="text-4xl md:text-5xl font-black tracking-tight">Four stages. One restart.</h2></div>
+              <div><p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">THE LEARNING JOURNEY</p><h2 className="text-4xl md:text-5xl font-black tracking-tight">Four stages. A clear way forward.</h2></div>
               <button onClick={() => go('programmes')} className="font-bold text-blue-700">View programmes <ChevronRight className="inline w-4 h-4" /></button>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">{programmes.map((item) => <ProgrammeCard key={item.title} {...item} />)}</div>
@@ -160,12 +160,12 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
 
         <section className="max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-24">
           <div className="rounded-[2rem] bg-blue-700 text-white p-8 md:p-12 flex flex-col lg:flex-row justify-between gap-10 items-start lg:items-center">
-            <div className="max-w-2xl"><p className="text-sm font-black tracking-[0.2em] text-blue-200 mb-4">START HERE</p><h2 className="text-3xl md:text-4xl font-black">Find out what your science foundation looks like today.</h2><p className="mt-4 text-blue-100 leading-relaxed">The Readiness Assessment is one part of the Academy—not the Academy itself. Use it to establish your starting point.</p></div>
+            <div className="max-w-2xl"><p className="text-sm font-black tracking-[0.2em] text-blue-200 mb-4">START HERE</p><h2 className="text-3xl md:text-4xl font-black">Before you prepare for the next exam, find out what you actually need to learn.</h2><p className="mt-4 text-blue-100 leading-relaxed">The Readiness Assessment is one part of the Academy—not the Academy itself. Use it to establish your starting point.</p></div>
             <button onClick={() => go('assessment')} className="shrink-0 px-7 py-4 rounded-2xl bg-white text-slate-950 font-black">Take the assessment <ArrowRight className="inline w-5 h-5 ml-1" /></button>
           </div>
         </section>
       </main>
-      <footer className="border-t border-slate-100"><div className="max-w-7xl mx-auto px-5 sm:px-8 py-10 flex flex-col md:flex-row justify-between gap-4 text-sm text-slate-500"><span className="font-black text-slate-900">Science Restart Academy</span><span>Build the foundation. Make the transition. Keep moving.</span></div></footer>
+      <footer className="border-t border-slate-100"><div className="max-w-7xl mx-auto px-5 sm:px-8 py-10 flex flex-col md:flex-row justify-between gap-4 text-sm text-slate-500"><span className="font-black text-slate-900">Science Restart Academy</span><span>Rebuild your science. Restart your future.</span></div></footer>
     </div>
   );
 }
