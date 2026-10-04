@@ -181,3 +181,42 @@ export function computeReport(answers: Answer[]) {
     behavioralMetrics
   };
 }
+
+
+/**
+ * Validates that an assessment payload represents a completed adaptive diagnostic.
+ * The live diagnostic always completes at least one 4-question level per subject,
+ * and every submitted answer must match the question bank exactly.
+ */
+export function isCompleteAssessment(answers: unknown): answers is Answer[] {
+  if (!Array.isArray(answers) || answers.length < 16 || answers.length > QUESTIONS.length) return false;
+
+  const seen = new Set<string>();
+  const subjectCounts: Record<Subject, number> = {
+    Mathematics: 0,
+    Physics: 0,
+    Chemistry: 0,
+    Biology: 0
+  };
+
+  for (const rawAnswer of answers) {
+    if (!rawAnswer || typeof rawAnswer !== 'object') return false;
+    const answer = rawAnswer as Answer;
+    if (typeof answer.questionId !== 'string' || seen.has(answer.questionId)) return false;
+
+    const question = QUESTIONS.find(q => q.id === answer.questionId);
+    if (!question) return false;
+
+    const option = question.options.find(o => o.id === answer.optionId);
+    if (!option || answer.points !== option.points) return false;
+    if (typeof answer.timeSpent !== 'number' || answer.timeSpent < 0) return false;
+    if (answer.confidence !== 'Low' && answer.confidence !== 'Medium' && answer.confidence !== 'High') return false;
+
+    seen.add(answer.questionId);
+    subjectCounts[question.subject] += 1;
+  }
+
+  // A completed subject contains 4, 8, 12, or 16 questions depending on
+  // how far the learner progresses through the adaptive levels.
+  return Object.values(subjectCounts).every(count => count >= 4 && count % 4 === 0);
+}
