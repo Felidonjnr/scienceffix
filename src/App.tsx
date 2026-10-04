@@ -9,9 +9,9 @@ import AcademyHome from './components/AcademyHome';
 import IntakeForm from './components/IntakeForm';
 import DiagnosticView from './components/DiagnosticView';
 import ReportView from './components/ReportView';
-import { StudentData, Answer } from './types';
+import { StudentData, Answer, Question } from './types';
 import { isCompleteAssessment } from './utils/engine';
-import { QUESTIONS } from './data/questions';
+
 
 type AcademySection = 'home' | 'academy' | 'programmes' | 'assessment' | 'learning' | 'pathways' | 'cohort' | 'portal';
 type View = AcademySection | 'intake' | 'diagnostic' | 'report';
@@ -20,22 +20,47 @@ export default function App() {
   const [view, setView] = useState<View>('home');
   const [student, setStudent] = useState<StudentData | null>(null);
   const [answers, setAnswers] = useState<Answer[]>([]);
+  const [questionBank, setQuestionBank] = useState<Question[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const savedData = localStorage.getItem('science_transition_assessment_state');
-    if (savedData) {
+    const loadInitialData = async () => {
+      const savedData = localStorage.getItem('science_transition_assessment_state');
       try {
-        const parsed = JSON.parse(savedData);
-        if (parsed.student && isCompleteAssessment(parsed.answers)) {
-          setStudent(parsed.student);
-          setAnswers(parsed.answers);
+        const questionResponse = await fetch('/api/questions');
+        if (questionResponse.ok) {
+          const data = await questionResponse.json();
+          if (Array.isArray(data.questions) && data.questions.length > 0) {
+            setQuestionBank(data.questions as Question[]);
+          } else {
+            const { QUESTIONS } = await import('./data/questions');
+            setQuestionBank(QUESTIONS);
+          }
+        } else {
+          const { QUESTIONS } = await import('./data/questions');
+          setQuestionBank(QUESTIONS);
         }
       } catch (error) {
-        console.error('Failed to parse saved assessment state', error);
+        console.error('Failed to load live question bank; using local fallback', error);
+        const { QUESTIONS } = await import('./data/questions');
+        setQuestionBank(QUESTIONS);
       }
-    }
-    setIsLoaded(true);
+
+      if (savedData) {
+        try {
+          const parsed = JSON.parse(savedData);
+          if (parsed.student) {
+            setStudent(parsed.student);
+            setAnswers(parsed.answers);
+          }
+        } catch (error) {
+          console.error('Failed to parse saved assessment state', error);
+        }
+      }
+      setIsLoaded(true);
+    };
+
+    loadInitialData();
   }, []);
 
   useEffect(() => {
@@ -72,7 +97,7 @@ export default function App() {
 
   const pageVariants = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -12 } };
 
-  if (!isLoaded) return null;
+  if (!isLoaded || questionBank.length === 0) return null;
 
   const academyView = (section: AcademySection) => (
     <AcademyHome
@@ -93,9 +118,9 @@ export default function App() {
 
           {view === 'intake' && <IntakeForm onSubmit={(data) => { setStudent(data); setView('diagnostic'); fetch('/api/interest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: data.name, phone: data.phone, ageRange: data.age, previousBackground: data.startingLevel, desiredPathway: data.courseGoal, scienceStatus: data.startingLevel, biggestChallenge: data.biggestChallenge, employmentStatus: data.employmentStatus, source: 'science-readiness-assessment' }) }).catch(() => undefined); }} onDevSkip={import.meta.env.DEV ? handleDevSkip : undefined} />}
 
-          {view === 'diagnostic' && student && <DiagnosticView student={student} onComplete={(finalAnswers) => { setAnswers(finalAnswers); setView('report'); }} />}
+          {view === 'diagnostic' && student && <DiagnosticView student={student} questionBank={questionBank} onComplete={(finalAnswers) => { setAnswers(finalAnswers); setView('report'); }} />}
 
-          {view === 'report' && student && <ReportView student={student} answers={answers} onNavigateHome={() => setView('home')} onRestart={resetAssessment} />}
+          {view === 'report' && student && <ReportView student={student} answers={answers} questionBank={questionBank} onNavigateHome={() => setView('home')} onRestart={resetAssessment} />}
         </motion.div>
       </AnimatePresence>
     </div>
