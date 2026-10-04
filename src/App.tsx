@@ -20,7 +20,7 @@ export default function App() {
 
   // Load from local storage on mount
   useEffect(() => {
-    const savedData = localStorage.getItem('clinical_diagnostic_state');
+    const savedData = localStorage.getItem('science_transition_assessment_state');
     if (savedData) {
       try {
         const { student: savedStudent, answers: savedAnswers } = JSON.parse(savedData);
@@ -39,7 +39,7 @@ export default function App() {
   // Save to local storage whenever report is reached
   useEffect(() => {
     if (step === 'report' && student && answers.length > 0) {
-      localStorage.setItem('clinical_diagnostic_state', JSON.stringify({ student, answers }));
+      localStorage.setItem('science_transition_assessment_state', JSON.stringify({ student, answers }));
     }
   }, [step, student, answers]);
 
@@ -129,7 +129,7 @@ export default function App() {
               student={student}
               answers={answers}
               onRestart={() => {
-                localStorage.removeItem('clinical_diagnostic_state');
+                localStorage.removeItem('science_transition_assessment_state');
                 setAnswers([]);
                 setStudent(null);
                 setStep('landing');
