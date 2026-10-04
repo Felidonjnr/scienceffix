@@ -1,7 +1,7 @@
 import { Question, Subject, ProfileLevel, Answer, StudentData } from '../types';
 import { QUESTIONS } from '../data/questions';
 
-const ESCALATION_THRESHOLD = 4;
+const ESCALATION_THRESHOLD = 0.6; // 60% of available points
 
 export function getQuestionsForSubjectAndLevel(subject: Subject, level: ProfileLevel, student?: StudentData): Question[] {
   let matched = QUESTIONS.filter(q => q.subject === subject && q.profileLevel === level);
@@ -35,7 +35,7 @@ export function evaluateSubjectLevel(answers: Answer[], questionsInLevel: Questi
       points += ans.points;
     }
   }
-  return { points, maxPoints, passed: points >= ESCALATION_THRESHOLD };
+  return { points, maxPoints, passed: maxPoints > 0 && (points / maxPoints) >= ESCALATION_THRESHOLD };
 }
 
 export function computeReport(answers: Answer[]) {
