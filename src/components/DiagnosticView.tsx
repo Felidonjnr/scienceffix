@@ -7,7 +7,7 @@ import { Clock, ShieldAlert, ShieldCheck, Shield } from 'lucide-react';
 const SUBJECTS: Subject[] = ['Mathematics', 'Physics', 'Chemistry', 'Biology'];
 const LEVELS: ProfileLevel[] = ['Z', 'F', 'P', 'C'];
 
-export default function DiagnosticView({ student, onComplete }: { student: StudentData, onComplete: (answers: Answer[]) => void }) {
+export default function DiagnosticView({ student, questionBank, onComplete }: { student: StudentData, questionBank: Question[], onComplete: (answers: Answer[]) => void }) {
   const [answers, setAnswers] = useState<Answer[]>([]);
   
   const initialLevelIndex = LEVELS.indexOf(student.startingLevel || 'Z');
@@ -22,7 +22,7 @@ export default function DiagnosticView({ student, onComplete }: { student: Stude
   const currentLevel = LEVELS[levelIndex];
 
   // Derive current questions synchronously during render
-  const currentQuestions = getQuestionsForSubjectAndLevel(currentSubject, currentLevel, student);
+  const currentQuestions = getQuestionsForSubjectAndLevel(currentSubject, currentLevel, student, questionBank);
 
   // If for some reason we land on a level with no questions, advance it (using useEffect to avoid render warnings)
   useEffect(() => {
