@@ -117,7 +117,7 @@ export default function App() {
                 setStudent(data);
                 setStep('diagnostic');
               }} 
-              onDevSkip={handleDevSkip}
+              onDevSkip={import.meta.env.DEV ? handleDevSkip : undefined}
             />
           )}
 
