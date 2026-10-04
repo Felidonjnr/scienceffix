@@ -26,6 +26,11 @@ export default function App() {
 
   useEffect(() => {
     const loadInitialData = async () => {
+      if (isAdminRoute) {
+        setIsLoaded(true);
+        return;
+      }
+
       const savedData = localStorage.getItem('science_transition_assessment_state');
       try {
         const questionResponse = await fetch('/api/questions');
@@ -97,6 +102,10 @@ export default function App() {
   };
 
   const pageVariants = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -12 } };
+
+  if (isAdminRoute) {
+    return <AdminDashboard />;
+  }
 
   if (!isLoaded) {
     return (
