@@ -17,16 +17,23 @@ function build(subject: Subject, prefix: string, level: ProfileLevel, specs: Spe
   return specs.map((s, i) => {
     const knowledgeType = ['K1','K2','K3','K4'][i % 4] as KnowledgeType;
     const partial = s.partial ?? s.wrong1;
+    const rawOptions = [
+      { text: s.correct, points: 5 },
+      { text: partial, points: 1 },
+      { text: s.wrong1, points: 0 },
+      { text: s.wrong2, points: 0 }
+    ];
+    const rotation = i % 4;
+    const rotated = [...rawOptions.slice(rotation), ...rawOptions.slice(0, rotation)];
     return {
-      id: `${prefix}_${level}_X_${String(i + 1).padStart(2,'0')}`,
+      id: \`${prefix}_${level}_X_${String(i + 1).padStart(2,'0')}\`,
       subject, profileLevel: level, knowledgeType, topic: s.topic,
       text: s.text,
-      options: [
-        { id: 'a', text: s.correct, points: 5 },
-        { id: 'b', text: partial, points: 1 },
-        { id: 'c', text: s.wrong1, points: 0 },
-        { id: 'd', text: s.wrong2, points: 0 }
-      ],
+      options: rotated.map((option, optionIndex) => ({
+        id: String.fromCharCode(97 + optionIndex),
+        text: option.text,
+        points: option.points
+      })),
       cognitiveSkills: [skills[i % skills.length], skills[(i + 2) % skills.length]],
       difficulty: level === 'Z' ? (i % 2 ? 2 : 1) : level === 'F' ? (i % 3 ? 2 : 1) : level === 'P' ? (i % 3) + 1 : (i % 2) + 2,
       isMathHeavy: s.isMathHeavy,
