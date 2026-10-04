@@ -6,9 +6,9 @@ const ESCALATION_THRESHOLD = 0.6; // 60% of available points
 export function getQuestionsForSubjectAndLevel(subject: Subject, level: ProfileLevel, student?: StudentData): Question[] {
   let matched = QUESTIONS.filter(q => q.subject === subject && q.profileLevel === level);
 
-  // The bank contains 25 questions per subject/level. A live diagnostic uses
-  // exactly 4 from that pool so expanding the bank does not turn the assessment
-  // into an impractical 400-question test.
+  // The production bank contains 25 questions per subject/level. A live diagnostic
+  // samples exactly 4 from that pool so the learner is assessed without taking the
+  // full 400-question bank.
   const seedText = student
     ? `${student.name}|${student.phone}|${student.courseGoal}|${student.targetExam}|${subject}|${level}`
     : `${subject}|${level}`;
