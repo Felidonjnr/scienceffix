@@ -24,7 +24,7 @@ export default function App() {
     if (savedData) {
       try {
         const { student: savedStudent, answers: savedAnswers } = JSON.parse(savedData);
-        if (savedStudent && savedAnswers && savedAnswers.length > 0) {
+        if (savedStudent && isCompleteAssessment(savedAnswers)) {
           setStudent(savedStudent);
           setAnswers(savedAnswers);
           setStep('report');
