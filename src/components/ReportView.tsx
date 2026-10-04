@@ -646,7 +646,7 @@ export default function ReportView({
                       </div>
                     )) : (
                       <p className="text-sm font-semibold text-green-600 bg-green-50 p-4 rounded-xl text-center border border-green-200">
-                        You mastered all topics perfectly!
+                        No gaps were detected in the topics assessed. This does not represent the entire science curriculum.
                       </p>
                     )}
                   </div>
