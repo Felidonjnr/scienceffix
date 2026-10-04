@@ -83,7 +83,7 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
               <h2 className="text-2xl md:text-3xl font-black mb-3">Science Readiness Assessment</h2>
               <p className="text-slate-300 leading-relaxed mb-7">Take the assessment to establish your current starting point and receive a Science Readiness Blueprint.</p>
               <div className="flex flex-wrap gap-3">
-                <button onClick={() => go('assessment')} className="px-6 py-3 rounded-xl bg-white text-slate-950 font-bold">Start assessment <ArrowRight className="inline w-4 h-4 ml-1" /></button>
+                <button onClick={onStartAssessment} className="px-6 py-3 rounded-xl bg-white text-slate-950 font-bold">Start assessment <ArrowRight className="inline w-4 h-4 ml-1" /></button>
                 {hasBlueprint && <button onClick={() => onViewBlueprint()} className="px-6 py-3 rounded-xl border border-white/20 font-bold">View existing blueprint</button>}
               </div>
             </div>
