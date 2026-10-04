@@ -76,7 +76,8 @@ export default function DiagnosticView({ student, onComplete }: { student: Stude
   }
 
   const currentQ = currentQuestions[qIndexInLevel];
-  const subjectProgress = qIndexInLevel / Math.max(currentQuestions.length, 1);\n  const progressPercent = ((subjectIndex + subjectProgress) / SUBJECTS.length) * 100;
+  const subjectProgress = qIndexInLevel / Math.max(currentQuestions.length, 1);
+  const progressPercent = ((subjectIndex + subjectProgress) / SUBJECTS.length) * 100;
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-12 md:py-24">
