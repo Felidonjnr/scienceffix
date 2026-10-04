@@ -136,15 +136,19 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
         </section>
 
         <section className="max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-24">
-          <div className="max-w-3xl mb-12">
-            <p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">WHY THE ACADEMY EXISTS</p>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight">A different starting point for science learners.</h2>
-            <p className="mt-5 text-lg text-slate-600 leading-relaxed">You may have the ambition, but your science foundation may not yet match the destination you want.</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-5">
-            <InfoCard title="Build understanding" text="Learn the concepts and language you missed, in an order that makes sense." />
-            <InfoCard title="Build confidence" text="Turn confusion into understanding and uncertainty into measurable progress." />
-            <InfoCard title="Build a pathway" text="Connect your science learning to the course, exam or career direction you are working toward." />
+          <div className="grid lg:grid-cols-[.8fr_1.2fr] gap-12 items-start">
+            <div>
+              <p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">DOES THIS SOUND LIKE YOU?</p>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight">You know where you want to go. You just don't know how to catch up in science.</h2>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {[
+                'You studied Arts or Commercial subjects but now want a science-related career.',
+                'You studied science years ago, but you have forgotten most of it.',
+                'You can pass some questions, but you don't really understand the science behind them.',
+                'You keep joining exam classes, but the foundation you need never gets fixed.'
+              ].map((text) => <div key={text} className="rounded-2xl bg-slate-50 border border-slate-200 p-5"><CheckCircle2 className="w-5 h-5 text-blue-600 mb-4" /><p className="font-semibold text-slate-700 leading-relaxed">{text}</p></div>)}
+            </div>
           </div>
         </section>
 
