@@ -15,7 +15,7 @@ export default function LandingView({ onStart }: { onStart: () => void }) {
             <div className="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center shadow-md">
               <Sparkles className="w-5 h-5 text-blue-400" />
             </div>
-            <span className="font-bold text-xl tracking-tight text-slate-900">The Science Foundation Lab</span>
+            <span className="font-bold text-xl tracking-tight text-slate-900">Science Transition Academy</span>
           </div>
         </nav>
         
@@ -27,18 +27,16 @@ export default function LandingView({ onStart }: { onStart: () => void }) {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-200 text-slate-600 text-[11px] font-bold uppercase tracking-widest rounded-full shadow-sm">
               <span className="flex w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-              Elite AI Diagnostic Engine
+              Science Readiness Assessment
             </div>
             
             <h1 className="text-5xl md:text-6xl lg:text-[4rem] font-extrabold text-slate-900 tracking-tight leading-[1.1]">
-              Stop Studying Blind. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                Fix Your Knowledge Gaps.
+              Build the science foundation your next step requires.
               </span>
             </h1>
             
             <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-lg font-medium">
-              Don't leave your scores to chance. In 15 minutes, our clinical AI pinpoints your exact academic bottlenecks, analyzes your cognitive habits, and writes a ruthless 4-month prescription to crush your target exam.
+              Build the science knowledge you need before you chase the next exam, admission or career step. Our readiness assessment shows where you are starting, what needs rebuilding, and where to focus first.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -46,13 +44,13 @@ export default function LandingView({ onStart }: { onStart: () => void }) {
                 onClick={onStart}
                 className="inline-flex justify-center items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-xl text-base font-bold hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 group"
               >
-                Take the Free Diagnostic
+                Check Your Science Readiness
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
               
               <div className="flex items-center gap-3 px-6 py-4 bg-white rounded-xl border border-slate-200 shadow-sm text-sm font-semibold text-slate-700">
                 <Clock className="w-5 h-5 text-blue-600" />
-                Takes only 15 minutes
+                A focused readiness check
               </div>
             </div>
 
@@ -89,15 +87,15 @@ export default function LandingView({ onStart }: { onStart: () => void }) {
                   </div>
                   <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">Report Preview</span>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900">Clinical Blueprint</h3>
-                <p className="text-slate-500 text-sm font-medium">What happens after you take the test?</p>
+                <h3 className="text-2xl font-bold text-slate-900">Science Readiness Blueprint</h3>
+                <p className="text-slate-500 text-sm font-medium">What you receive after the assessment</p>
               </div>
               
               <div className="p-8 bg-white space-y-6">
                 {[
-                  { icon: Brain, title: "Deep Cognitive Profiling", desc: "We track your confidence and speed to find hidden blindspots." },
-                  { icon: Activity, title: "Granular Weakness Mapping", desc: "Visualize exactly where you are losing marks." },
-                  { icon: ShieldCheck, title: "4-Month Prescription", desc: "A phased, day-by-day plan mapping out your recovery." }
+                  { icon: Brain, title: "Starting-point profile", desc: "See the science areas that need attention first." },
+                  { icon: Activity, title: "Clear knowledge-gap mapping", desc: "Understand the topics and concepts that are holding you back." },
+                  { icon: ShieldCheck, title: "Personalised next steps", desc: "A practical direction for what to learn and practise next." }
                 ].map((item, i) => (
                   <div key={i} className="flex gap-4 items-start group">
                     <div className="w-10 h-10 bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-blue-50 group-hover:border-blue-200 transition-colors">
@@ -112,7 +110,7 @@ export default function LandingView({ onStart }: { onStart: () => void }) {
               </div>
               
               <div className="p-6 bg-slate-900 text-white flex items-center justify-between cursor-pointer hover:bg-slate-800 transition-colors" onClick={onStart}>
-                <span className="font-bold">Start Your Diagnostic</span>
+                <span className="font-bold">Check Your Science Readiness</span>
                 <ChevronRight className="w-5 h-5 text-slate-400" />
               </div>
             </div>
