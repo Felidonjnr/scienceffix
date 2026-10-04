@@ -79,7 +79,7 @@ export default function IntakeForm({ onSubmit, onDevSkip }: IntakeFormProps) {
                 <div>
                   <span className="font-bold text-slate-900">Estimated Duration: ~15 minutes.</span>
                   <span className="text-slate-600 block mt-0.5">
-                    Self-paced questions. Results are computed privately on your device.
+                    Self-paced questions. Your assessment is processed in this session; a saved blueprint may remain on this device so you can return to it.
                   </span>
                 </div>
               </div>
