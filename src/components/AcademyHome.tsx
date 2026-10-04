@@ -1,6 +1,7 @@
 import { ArrowRight, BookOpen, Brain, BriefcaseBusiness, CheckCircle2, ChevronRight, GraduationCap, HeartPulse, Library, Menu, Sparkles, Target, Users, X } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
+import FoundingCohortForm from './FoundingCohortForm';
 
 type Section = 'home' | 'academy' | 'programmes' | 'assessment' | 'learning' | 'pathways' | 'cohort' | 'portal';
 
@@ -95,7 +96,7 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
               {['Nursing', 'Medical Laboratory Science', 'Public Health', 'Other Science Pathways'].map((name) => <PathwayCard key={name} name={name} />)}
             </div>
           )}
-          {section === 'cohort' && <ComingSoon icon={Users} label="Founding cohort information and applications will appear here." action={onStartAssessment} actionLabel="Check your readiness" />}
+          {section === 'cohort' && <FoundingCohortForm onAssessment={onStartAssessment} />}
           {section === 'portal' && <ComingSoon icon={BriefcaseBusiness} label="The learner portal is planned for the next stage of the Academy." />}
         </main>
       </div>
@@ -116,8 +117,8 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
               <h1 className="text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[.98] max-w-4xl">You want a science future. <span className="text-blue-300">But your foundation is holding you back.</span></h1>
               <p className="mt-7 text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">Science Restart Academy helps adults and other learners rebuild the science foundation they need for the next step in their education or career.</p>
               <div className="flex flex-wrap gap-3 mt-9">
-                <button onClick={() => go('assessment')} className="px-6 py-4 rounded-2xl bg-white text-slate-950 font-black hover:bg-blue-50 transition">Check your science readiness <ArrowRight className="inline w-5 h-5 ml-1" /></button>
-                <button onClick={() => go('programmes')} className="px-6 py-4 rounded-2xl border border-white/20 font-bold hover:bg-white/10 transition">Explore the Academy</button>
+                <button onClick={() => go('cohort')} className="px-6 py-4 rounded-2xl bg-white text-slate-950 font-black hover:bg-blue-50 transition">Join the January 2027 founding cohort <ArrowRight className="inline w-5 h-5 ml-1" /></button>
+                <button onClick={() => go('assessment')} className="px-6 py-4 rounded-2xl border border-white/20 font-bold hover:bg-white/10 transition">Check your science readiness</button>
               </div>
             </motion.div>
             <div className="rounded-[2rem] border border-white/10 bg-white/[.06] backdrop-blur p-7 md:p-8">
@@ -159,6 +160,13 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
               <button onClick={() => go('programmes')} className="font-bold text-blue-700">View programmes <ChevronRight className="inline w-4 h-4" /></button>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">{programmes.map((item) => <ProgrammeCard key={item.title} {...item} />)}</div>
+          </div>
+        </section>
+
+        <section className="bg-slate-950 text-white">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8 py-14 md:py-16 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+            <div><p className="text-xs font-black tracking-[0.2em] text-blue-300 mb-2">JANUARY 2027</p><h2 className="text-2xl md:text-3xl font-black">We are building the first Science Restart Academy cohort.</h2><p className="text-slate-300 mt-2">Tell us where you are starting from. Your answers will shape the launch.</p></div>
+            <button onClick={() => go('cohort')} className="shrink-0 px-6 py-3.5 rounded-xl bg-white text-slate-950 font-black">Join the pre-launch list <ArrowRight className="inline w-4 h-4 ml-1" /></button>
           </div>
         </section>
 
