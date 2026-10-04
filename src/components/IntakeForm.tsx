@@ -68,7 +68,7 @@ export default function IntakeForm({ onSubmit, onDevSkip }: IntakeFormProps) {
                 Science Restart Assessment
               </h1>
               <p className="text-slate-300 text-sm mt-2 leading-relaxed">
-                A structured, non-judgmental diagnostic designed to evaluate your current science foundation across four core areas.
+                A structured, non-judgmental diagnostic that helps us understand what you already know, where your science foundation needs rebuilding, and what to work on next.
               </p>
             </div>
 
@@ -130,7 +130,7 @@ export default function IntakeForm({ onSubmit, onDevSkip }: IntakeFormProps) {
                   onClick={() => setStep('profile')}
                   className="w-full inline-flex items-center justify-center gap-2 bg-slate-900 text-white px-6 py-4 rounded-xl font-bold hover:bg-slate-800 transition-colors shadow-sm text-base"
                 >
-                  <span>Begin Readiness Profile</span>
+                  <span>Tell Us Where You Are</span>
                   <ArrowRight className="w-5 h-5" />
                 </button>
 
@@ -166,7 +166,7 @@ export default function IntakeForm({ onSubmit, onDevSkip }: IntakeFormProps) {
                 Build Your Science Readiness Profile
               </h2>
               <p className="text-slate-500 text-xs md:text-sm mt-1 leading-relaxed">
-                Tell us a little about where you are now and where you want to go. This helps us interpret your assessment in realistic context.
+                A few questions about your background, study situation, and goal help us interpret your diagnostic in context. You can take the assessment even if you are not sure which science pathway you want yet.
               </p>
             </div>
 
@@ -232,8 +232,10 @@ export default function IntakeForm({ onSubmit, onDevSkip }: IntakeFormProps) {
                     <option value="Working full-time">Working full-time</option>
                     <option value="Working part-time">Working part-time / Freelance</option>
                     <option value="Full-time student">Full-time student</option>
-                    <option value="Stay-at-home parent">Managing family / Stay-at-home parent</option>
-                    <option value="Gap year / Returning to study">Gap year / Returning to study</option>
+                    <option value="Managing family">Managing family / Stay-at-home parent</option>
+                    <option value="Returning to study">Returning to study / Taking a study break</option>
+                    <option value="Seeking work">Currently seeking work</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
               </div>
@@ -256,39 +258,43 @@ export default function IntakeForm({ onSubmit, onDevSkip }: IntakeFormProps) {
                     <option value="< 1 hour">Under 1 hour per day</option>
                     <option value="1-2 hours">1 to 2 hours per day</option>
                     <option value="3-4 hours">3 to 4 hours per day</option>
-                    <option value="5+ hours">5+ hours per day (Full-time study mode)</option>
+                    <option value="5+ hours">5+ hours per day</option>
+                    <option value="Variable">My available time changes from day to day</option>
                   </select>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-800">Primary Learning Style Preference</label>
+                  <label className="text-xs font-semibold text-slate-800">What Helps You Learn Difficult Things?</label>
                   <select 
                     required
                     className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none text-sm bg-white"
                     value={data.learningMethod}
                     onChange={e => setData({...data, learningMethod: e.target.value})}
                   >
-                    <option value="" disabled>How do you absorb complex information best?</option>
-                    <option value="Visual">Visual (Diagrams, mental models, animations)</option>
-                    <option value="Auditory">Auditory (Lectures, conversational explanations)</option>
-                    <option value="Reading">Reading / Writing (Structured texts, note-taking)</option>
-                    <option value="Kinesthetic">Practical Application (Worked problems, step-by-step exercises)</option>
+                    <option value="" disabled>What usually helps you understand something difficult?</option>
+                    <option value="Step-by-step explanation">A teacher explaining it step by step</option>
+                    <option value="Worked examples">Seeing worked examples before trying it myself</option>
+                    <option value="Practice">Practising questions and problems myself</option>
+                    <option value="Discussion">Discussing it with a teacher or another learner</option>
+                    <option value="Combination">A combination of these</option>
+                    <option value="Not sure">I'm not sure yet</option>
                   </select>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-800">Reading Pattern & Comprehension Pace</label>
+                  <label className="text-xs font-semibold text-slate-800">How Do You Usually Handle New Study Material?</label>
                   <select 
                     required
                     className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none text-sm bg-white"
                     value={data.readingPace}
                     onChange={e => setData({...data, readingPace: e.target.value})}
                   >
-                    <option value="" disabled>Describe your typical reading approach</option>
-                    <option value="Slow and thorough">Slow and thorough (I analyze every word and sentence)</option>
-                    <option value="Average">Average pace (I read steadily, re-reading when stuck)</option>
-                    <option value="Fast skimmer">Fast skimmer (I move quickly, sometimes missing details)</option>
-                    <option value="Struggles with focus">Struggle with focus (Long paragraphs make my attention drift)</option>
+                    <option value="" disabled>Choose the description that fits you best</option>
+                    <option value="Understand quickly">I understand most things with little repetition</option>
+                    <option value="Understand with explanation">I understand with some explanation or examples</option>
+                    <option value="Need repetition">I need to read or review things more than once</option>
+                    <option value="Technical material is difficult">I struggle when the material becomes technical</option>
+                    <option value="Need support">I often need someone to explain what I have read</option>
                   </select>
                 </div>
 
@@ -300,12 +306,16 @@ export default function IntakeForm({ onSubmit, onDevSkip }: IntakeFormProps) {
                     value={data.biggestChallenge}
                     onChange={e => setData({...data, biggestChallenge: e.target.value})}
                   >
-                    <option value="" disabled>What is your primary friction when learning science?</option>
-                    <option value="Calculations">Calculations and math-heavy formulas</option>
-                    <option value="Memory">Forgetting concepts shortly after studying</option>
-                    <option value="Procrastination">Procrastination and getting started</option>
-                    <option value="Test Anxiety">Exam anxiety and freezing up under pressure</option>
-                    <option value="Time Management">Inconsistent schedule due to work and life</option>
+                    <option value="" disabled>What makes learning science hardest for you right now?</option>
+                    <option value="Weak foundation">I feel like I missed important science basics</option>
+                    <option value="Calculations">Math, calculations, and formulas are difficult</option>
+                    <option value="Understanding concepts">I can memorise facts but struggle to understand concepts</option>
+                    <option value="Remembering">I understand when studying but forget later</option>
+                    <option value="Consistency">Work, family, or other responsibilities make study difficult</option>
+                    <option value="Confidence">I often doubt myself when studying science</option>
+                    <option value="Exam pressure">I struggle to show what I know under test or exam pressure</option>
+                    <option value="Getting started">I struggle to know what to study first</option>
+                    <option value="Something else">Something else</option>
                   </select>
                 </div>
               </div>
@@ -318,14 +328,14 @@ export default function IntakeForm({ onSubmit, onDevSkip }: IntakeFormProps) {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-800">Target Career or Course</label>
+                    <label className="text-xs font-semibold text-slate-800">Science-Related Course, Career, or Future Goal</label>
                     <div className="relative">
                       <Target className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                       <input 
                         required
                         type="text"
                         className="w-full pl-9 pr-4 py-2.5 rounded-lg border border-slate-300 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 outline-none text-sm bg-white"
-                        placeholder="e.g. Nursing, Pharmacy, Computer Science"
+                        placeholder="e.g. Nursing, Pharmacy, Medical Laboratory Science"
                         value={data.courseGoal}
                         onChange={e => setData({...data, courseGoal: e.target.value})}
                       />
@@ -333,7 +343,7 @@ export default function IntakeForm({ onSubmit, onDevSkip }: IntakeFormProps) {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold text-slate-800">Target Examination / Milestone</label>
+                    <label className="text-xs font-semibold text-slate-800">Main Academic Milestone</label>
                     <div className="relative">
                       <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                       <select 
@@ -342,11 +352,15 @@ export default function IntakeForm({ onSubmit, onDevSkip }: IntakeFormProps) {
                         value={data.targetExam}
                         onChange={e => setData({...data, targetExam: e.target.value})}
                       >
-                        <option value="" disabled>Select target milestone</option>
-                        <option value="JAMB 2027">JAMB 2027</option>
-                        <option value="JAMB 2028">JAMB 2028</option>
-                        <option value="WAEC">WAEC (WASSCE)</option>
+                        <option value="" disabled>What are you mainly working toward?</option>
+                        <option value="JAMB / UTME">JAMB / UTME</option>
+                        <option value="WAEC / WASSCE">WAEC / WASSCE</option>
                         <option value="NECO">NECO</option>
+                        <option value="Tertiary programme application">Applying for a tertiary programme</option>
+                        <option value="Specific school or programme">Preparing for a specific school or programme</option>
+                        <option value="Build science foundation">Building my science foundation first</option>
+                        <option value="Not sure yet">I'm not sure yet</option>
+                        <option value="Other">Other</option>
                       </select>
                     </div>
                   </div>
@@ -359,7 +373,7 @@ export default function IntakeForm({ onSubmit, onDevSkip }: IntakeFormProps) {
                       Self-Assessed Science Baseline
                     </label>
                     <p className="text-[11px] text-slate-500 mt-0.5">
-                      Choose the description that most accurately reflects your starting point.
+                      This is your own estimate—not your diagnostic result. Choose the description that feels closest to where you are today.
                     </p>
                   </div>
 
@@ -427,7 +441,7 @@ export default function IntakeForm({ onSubmit, onDevSkip }: IntakeFormProps) {
                   type="submit"
                   className="w-full flex items-center justify-center gap-2 bg-slate-900 text-white px-6 py-4 rounded-xl font-bold hover:bg-slate-800 transition-colors shadow-sm text-base"
                 >
-                  <span>Proceed to Assessment Instructions</span>
+                  <span>Continue to Assessment</span>
                   <ArrowRight className="w-5 h-5" />
                 </button>
 
