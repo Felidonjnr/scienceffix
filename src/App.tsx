@@ -13,7 +13,7 @@ import AdminDashboard from './components/AdminDashboard';
 import { StudentData, Answer, Question } from './types';
 
 
-type AcademySection = 'home' | 'academy' | 'programmes' | 'assessment' | 'learning' | 'pathways' | 'cohort' | 'portal';
+type AcademySection = 'home' | 'academy' | 'programmes' | 'assessment' | 'pathways' | 'cohort';
 type View = AcademySection | 'intake' | 'diagnostic' | 'report';
 
 export default function App() {
@@ -139,7 +139,7 @@ export default function App() {
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 overflow-x-hidden">
       <AnimatePresence mode="wait">
         <motion.div key={view} initial="initial" animate="animate" exit="exit" variants={pageVariants} transition={{ duration: 0.22, ease: 'easeInOut' }} className="min-h-screen">
-          {(['home', 'academy', 'programmes', 'assessment', 'learning', 'pathways', 'cohort', 'portal'] as AcademySection[]).includes(view as AcademySection) && academyView(view as AcademySection)}
+          {(['home', 'academy', 'programmes', 'assessment', 'pathways', 'cohort'] as AcademySection[]).includes(view as AcademySection) && academyView(view as AcademySection)}
 
           {view === 'intake' && <IntakeForm onSubmit={(data) => { setStudent(data); setView('diagnostic'); fetch('/api/interest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: data.name, phone: data.phone, ageRange: data.age, previousBackground: data.startingLevel, desiredPathway: data.courseGoal, scienceStatus: data.startingLevel, biggestChallenge: data.biggestChallenge, employmentStatus: data.employmentStatus, source: 'science-readiness-assessment' }) }).catch(() => undefined); }} onDevSkip={import.meta.env.DEV ? handleDevSkip : undefined} />}
 
