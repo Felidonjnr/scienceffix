@@ -83,7 +83,7 @@ export default function DiagnosticView({ student, onComplete }: { student: Stude
       <div className="mb-8">
         <div className="flex justify-between items-end mb-4">
           <div>
-            <h2 className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">{currentSubject} • Health Scan</h2>
+            <h2 className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider">{currentSubject} • Readiness Check</h2>
             <p className="text-2xl font-bold mt-1 text-[#0F172A] tracking-tight">Question {qIndexInLevel + 1}</p>
           </div>
           <div className="text-sm font-medium text-[#64748B]">
