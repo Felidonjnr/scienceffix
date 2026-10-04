@@ -26,7 +26,7 @@ function build(subject: Subject, prefix: string, level: ProfileLevel, specs: Spe
     const rotation = i % 4;
     const rotated = [...rawOptions.slice(rotation), ...rawOptions.slice(0, rotation)];
     return {
-      id: \`${prefix}_${level}_X_${String(i + 1).padStart(2,'0')}\`,
+      id: `${prefix}_${level}_X_${String(i + 1).padStart(2,'0')}`,
       subject, profileLevel: level, knowledgeType, topic: s.topic,
       text: s.text,
       options: rotated.map((option, optionIndex) => ({
