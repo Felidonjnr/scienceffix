@@ -14,6 +14,52 @@ async function startServer() {
   app.use(express.json());
 
   // Define API routes FIRST
+  function adminAuthorized(req: express.Request) {
+    const configured = process.env.ADMIN_DASHBOARD_KEY;
+    const supplied = req.headers['x-admin-key'];
+    return Boolean(configured && typeof supplied === 'string' && supplied === configured);
+  }
+
+  app.get("/api/admin/leads", async (req, res) => {
+    if (!adminAuthorized(req)) return res.status(401).json({ error: "Unauthorized" });
+    try {
+      const supabaseUrl = process.env.SUPABASE_URL;
+      const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+      if (!supabaseUrl || !serviceRoleKey) return res.status(503).json({ error: "Supabase is not configured." });
+      const response = await fetch(`${supabaseUrl}/rest/v1/science_restart_leads?select=*&order=created_at.desc`, {
+        headers: { "apikey": serviceRoleKey, "Authorization": `Bearer ${serviceRoleKey}` }
+      });
+      if (!response.ok) return res.status(502).json({ error: "Unable to retrieve leads." });
+      res.json({ leads: await response.json() });
+    } catch (error) {
+      console.error("Lead retrieval error:", error);
+      res.status(500).json({ error: "Unable to retrieve leads." });
+    }
+  });
+
+  app.get("/api/admin/export", async (req, res) => {
+    if (!adminAuthorized(req)) return res.status(401).send("Unauthorized");
+    try {
+      const supabaseUrl = process.env.SUPABASE_URL;
+      const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+      if (!supabaseUrl || !serviceRoleKey) return res.status(503).send("Supabase is not configured.");
+      const response = await fetch(`${supabaseUrl}/rest/v1/science_restart_leads?select=*&order=created_at.desc`, {
+        headers: { "apikey": serviceRoleKey, "Authorization": `Bearer ${serviceRoleKey}` }
+      });
+      if (!response.ok) return res.status(502).send("Unable to retrieve leads.");
+      const leads = await response.json() as Record<string, unknown>[];
+      const columns = ["created_at","name","phone","age_range","previous_background","desired_pathway","science_status","biggest_challenge","last_studied_science","employment_status","preferred_schedule","target_year","wants_founding_cohort","willingness_to_pay","source"];
+      const escapeCsv = (value: unknown) => `"${String(value ?? "").replace(/"/g, '""')}"`;
+      const csv = [columns.join(","), ...leads.map(lead => columns.map(column => escapeCsv(lead[column])).join(","))].join("\n");
+      res.setHeader("Content-Type", "text/csv; charset=utf-8");
+      res.setHeader("Content-Disposition", 'attachment; filename="science-restart-leads.csv"');
+      res.send(csv);
+    } catch (error) {
+      console.error("Lead export error:", error);
+      res.status(500).send("Unable to export leads.");
+    }
+  });
+
   app.post("/api/interest", async (req, res) => {
     try {
       const {
