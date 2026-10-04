@@ -32,7 +32,7 @@ const programmes = [
 ];
 
 export default function AcademyHome({ section, onNavigate, onStartAssessment, onViewBlueprint, hasBlueprint, studentName }: AcademyHomeProps) {
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const go = (next: Section) => {
     setMobileOpen(false);
