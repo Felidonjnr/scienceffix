@@ -1,10 +1,9 @@
-import { ArrowRight, BookOpen, Brain, BriefcaseBusiness, CheckCircle2, ChevronRight, GraduationCap, HeartPulse, Library, Menu, Sparkles, Target, Users, X } from 'lucide-react';
+import { ArrowRight, BookOpen, Brain, CheckCircle2, ChevronRight, GraduationCap, HeartPulse, Menu, Sparkles, Target, X } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import FoundingCohortForm from './FoundingCohortForm';
-import LearningHub from './LearningHub';
 
-type Section = 'home' | 'academy' | 'programmes' | 'assessment' | 'learning' | 'pathways' | 'cohort' | 'portal';
+type Section = 'home' | 'academy' | 'programmes' | 'assessment' | 'pathways' | 'cohort';
 
 interface AcademyHomeProps {
   section: Section;
@@ -20,10 +19,8 @@ const navItems: { id: Section; label: string }[] = [
   { id: 'academy', label: 'The Academy' },
   { id: 'programmes', label: 'Programmes' },
   { id: 'assessment', label: 'Readiness Assessment' },
-  { id: 'learning', label: 'Learning Hub' },
   { id: 'pathways', label: 'Pathways' },
   { id: 'cohort', label: 'Founding Cohort' },
-  { id: 'portal', label: 'Student Portal' },
 ];
 
 const programmes = [
@@ -45,10 +42,8 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
     academy: { eyebrow: 'THE ACADEMY', title: "You don't have to pretend you already know the science. Start from where you are.", text: 'Science Restart Academy helps learners rebuild the foundation they need to enter, understand and progress through science-related education.' },
     programmes: { eyebrow: 'PROGRAMMES', title: 'A staged route from rebuilding to readiness.', text: 'The Academy is designed around progression: strengthen the foundation, build core science understanding, apply it, then prepare for the destination ahead.' },
     assessment: { eyebrow: 'SCIENCE READINESS ASSESSMENT', title: 'Know your starting point before you build.', text: 'The readiness assessment is one section of the Academy. It identifies where your current science foundation is strongest, where it needs rebuilding, and what to work on first.' },
-    learning: { eyebrow: 'LEARNING HUB', title: 'Resources built for real learning.', text: 'Lessons, explanations, worksheets, practice and revision resources will live here as the Academy learning library grows.' },
     pathways: { eyebrow: 'PATHWAYS', title: 'Start with the destination in mind.', text: 'Explore science-related academic pathways and understand the knowledge, subjects and preparation they require.' },
     cohort: { eyebrow: 'FOUNDING COHORT', title: 'The first Academy cohort is coming.', text: 'A focused founding cohort is planned for January 2027. Applications, schedule, programme details and fees will be published here.' },
-    portal: { eyebrow: 'STUDENT PORTAL', title: 'Your learning journey, in one place.', text: 'The student portal will eventually bring courses, assignments, assessments, progress and support together in one learner dashboard.' },
   };
 
   if (section !== 'home') {
@@ -91,14 +86,12 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
             </div>
           )}
 
-          {section === 'learning' && <LearningHub onNavigate={onNavigate} />}
           {section === 'pathways' && (
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
               {['Nursing', 'Medical Laboratory Science', 'Public Health', 'Other Science Pathways'].map((name) => <PathwayCard key={name} name={name} />)}
             </div>
           )}
           {section === 'cohort' && <FoundingCohortForm onAssessment={onStartAssessment} />}
-          {section === 'portal' && <ComingSoon icon={BriefcaseBusiness} label="The learner portal is planned for the next stage of the Academy." />}
         </main>
       </div>
     );
@@ -214,9 +207,5 @@ function ProgrammeCard({ title, text, icon: Icon }: { title: string; text: strin
 
 function PathwayCard({ name }: { name: string }) {
   return <button className="text-left rounded-2xl border border-slate-200 bg-white p-6 hover:border-blue-300 hover:shadow-lg transition"><HeartPulse className="w-6 h-6 text-blue-700 mb-5" /><h3 className="font-black text-lg">{name}</h3><p className="text-sm text-slate-500 mt-2">Explore pathway requirements</p></button>;
-}
-
-function ComingSoon({ icon: Icon, label, action, actionLabel }: { icon: typeof Library; label: string; action?: () => void; actionLabel?: string }) {
-  return <div className="mt-14 rounded-3xl border border-dashed border-slate-300 bg-white p-10 max-w-2xl"><Icon className="w-8 h-8 text-blue-700 mb-5" /><p className="text-lg font-bold text-slate-800">{label}</p>{action && <button onClick={action} className="mt-6 px-5 py-3 rounded-xl bg-slate-950 text-white font-bold">{actionLabel}</button>}</div>;
 }
 
