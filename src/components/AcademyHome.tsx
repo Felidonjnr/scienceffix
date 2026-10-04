@@ -98,9 +98,15 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
                 {[
                   ['Nursing', 'A health-focused route where Biology, Chemistry, Physics and Mathematics foundations can become important for later study.'],
+                  ['Medicine', 'A demanding health-science route built on strong Biology, Chemistry, Physics and Mathematics foundations.'],
+                  ['Pharmacy', 'A health-science route where Chemistry, Biology, Physics and Mathematics provide important foundations for later study.'],
                   ['Medical Laboratory Science', 'A laboratory and health-science route that depends on a strong understanding of core science concepts.'],
                   ['Public Health', 'A health-focused route where science, quantitative reasoning and the ability to interpret evidence can matter.'],
-                  ['Other Science Pathways', 'Medicine, Pharmacy, science and technology programmes, and other destinations can also begin with rebuilding the right foundation.'],
+                  ['Engineering', 'A broad technology and problem-solving family where Mathematics and Physics are especially important foundations, with Chemistry relevant to some fields.'],
+                  ['Computer Science & Technology', 'A technology pathway where Mathematics, logical reasoning and problem-solving form important foundations.'],
+                  ['Pure & Applied Sciences', 'Physics, Chemistry, Biology, Mathematics, Statistics, Environmental Science and related disciplines can all require a strong science foundation.'],
+                  ['Agriculture & Environmental Sciences', 'Agricultural science, Biology, Chemistry, Mathematics and related scientific reasoning can support many programmes in this family.'],
+                  ['Other Science Pathways', 'There are many other science, technology and health-related destinations. If you are unsure, start with your current foundation and let the pathway become clearer.'],
                 ].map(([name, text]) => <PathwayCard key={name} name={name} text={text} />)}
               </div>
               <div className="rounded-3xl bg-slate-950 text-white p-7 md:p-9 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
