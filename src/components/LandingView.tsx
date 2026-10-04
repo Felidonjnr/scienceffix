@@ -32,7 +32,6 @@ export default function LandingView({ onStart }: { onStart: () => void }) {
             
             <h1 className="text-5xl md:text-6xl lg:text-[4rem] font-extrabold text-slate-900 tracking-tight leading-[1.1]">
               Build the science foundation your next step requires.
-              </span>
             </h1>
             
             <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-lg font-medium">
