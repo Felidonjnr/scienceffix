@@ -10,6 +10,7 @@ import IntakeForm from './components/IntakeForm';
 import DiagnosticView from './components/DiagnosticView';
 import ReportView from './components/ReportView';
 import { StudentData, Answer } from './types';
+import { isCompleteAssessment } from './utils/engine';
 import { QUESTIONS } from './data/questions';
 
 export default function App() {
