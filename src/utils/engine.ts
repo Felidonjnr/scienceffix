@@ -3,8 +3,8 @@ import { QUESTIONS } from '../data/questions';
 
 const ESCALATION_THRESHOLD = 0.6; // 60% of available points
 
-export function getQuestionsForSubjectAndLevel(subject: Subject, level: ProfileLevel, student?: StudentData): Question[] {
-  let matched = QUESTIONS.filter(q => q.subject === subject && q.profileLevel === level);
+export function getQuestionsForSubjectAndLevel(subject: Subject, level: ProfileLevel, student?: StudentData, questionBank: Question[] = QUESTIONS): Question[] {
+  let matched = questionBank.filter(q => q.subject === subject && q.profileLevel === level);
 
   // The production bank contains 25 questions per subject/level. A live diagnostic
   // samples exactly 4 from that pool so the learner is assessed without taking the
@@ -49,7 +49,7 @@ export function evaluateSubjectLevel(answers: Answer[], questionsInLevel: Questi
   return { points, maxPoints, passed: maxPoints > 0 && (points / maxPoints) >= ESCALATION_THRESHOLD };
 }
 
-export function computeReport(answers: Answer[]) {
+export function computeReport(answers: Answer[], questionBank: Question[] = QUESTIONS) {
   const subjects: Subject[] = ['Mathematics', 'Physics', 'Chemistry', 'Biology'];
   const subjectScores: Record<Subject, { rawScore: number, k3k4Avg: number, level: string, status: string }> = {} as any;
   
@@ -65,7 +65,7 @@ export function computeReport(answers: Answer[]) {
   let validTimeAnswers = 0;
 
   for (const subject of subjects) {
-    const subjectQuestions = QUESTIONS.filter(q => q.subject === subject);
+    const subjectQuestions = questionBank.filter(q => q.subject === subject);
     const answeredIds = answers.map(a => a.questionId);
     const subjectAnswered = subjectQuestions.filter(q => answeredIds.includes(q.id));
     
@@ -199,8 +199,8 @@ export function computeReport(answers: Answer[]) {
  * The live diagnostic always completes at least one 4-question level per subject,
  * and every submitted answer must match the question bank exactly.
  */
-export function isCompleteAssessment(answers: unknown): answers is Answer[] {
-  if (!Array.isArray(answers) || answers.length < 16 || answers.length > QUESTIONS.length) return false;
+export function isCompleteAssessment(answers: unknown, questionBank: Question[] = QUESTIONS): answers is Answer[] {
+  if (!Array.isArray(answers) || answers.length < 16 || answers.length > questionBank.length) return false;
 
   const seen = new Set<string>();
   const subjectCounts: Record<Subject, number> = {
@@ -215,7 +215,7 @@ export function isCompleteAssessment(answers: unknown): answers is Answer[] {
     const answer = rawAnswer as Answer;
     if (typeof answer.questionId !== 'string' || seen.has(answer.questionId)) return false;
 
-    const question = QUESTIONS.find(q => q.id === answer.questionId);
+    const question = questionBank.find(q => q.id === answer.questionId);
     if (!question) return false;
 
     const option = question.options.find(o => o.id === answer.optionId);
