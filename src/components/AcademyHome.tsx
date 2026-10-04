@@ -41,7 +41,7 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
   };
 
   const sectionCopy: Record<Exclude<Section, 'home'>, { eyebrow: string; title: string; text: string }> = {
-    academy: { eyebrow: 'THE ACADEMY', title: 'You don't have to pretend you already know the science. Start from where you are.', text: 'Science Restart Academy helps learners rebuild the foundation they need to enter, understand and progress through science-related education.' },
+    academy: { eyebrow: 'THE ACADEMY', title: "You don't have to pretend you already know the science. Start from where you are.", text: 'Science Restart Academy helps learners rebuild the foundation they need to enter, understand and progress through science-related education.' },
     programmes: { eyebrow: 'PROGRAMMES', title: 'A staged route from rebuilding to readiness.', text: 'The Academy is designed around progression: strengthen the foundation, build core science understanding, apply it, then prepare for the destination ahead.' },
     assessment: { eyebrow: 'SCIENCE READINESS ASSESSMENT', title: 'Know your starting point before you build.', text: 'The readiness assessment is one section of the Academy. It identifies where your current science foundation is strongest, where it needs rebuilding, and what to work on first.' },
     learning: { eyebrow: 'LEARNING HUB', title: 'Resources built for real learning.', text: 'Lessons, explanations, worksheets, practice and revision resources will live here as the Academy learning library grows.' },
@@ -146,7 +146,7 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
               {[
                 'You studied Arts or Commercial subjects but now want a science-related career.',
                 'You studied science years ago, but you have forgotten most of it.',
-                'You can pass some questions, but you don't really understand the science behind them.',
+                "You can pass some questions, but you don't really understand the science behind them.",
                 'You keep joining exam classes, but the foundation you need never gets fixed.'
               ].map((text) => <div key={text} className="rounded-2xl bg-slate-50 border border-slate-200 p-5"><CheckCircle2 className="w-5 h-5 text-blue-600 mb-4" /><p className="font-semibold text-slate-700 leading-relaxed">{text}</p></div>)}
             </div>
