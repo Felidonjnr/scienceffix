@@ -145,6 +145,22 @@ export default function ReportView({
   
   const behavioral = report?.behavioralMetrics;
 
+  const topicPerformance = useMemo(() => {
+    const stats: Record<string, { topic: string; subject: string; earned: number; max: number }> = {};
+    answers.forEach(ans => {
+      const q = QUESTIONS.find(item => item.id === ans.questionId);
+      if (!q) return;
+      const max = Math.max(...q.options.map(o => o.points));
+      if (!stats[q.topic]) stats[q.topic] = { topic: q.topic, subject: q.subject, earned: 0, max: 0 };
+      stats[q.topic].earned += ans.points;
+      stats[q.topic].max += max;
+    });
+    return Object.values(stats)
+      .map(item => ({ ...item, percentage: item.max > 0 ? (item.earned / item.max) * 100 : 0 }))
+      .sort((a, b) => a.percentage - b.percentage);
+  }, [answers]);
+
+
 
   const handleTaskClick = async (task: string) => {
     setSelectedTask(task);
@@ -195,7 +211,8 @@ export default function ReportView({
           body: JSON.stringify({
             student,
             answers,
-            report: generatedReport
+            report: generatedReport,
+            topicPerformance
           })
         });
 
@@ -231,7 +248,7 @@ export default function ReportView({
     };
     fetchClinicalInsight();
 
-  }, [answers, student]);
+  }, [answers, student, topicPerformance]);
 
   const radarData = useMemo(() => {
     if (!report) return [];
