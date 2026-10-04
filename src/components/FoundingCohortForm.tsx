@@ -52,10 +52,10 @@ export default function FoundingCohortForm({ onAssessment }: { onAssessment: () 
         <div className="w-12 h-12 rounded-2xl bg-blue-500/15 flex items-center justify-center mb-6">
           <CheckCircle2 className="w-7 h-7 text-blue-300" />
         </div>
-        <p className="text-sm font-black tracking-[0.2em] text-blue-300 mb-3">YOU'RE ON THE LIST</p>
+        <p className="text-sm font-black tracking-[0.2em] text-blue-300 mb-3">INTEREST RECORDED</p>
         <h2 className="text-3xl md:text-4xl font-black mb-4">Thank you. We’ll keep you close to the launch.</h2>
         <p className="text-slate-300 leading-relaxed mb-8">
-          Your answers help us understand where learners are starting from and what the January 2027 Academy needs to provide.
+          Your answers help us understand who the Academy should serve, what learners need, and how the January 2027 founding cohort should be designed. Joining this list is an expression of interest, not a confirmed place or admission offer.
         </p>
         <button onClick={onAssessment} className="px-6 py-3 rounded-xl bg-white text-slate-950 font-black">
           Check your science readiness <ArrowRight className="inline w-4 h-4 ml-1" />
@@ -93,13 +93,13 @@ export default function FoundingCohortForm({ onAssessment }: { onAssessment: () 
 
         {field('Age range', 'ageRange', ['Under 18', '18–24', '25–34', '35–44', '45–54', '55+'])}
         {field('Previous academic background', 'previousBackground', ['Science', 'Arts', 'Commercial', 'Mixed / other', 'I am not sure'])}
-        {field('Desired pathway', 'desiredPathway', ['Nursing', 'Medical Laboratory Science', 'Public Health', 'Medicine', 'Pharmacy', 'Other science pathway', 'I am still deciding'])}
-        {field('Current science situation', 'scienceStatus', ['I have never properly studied science', 'I studied science but forgot most of it', 'I know the basics but struggle to apply them', 'I am currently studying science', 'I am not sure where I stand'])}
-        {field('Biggest science challenge', 'biggestChallenge', ['Understanding concepts', 'Mathematics / calculations', 'Chemistry', 'Physics', 'Biology', 'Remembering what I study', 'Knowing where to start'])}
-        {field('When did you last study science?', 'lastStudiedScience', ['Within the last year', '1–3 years ago', '4–7 years ago', 'More than 7 years ago', 'I have not studied it formally'])}
-        {field('Work / life situation', 'employmentStatus', ['Working full-time', 'Working part-time', 'Self-employed', 'Student', 'Not currently working', 'Other'])}
-        {field('Preferred learning schedule', 'preferredSchedule', ['Weekday evenings', 'Saturday', 'Sunday', 'Weekend + flexible replay', 'I need a flexible option'])}
-        {field('Realistic monthly investment', 'willingnessToPay', ['Under ₦10,000', '₦10,000–₦19,999', '₦20,000–₦29,999', '₦30,000–₦49,999', '₦50,000+', 'I am not sure yet'])}
+        {field('Desired science pathway or future goal', 'desiredPathway', ['Nursing', 'Medical Laboratory Science', 'Public Health', 'Medicine', 'Pharmacy', 'Computer / technology field', 'Other science pathway', 'I am still deciding'])}
+        {field('Where do you feel you are with science right now?', 'scienceStatus', ['I have little or no science foundation', 'I studied science before but forgot much of it', 'I know some basics but have important gaps', 'I can answer some questions but struggle to explain or apply concepts', 'I am currently studying science and want stronger foundations', 'I am not sure where I stand'])}
+        {field('Biggest science challenge', 'biggestChallenge', ['I do not know where to start', 'I missed important science basics', 'Understanding concepts', 'Mathematics, calculations, and formulas', 'Remembering what I study', 'Applying what I know to unfamiliar questions', 'Keeping up with study alongside work or family', 'Confidence when studying science', 'Other'])}
+        {field('When did you last study science formally?', 'lastStudiedScience', ['Within the last year', '1–3 years ago', '4–7 years ago', 'More than 7 years ago', 'I have never studied it formally', 'I am studying it now'])}
+        {field('What does your current week look like?', 'employmentStatus', ['Working full-time', 'Working part-time / freelance', 'Self-employed / running a business', 'Full-time student', 'Managing family / home responsibilities', 'Currently seeking work', 'Other'])}
+        {field('What learning schedule would realistically work for you?', 'preferredSchedule', ['Weekday evenings', 'Saturday', 'Sunday', 'Weekends + flexible replay', 'A mix of weekday and weekend sessions', 'I need a flexible option because my schedule changes'])}
+        {field('If the Academy is a good fit, what monthly investment would be realistic for you?', 'willingnessToPay', ['Under ₦10,000', '₦10,000–₦19,999', '₦20,000–₦29,999', '₦30,000–₦49,999', '₦50,000+', 'I am not sure yet'])}
       </div>
 
       <label className="flex items-start gap-3 mt-7 cursor-pointer">
@@ -114,7 +114,7 @@ export default function FoundingCohortForm({ onAssessment }: { onAssessment: () 
       </button>
 
       <p className="mt-4 text-xs text-slate-500">
-        Your information is collected to understand learner needs, plan the founding cohort and send relevant Academy updates.
+        Your information is used to understand learner needs, shape the founding cohort, and send relevant Academy updates. We will not treat this submission as a confirmed admission or enrollment.
       </p>
     </form>
   );
