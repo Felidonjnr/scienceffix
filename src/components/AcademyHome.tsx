@@ -87,8 +87,30 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
           )}
 
           {section === 'pathways' && (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
-              {['Nursing', 'Medical Laboratory Science', 'Public Health', 'Other Science Pathways'].map((name) => <PathwayCard key={name} name={name} />)}
+            <div className="mt-14 space-y-10">
+              <div className="rounded-3xl bg-white border border-slate-200 p-7 md:p-9 max-w-4xl">
+                <p className="text-sm font-black tracking-[0.16em] text-blue-700 mb-3">START WITH YOUR DESTINATION</p>
+                <h2 className="text-2xl md:text-3xl font-black mb-3">You do not need to have your whole pathway figured out yet.</h2>
+                <p className="text-slate-600 leading-relaxed">
+                  These are starting points for the guidance we are building. Requirements vary by institution and programme, so use the pathway ideas to understand what science preparation may matter—not as a substitute for checking the requirements of your chosen school.
+                </p>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                {[
+                  ['Nursing', 'A health-focused route where Biology, Chemistry, Physics and Mathematics foundations can become important for later study.'],
+                  ['Medical Laboratory Science', 'A laboratory and health-science route that depends on a strong understanding of core science concepts.'],
+                  ['Public Health', 'A health-focused route where science, quantitative reasoning and the ability to interpret evidence can matter.'],
+                  ['Other Science Pathways', 'Medicine, Pharmacy, science and technology programmes, and other destinations can also begin with rebuilding the right foundation.'],
+                ].map(([name, text]) => <PathwayCard key={name} name={name} text={text} />)}
+              </div>
+              <div className="rounded-3xl bg-slate-950 text-white p-7 md:p-9 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+                <div>
+                  <p className="text-sm font-black tracking-[0.16em] text-blue-300 mb-2">NOT SURE YET?</p>
+                  <h2 className="text-2xl font-black">That is a valid starting point.</h2>
+                  <p className="text-slate-300 mt-2 max-w-2xl">You can take the Readiness Assessment even if you have not chosen a final science pathway. We can start with where you are.</p>
+                </div>
+                <button onClick={onStartAssessment} className="shrink-0 px-6 py-3.5 rounded-xl bg-white text-slate-950 font-black">Check your readiness <ArrowRight className="inline w-4 h-4 ml-1" /></button>
+              </div>
             </div>
           )}
           {section === 'cohort' && <FoundingCohortForm onAssessment={onStartAssessment} />}
@@ -205,7 +227,12 @@ function ProgrammeCard({ title, text, icon: Icon }: { title: string; text: strin
   return <div className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-blue-200 hover:shadow-lg transition"><div className="w-11 h-11 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center mb-6"><Icon className="w-5 h-5" /></div><h3 className="text-xl font-black mb-2">{title}</h3><p className="text-slate-600 leading-relaxed">{text}</p></div>;
 }
 
-function PathwayCard({ name }: { name: string }) {
-  return <div className="text-left rounded-2xl border border-slate-200 bg-white p-6"><HeartPulse className="w-6 h-6 text-blue-700 mb-5" /><h3 className="font-black text-lg">{name}</h3><p className="text-sm text-slate-500 mt-2">Pathway information will be added as the Academy develops its guidance resources.</p></div>;
+function PathwayCard({ name, text }: { name: string; text: string }) {
+  return <div className="text-left rounded-2xl border border-slate-200 bg-white p-6">
+    <HeartPulse className="w-6 h-6 text-blue-700 mb-5" />
+    <h3 className="font-black text-lg">{name}</h3>
+    <p className="text-sm text-slate-600 mt-2 leading-relaxed">{text}</p>
+    <p className="text-[11px] text-slate-400 mt-4">Guidance under development</p>
+  </div>;
 }
 
