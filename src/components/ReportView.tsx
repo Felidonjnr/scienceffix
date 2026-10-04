@@ -31,7 +31,6 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip as RechartsTooltip } from 'recharts';
-import { QUESTIONS } from '../data/questions';
 // @ts-ignore
 import html2pdf from 'html2pdf.js';
 import { FOUNDING_COHORT_CONFIG, getCohortStatusInfo } from '../data/cohortConfig';
@@ -47,11 +46,13 @@ interface AIAnalysis {
 export default function ReportView({ 
   student, 
   answers, 
+  questionBank,
   onRestart,
   onNavigateHome 
 }: { 
   student: StudentData; 
   answers: Answer[]; 
+  questionBank: any[]; 
   onRestart: () => void;
   onNavigateHome?: () => void;
 }) {
@@ -80,7 +81,7 @@ export default function ReportView({
     const topicStats: Record<string, { topic: string, subject: string, earned: number, max: number }> = {};
 
     answers.forEach(ans => {
-      const q = QUESTIONS.find(q => q.id === ans.questionId);
+      const q = questionBank.find(q => q.id === ans.questionId);
       if (!q) return;
 
       const maxQPoints = Math.max(...q.options.map(o => o.points));
@@ -112,7 +113,7 @@ export default function ReportView({
 
     const topicStats: Record<string, { topic: string, subject: string, earned: number, max: number }> = {};
     answers.forEach(ans => {
-      const q = QUESTIONS.find(q => q.id === ans.questionId);
+      const q = questionBank.find(q => q.id === ans.questionId);
       if (!q) return;
       const maxQPoints = Math.max(...q.options.map(o => o.points));
       if (!topicStats[q.topic]) {
@@ -148,7 +149,7 @@ export default function ReportView({
   const topicPerformance = useMemo(() => {
     const stats: Record<string, { topic: string; subject: string; earned: number; max: number }> = {};
     answers.forEach(ans => {
-      const q = QUESTIONS.find(item => item.id === ans.questionId);
+      const q = questionBank.find(item => item.id === ans.questionId);
       if (!q) return;
       const max = Math.max(...q.options.map(o => o.points));
       if (!stats[q.topic]) stats[q.topic] = { topic: q.topic, subject: q.subject, earned: 0, max: 0 };
@@ -197,7 +198,7 @@ export default function ReportView({
   };
 
   useEffect(() => {
-    const generatedReport = computeReport(answers);
+    const generatedReport = computeReport(answers, questionBank);
     setReport(generatedReport);
     window.scrollTo(0, 0);
 
@@ -683,7 +684,7 @@ export default function ReportView({
                 >
                   <div className="pt-6 space-y-6">
                     {answers.map((answer, index) => {
-                      const question = QUESTIONS.find(q => q.id === answer.questionId);
+                      const question = questionBank.find(q => q.id === answer.questionId);
                       if (!question) return null;
                       const selectedOption = question.options.find(o => o.id === answer.optionId);
                       const correctOption = question.options.reduce((prev, current) => (prev.points > current.points) ? prev : current);
@@ -755,7 +756,7 @@ export default function ReportView({
             const failedTopics = Array.from(new Set(
               answers
                 .filter(a => a.points < 5)
-                .map(a => QUESTIONS.find(q => q.id === a.questionId)?.topic)
+                .map(a => questionBank.find(q => q.id === a.questionId)?.topic)
                 .filter(Boolean)
             ));
             const message = `Hello, I just completed the Science Readiness Assessment and would like to learn more about the Science Transition Academy Founding Cohort. (Candidate: ${student.name}, Foundational Baseline: ${Math.round(avgOverall)}%, Goal: ${student.courseGoal})`;
@@ -907,7 +908,7 @@ export default function ReportView({
                   {(() => {
                     // Group answers for this subject by topic
                     const subjectAnswers = answers.filter(a => {
-                      const q = QUESTIONS.find(q => q.id === a.questionId);
+                      const q = questionBank.find(q => q.id === a.questionId);
                       return q && q.subject === selectedSubject;
                     });
                     
@@ -917,7 +918,7 @@ export default function ReportView({
 
                     const topicGroups: Record<string, { total: number, earned: number, answers: typeof answers }> = {};
                     subjectAnswers.forEach(ans => {
-                      const q = QUESTIONS.find(q => q.id === ans.questionId);
+                      const q = questionBank.find(q => q.id === ans.questionId);
                       if (!q) return;
                       if (!topicGroups[q.topic]) {
                         topicGroups[q.topic] = { total: 0, earned: 0, answers: [] };
@@ -950,7 +951,7 @@ export default function ReportView({
                           
                           <div className="p-6 space-y-6">
                             {stats.answers.map((ans, idx) => {
-                              const q = QUESTIONS.find(q => q.id === ans.questionId);
+                              const q = questionBank.find(q => q.id === ans.questionId);
                               if (!q) return null;
                               const maxPts = Math.max(...q.options.map(o => o.points));
                               const isCorrect = ans.points === maxPts;
@@ -982,7 +983,7 @@ export default function ReportView({
                             })}
                             
                             {stats.answers.every(ans => {
-                               const q = QUESTIONS.find(q => q.id === ans.questionId);
+                               const q = questionBank.find(q => q.id === ans.questionId);
                                if(!q) return true;
                                const maxPts = Math.max(...q.options.map(o => o.points));
                                return ans.points === maxPts;
