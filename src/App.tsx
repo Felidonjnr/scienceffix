@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import LandingView from './components/LandingView';
+import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import AcademyHome from './components/AcademyHome';
 import IntakeForm from './components/IntakeForm';
 import DiagnosticView from './components/DiagnosticView';
 import ReportView from './components/ReportView';
@@ -13,138 +13,89 @@ import { StudentData, Answer } from './types';
 import { isCompleteAssessment } from './utils/engine';
 import { QUESTIONS } from './data/questions';
 
+type AcademySection = 'home' | 'academy' | 'programmes' | 'assessment' | 'learning' | 'pathways' | 'cohort' | 'portal';
+type View = AcademySection | 'intake' | 'diagnostic' | 'report';
+
 export default function App() {
-  const [step, setStep] = useState<'landing' | 'intake' | 'diagnostic' | 'report'>('landing');
+  const [view, setView] = useState<View>('home');
   const [student, setStudent] = useState<StudentData | null>(null);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load from local storage on mount
   useEffect(() => {
     const savedData = localStorage.getItem('science_transition_assessment_state');
     if (savedData) {
       try {
-        const { student: savedStudent, answers: savedAnswers } = JSON.parse(savedData);
-        if (savedStudent && isCompleteAssessment(savedAnswers)) {
-          setStudent(savedStudent);
-          setAnswers(savedAnswers);
-          setStep('report');
+        const parsed = JSON.parse(savedData);
+        if (parsed.student && isCompleteAssessment(parsed.answers)) {
+          setStudent(parsed.student);
+          setAnswers(parsed.answers);
         }
-      } catch (e) {
-        console.error('Failed to parse saved state', e);
+      } catch (error) {
+        console.error('Failed to parse saved assessment state', error);
       }
     }
     setIsLoaded(true);
   }, []);
 
-  // Save to local storage whenever report is reached
   useEffect(() => {
-    if (step === 'report' && student && answers.length > 0) {
+    if (student && answers.length > 0) {
       localStorage.setItem('science_transition_assessment_state', JSON.stringify({ student, answers }));
     }
-  }, [step, student, answers]);
+  }, [student, answers]);
+
+  const startAssessment = () => setView('intake');
+  const viewBlueprint = () => setView('report');
 
   const handleDevSkip = () => {
     const dummyStudent: StudentData = {
-      name: 'Test Student (Auto-filled)',
-      phone: '08000000000',
-      age: '18-20',
-      courseGoal: 'Medicine',
-      targetExam: 'JAMB 2027',
-      startingLevel: 'F',
-      employmentStatus: 'Working full-time',
-      learningMethod: 'Visual',
-      readingPace: 'Fast skimmer',
-      dailyStudyHours: '< 1 hour',
-      biggestChallenge: 'Calculations'
+      name: 'Test Student (Auto-filled)', phone: '08000000000', age: '18-20', courseGoal: 'Medicine', targetExam: 'JAMB 2027', startingLevel: 'F', employmentStatus: 'Working full-time', learningMethod: 'Visual', readingPace: 'Fast skimmer', dailyStudyHours: '< 1 hour', biggestChallenge: 'Calculations'
     };
-
-    const subjects = ['Mathematics', 'Physics', 'Chemistry', 'Biology'];
     const dummyAnswers: Answer[] = [];
-
-    subjects.forEach(subject => {
-      const subjectQuestions = QUESTIONS.filter(q => q.subject === subject);
-      // Just pick 5 random questions for this subject
-      const selected = subjectQuestions.sort(() => 0.5 - Math.random()).slice(0, 5);
-      selected.forEach(q => {
-        const randomOption = q.options[Math.floor(Math.random() * q.options.length)];
-        dummyAnswers.push({
-          questionId: q.id,
-          optionId: randomOption.id,
-          points: randomOption.points,
-          timeSpent: Math.floor(Math.random() * 120) + 10,
-          confidence: ["High", "Medium", "Low"][Math.floor(Math.random() * 3)] as "High" | "Medium" | "Low"
-        });
+    ['Mathematics', 'Physics', 'Chemistry', 'Biology'].forEach(subject => {
+      QUESTIONS.filter(q => q.subject === subject).sort(() => 0.5 - Math.random()).slice(0, 5).forEach(q => {
+        const option = q.options[Math.floor(Math.random() * q.options.length)];
+        dummyAnswers.push({ questionId: q.id, optionId: option.id, points: option.points, timeSpent: Math.floor(Math.random() * 120) + 10, confidence: ['High', 'Medium', 'Low'][Math.floor(Math.random() * 3)] as 'High' | 'Medium' | 'Low' });
       });
     });
-
     setStudent(dummyStudent);
     setAnswers(dummyAnswers);
-    setStep('report');
+    setView('report');
   };
 
-  const pageVariants = {
-    initial: { opacity: 0, y: 15 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -15 }
+  const resetAssessment = () => {
+    localStorage.removeItem('science_transition_assessment_state');
+    setAnswers([]);
+    setStudent(null);
+    setView('home');
   };
+
+  const pageVariants = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -12 } };
 
   if (!isLoaded) return null;
+
+  const academyView = (section: AcademySection) => (
+    <AcademyHome
+      section={section}
+      onNavigate={setView}
+      onStartAssessment={startAssessment}
+      onViewBlueprint={viewBlueprint}
+      hasBlueprint={Boolean(student && answers.length > 0)}
+      studentName={student?.name}
+    />
+  );
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-100 overflow-x-hidden">
       <AnimatePresence mode="wait">
-        <motion.div
-          key={step}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          variants={pageVariants}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="min-h-screen"
-        >
-          {step === 'landing' && (
-            <LandingView 
-              onStart={() => setStep('intake')} 
-              hasExistingBlueprint={Boolean(student && answers.length > 0)}
-              onViewExistingBlueprint={() => setStep('report')}
-              student={student}
-            />
-          )}
-          
-          {step === 'intake' && (
-            <IntakeForm 
-              onSubmit={(data) => {
-                setStudent(data);
-                setStep('diagnostic');
-              }} 
-              onDevSkip={import.meta.env.DEV ? handleDevSkip : undefined}
-            />
-          )}
+        <motion.div key={view} initial="initial" animate="animate" exit="exit" variants={pageVariants} transition={{ duration: 0.22, ease: 'easeInOut' }} className="min-h-screen">
+          {(['home', 'academy', 'programmes', 'assessment', 'learning', 'pathways', 'cohort', 'portal'] as AcademySection[]).includes(view as AcademySection) && academyView(view as AcademySection)}
 
-          {step === 'diagnostic' && student && (
-            <DiagnosticView 
-              student={student}
-              onComplete={(finalAnswers) => {
-                setAnswers(finalAnswers);
-                setStep('report');
-              }} 
-            />
-          )}
+          {view === 'intake' && <IntakeForm onSubmit={(data) => { setStudent(data); setView('diagnostic'); }} onDevSkip={import.meta.env.DEV ? handleDevSkip : undefined} />}
 
-          {step === 'report' && student && (
-            <ReportView 
-              student={student}
-              answers={answers}
-              onNavigateHome={() => setStep('landing')}
-              onRestart={() => {
-                localStorage.removeItem('science_transition_assessment_state');
-                setAnswers([]);
-                setStudent(null);
-                setStep('landing');
-              }}
-            />
-          )}
+          {view === 'diagnostic' && student && <DiagnosticView student={student} onComplete={(finalAnswers) => { setAnswers(finalAnswers); setView('report'); }} />}
+
+          {view === 'report' && student && <ReportView student={student} answers={answers} onNavigateHome={() => setView('home')} onRestart={resetAssessment} />}
         </motion.div>
       </AnimatePresence>
     </div>
