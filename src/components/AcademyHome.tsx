@@ -43,7 +43,7 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
     programmes: { eyebrow: 'PROGRAMMES', title: 'A staged route from rebuilding to readiness.', text: 'The Academy is designed around progression: strengthen the foundation, build core science understanding, apply it, then prepare for the destination ahead.' },
     assessment: { eyebrow: 'SCIENCE READINESS ASSESSMENT', title: 'Know your starting point before you build.', text: 'The readiness assessment is one section of the Academy. It identifies where your current science foundation is strongest, where it needs rebuilding, and what to work on first.' },
     pathways: { eyebrow: 'PATHWAYS', title: 'Start with the destination in mind.', text: 'Explore science-related academic pathways and understand the knowledge, subjects and preparation they require.' },
-    cohort: { eyebrow: 'FOUNDING COHORT', title: 'The first Academy cohort is coming.', text: 'A focused founding cohort is planned for January 2027. Applications, schedule, programme details and fees will be published here.' },
+    cohort: { eyebrow: 'FOUNDING COHORT', title: 'The first Academy cohort is coming.', text: 'A focused founding cohort is planned for January 2027. Applications, schedule, programme details and fees will be shared as the founding cohort is finalised.' },
   };
 
   if (section !== 'home') {
@@ -206,6 +206,6 @@ function ProgrammeCard({ title, text, icon: Icon }: { title: string; text: strin
 }
 
 function PathwayCard({ name }: { name: string }) {
-  return <button className="text-left rounded-2xl border border-slate-200 bg-white p-6 hover:border-blue-300 hover:shadow-lg transition"><HeartPulse className="w-6 h-6 text-blue-700 mb-5" /><h3 className="font-black text-lg">{name}</h3><p className="text-sm text-slate-500 mt-2">Explore pathway requirements</p></button>;
+  return <div className="text-left rounded-2xl border border-slate-200 bg-white p-6"><HeartPulse className="w-6 h-6 text-blue-700 mb-5" /><h3 className="font-black text-lg">{name}</h3><p className="text-sm text-slate-500 mt-2">Pathway information will be added as the Academy develops its guidance resources.</p></div>;
 }
 
