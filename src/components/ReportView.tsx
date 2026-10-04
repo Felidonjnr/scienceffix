@@ -295,7 +295,7 @@ export default function ReportView({
           <div className="flex justify-between items-start mb-8">
             <div>
               <h1 className="text-3xl font-bold tracking-tight mb-2">SCIENCE READINESS BLUEPRINT</h1>
-              <p className="text-[#94A3B8] print:text-[#64748B]">Science Transition Academy • Foundation Analysis & Learning Roadmap</p>
+              <p className="text-[#94A3B8] print:text-[#64748B]">Science Restart Academy • Foundation Analysis & Learning Roadmap</p>
             </div>
             <div className="flex items-center gap-3 hidden md:flex print:hidden">
               {onNavigateHome && (
@@ -759,7 +759,7 @@ export default function ReportView({
                 .map(a => questionBank.find(q => q.id === a.questionId)?.topic)
                 .filter(Boolean)
             ));
-            const message = `Hello, I just completed the Science Readiness Assessment and would like to learn more about the Science Transition Academy Founding Cohort. (Candidate: ${student.name}, Foundational Baseline: ${Math.round(avgOverall)}%, Goal: ${student.courseGoal})`;
+            const message = `Hello, I just completed the Science Readiness Assessment and would like to learn more about the Science Restart Academy Founding Cohort. (Candidate: ${student.name}, Foundational Baseline: ${Math.round(avgOverall)}%, Goal: ${student.courseGoal})`;
             const encodedMessage = encodeURIComponent(message);
             const whatsappLink = `https://wa.me/${FOUNDING_COHORT_CONFIG.contactWhatsAppNumber}?text=${encodedMessage}`;
 
@@ -768,7 +768,7 @@ export default function ReportView({
                 <div className="relative z-10 max-w-2xl mx-auto text-center space-y-6">
                   <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-400 uppercase tracking-wider">
                     <Sparkles className="w-4 h-4" />
-                    <span>Next Steps · Science Transition Academy</span>
+                    <span>Next Steps · Science Restart Academy</span>
                   </div>
 
                   <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight">
@@ -784,7 +784,7 @@ export default function ReportView({
                   <div className="bg-white/5 p-6 rounded-xl border border-white/10 text-left space-y-3.5">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
                       <div>
-                        <h4 className="font-bold text-white text-base">Science Transition Academy — Founding Cohort</h4>
+                        <h4 className="font-bold text-white text-base">Science Restart Academy — Founding Cohort</h4>
                         <p className="text-xs text-blue-400">{statusInfo.badgeText} · {FOUNDING_COHORT_CONFIG.cohortCode}</p>
                       </div>
                       <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full border self-start sm:self-auto ${statusInfo.badgeColor}`}>
@@ -846,7 +846,7 @@ export default function ReportView({
 
         <div className="bg-[#F8FAFC] p-6 md:p-8 border-t border-[#E2E8F0] flex flex-col md:flex-row justify-between items-center gap-4 print:hidden">
           <p className="text-[10px] text-[#94A3B8] font-bold uppercase tracking-wider text-center md:text-left">
-            Science Transition Academy • Foundation Assessment Platform
+            Science Restart Academy • Foundation Assessment Platform
           </p>
           <div className="flex gap-3">
             <button 
