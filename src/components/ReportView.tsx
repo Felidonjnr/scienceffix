@@ -334,7 +334,7 @@ export default function ReportView({
               <p className="font-semibold text-sm">{student.dailyStudyHours}</p>
             </div>
             <div>
-              <p className="text-[10px] text-[#94A3B8] print:text-[#64748B] font-bold uppercase tracking-wider mb-1">Learning Style</p>
+              <p className="text-[10px] text-[#94A3B8] print:text-[#64748B] font-bold uppercase tracking-wider mb-1">Learning Approach</p>
               <p className="font-semibold text-sm">{student.learningMethod}</p>
             </div>
           </div>
@@ -419,7 +419,7 @@ export default function ReportView({
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-[#E2E8F0] pb-4">
                 <div className="flex items-center gap-3">
                   <UserCheck className="w-6 h-6 text-emerald-600" />
-                  <h3 className="text-xl font-bold text-[#0F172A]">Learning Profile & Cognitive Patterns</h3>
+                  <h3 className="text-xl font-bold text-[#0F172A]">Learning Profile & Study Patterns</h3>
                 </div>
                 <div className="flex bg-slate-100 p-1 rounded-lg">
                   <button 
@@ -460,14 +460,14 @@ export default function ReportView({
                     <Sparkles className="w-6 h-6 text-blue-400" />
                     <h3 className="text-xl font-bold text-white">Personalized Study Principles</h3>
                   </div>
-                  <p className="text-slate-400 text-sm mb-6">Recommended learning rules tailored for a <strong className="text-white">{student.learningMethod}</strong> learner:</p>
+                  <p className="text-slate-400 text-sm mb-6">Recommended study principles based on the way you said you learn difficult material:</p>
                   <ul className="space-y-5">
                     {Array.isArray(aiAnalysis.unfairAdvantage) ? aiAnalysis.unfairAdvantage.map((rule, idx) => (
                       <li key={idx} className="flex gap-3 items-start">
                         <CheckCircle className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
                         <span className="text-sm text-slate-200 leading-relaxed">{rule}</span>
                       </li>
-                    )) : <li className="text-sm text-slate-200">Leverage your unique learning style in every study session.</li>}
+                    )) : <li className="text-sm text-slate-200">Use active practice, explanation, and review strategies consistently.</li>}
                   </ul>
                 </div>
 
