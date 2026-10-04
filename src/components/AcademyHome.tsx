@@ -111,8 +111,8 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
               <h1 className="text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[.98] max-w-4xl">You want a science future. <span className="text-blue-300">But your foundation is holding you back.</span></h1>
               <p className="mt-7 text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">Science Restart Academy helps adults and other learners rebuild the science foundation they need for the next step in their education or career.</p>
               <div className="flex flex-wrap gap-3 mt-9">
-                <button onClick={() => go('cohort')} className="px-6 py-4 rounded-2xl bg-white text-slate-950 font-black hover:bg-blue-50 transition">Join the January 2027 founding cohort <ArrowRight className="inline w-5 h-5 ml-1" /></button>
-                <button onClick={() => go('assessment')} className="px-6 py-4 rounded-2xl border border-white/20 font-bold hover:bg-white/10 transition">Check your science readiness</button>
+                <button onClick={() => go('assessment')} className="px-6 py-4 rounded-2xl bg-white text-slate-950 font-black hover:bg-blue-50 transition">Check your science readiness <ArrowRight className="inline w-5 h-5 ml-1" /></button>
+                <button onClick={() => go('cohort')} className="px-6 py-4 rounded-2xl border border-white/20 font-bold hover:bg-white/10 transition">Join the founding cohort list</button>
               </div>
             </motion.div>
             <div className="rounded-[2rem] border border-white/10 bg-white/[.06] backdrop-blur p-7 md:p-8">
@@ -151,7 +151,7 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
           <div className="max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-24">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
               <div><p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">THE ACADEMY MODEL</p><h2 className="text-4xl md:text-5xl font-black tracking-tight">Four stages. A clear way forward.</h2></div>
-              <button onClick={() => go('programmes')} className="font-bold text-blue-700">View programmes <ChevronRight className="inline w-4 h-4" /></button>
+              <button onClick={() => go('programmes')} className="font-bold text-blue-700">See the Academy model <ChevronRight className="inline w-4 h-4" /></button>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">{programmes.map((item) => <ProgrammeCard key={item.title} {...item} />)}</div><p className="mt-6 text-sm text-slate-500 max-w-3xl">The exact curriculum, duration and delivery for each stage will be shaped and validated as the Academy develops.</p>
           </div>
@@ -159,15 +159,15 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
 
         <section className="bg-slate-950 text-white">
           <div className="max-w-7xl mx-auto px-5 sm:px-8 py-14 md:py-16 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
-            <div><p className="text-xs font-black tracking-[0.2em] text-blue-300 mb-2">JANUARY 2027</p><h2 className="text-2xl md:text-3xl font-black">We are building the first Science Restart Academy cohort.</h2><p className="text-slate-300 mt-2">Tell us where you are starting from. Your answers will shape the launch.</p></div>
-            <button onClick={() => go('cohort')} className="shrink-0 px-6 py-3.5 rounded-xl bg-white text-slate-950 font-black">Join the pre-launch list <ArrowRight className="inline w-4 h-4 ml-1" /></button>
+            <div><p className="text-xs font-black tracking-[0.2em] text-blue-300 mb-2">JANUARY 2027</p><h2 className="text-2xl md:text-3xl font-black">We are building the first Science Restart Academy cohort.</h2><p className="text-slate-300 mt-2">If the Academy sounds right for you, tell us about your situation and what you need.</p></div>
+            <button onClick={() => go('cohort')} className="shrink-0 px-6 py-3.5 rounded-xl bg-white text-slate-950 font-black">Express founding cohort interest <ArrowRight className="inline w-4 h-4 ml-1" /></button>
           </div>
         </section>
 
         <section className="max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-24">
           <div className="rounded-[2rem] bg-blue-700 text-white p-8 md:p-12 flex flex-col lg:flex-row justify-between gap-10 items-start lg:items-center">
             <div className="max-w-2xl"><p className="text-sm font-black tracking-[0.2em] text-blue-200 mb-4">START HERE</p><h2 className="text-3xl md:text-4xl font-black">Before you prepare for the next exam, find out what you actually need to learn.</h2><p className="mt-4 text-blue-100 leading-relaxed">The Readiness Assessment is one part of the Academy—not the Academy itself. Use it to establish your starting point.</p></div>
-            <button onClick={() => go('assessment')} className="shrink-0 px-7 py-4 rounded-2xl bg-white text-slate-950 font-black">Take the assessment <ArrowRight className="inline w-5 h-5 ml-1" /></button>
+            <button onClick={() => go('assessment')} className="shrink-0 px-7 py-4 rounded-2xl bg-white text-slate-950 font-black">Check your readiness <ArrowRight className="inline w-5 h-5 ml-1" /></button>
           </div>
         </section>
       </main>
