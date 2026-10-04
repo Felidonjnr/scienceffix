@@ -96,7 +96,31 @@ export default function App() {
 
   const pageVariants = { initial: { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -12 } };
 
-  if (!isLoaded || questionBank.length === 0) return null;
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center px-6">
+        <div className="text-center max-w-md">
+          <div className="mx-auto mb-5 w-10 h-10 rounded-full border-2 border-white/20 border-t-white animate-spin" />
+          <p className="text-xs font-black tracking-[0.2em] text-blue-300 mb-2">SCIENCE RESTART ACADEMY</p>
+          <h1 className="text-2xl font-black">Preparing your learning environment…</h1>
+          <p className="text-slate-400 mt-3 text-sm">Loading the current diagnostic question bank.</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (questionBank.length === 0) {
+    return (
+      <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center px-6">
+        <div className="text-center max-w-md">
+          <p className="text-xs font-black tracking-[0.2em] text-blue-300 mb-2">SCIENCE RESTART ACADEMY</p>
+          <h1 className="text-2xl font-black">The assessment is temporarily unavailable.</h1>
+          <p className="text-slate-400 mt-3 text-sm">Please refresh in a moment. Your Academy account has not been affected.</p>
+          <button onClick={() => window.location.reload()} className="mt-6 px-5 py-3 rounded-xl bg-white text-slate-950 font-black">Try again</button>
+        </div>
+      </div>
+    );
+  }
 
   const academyView = (section: AcademySection) => (
     <AcademyHome
