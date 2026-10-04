@@ -7,6 +7,8 @@ type Section = 'home' | 'academy' | 'programmes' | 'assessment' | 'learning' | '
 interface AcademyHomeProps {
   section: Section;
   onNavigate: (section: Section) => void;
+  onStartAssessment: () => void;
+  onViewBlueprint: () => void;
   hasBlueprint: boolean;
   studentName?: string;
 }
@@ -29,7 +31,7 @@ const programmes = [
   { title: 'Pathway Readiness', text: 'Connect your science foundation to the academic destination you are working toward.', icon: GraduationCap },
 ];
 
-export default function AcademyHome({ section, onNavigate, hasBlueprint, studentName }: AcademyHomeProps) {
+export default function AcademyHome({ section, onNavigate, onStartAssessment, onViewBlueprint, hasBlueprint, studentName }: AcademyHomeProps) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const go = (next: Section) => {
@@ -82,7 +84,7 @@ export default function AcademyHome({ section, onNavigate, hasBlueprint, student
               <p className="text-slate-300 leading-relaxed mb-7">Take the assessment to establish your current starting point and receive a Science Readiness Blueprint.</p>
               <div className="flex flex-wrap gap-3">
                 <button onClick={() => go('assessment')} className="px-6 py-3 rounded-xl bg-white text-slate-950 font-bold">Start assessment <ArrowRight className="inline w-4 h-4 ml-1" /></button>
-                {hasBlueprint && <button onClick={() => onNavigate('assessment')} className="px-6 py-3 rounded-xl border border-white/20 font-bold">View existing blueprint</button>}
+                {hasBlueprint && <button onClick={() => onViewBlueprint()} className="px-6 py-3 rounded-xl border border-white/20 font-bold">View existing blueprint</button>}
               </div>
             </div>
           )}
@@ -93,7 +95,7 @@ export default function AcademyHome({ section, onNavigate, hasBlueprint, student
               {['Nursing', 'Medical Laboratory Science', 'Public Health', 'Other Science Pathways'].map((name) => <PathwayCard key={name} name={name} />)}
             </div>
           )}
-          {section === 'cohort' && <ComingSoon icon={Users} label="Founding cohort information and applications will appear here." action={() => go('assessment')} actionLabel="Check your readiness" />}
+          {section === 'cohort' && <ComingSoon icon={Users} label="Founding cohort information and applications will appear here." action={onStartAssessment} actionLabel="Check your readiness" />}
           {section === 'portal' && <ComingSoon icon={BriefcaseBusiness} label="The learner portal is planned for the next stage of the Academy." />}
         </main>
       </div>
