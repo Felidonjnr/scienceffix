@@ -417,7 +417,7 @@ export default function IntakeForm({ onSubmit, onDevSkip }: IntakeFormProps) {
                 <Shield className="w-5 h-5 text-slate-500 mt-0.5 shrink-0" />
                 <div className="text-xs text-slate-600 leading-relaxed">
                   <strong className="text-slate-800 font-semibold block mb-0.5">Privacy Reassurance:</strong>
-                  Your assessment runs entirely on your local browser. Your data is not sold or shared. Be sure to save your Readiness Blueprint PDF when completed.
+                  Your assessment results are processed in your browser and saved locally on this device. The basic contact and pathway details you provide are sent to Science Restart Academy so we can understand prospective learners and follow up about the Academy. Be sure to save your Readiness Blueprint PDF when completed.
                 </div>
               </div>
 
