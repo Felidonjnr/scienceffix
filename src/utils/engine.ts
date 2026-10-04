@@ -5,23 +5,34 @@ const ESCALATION_THRESHOLD = 0.6; // 60% of available points
 
 export function getQuestionsForSubjectAndLevel(subject: Subject, level: ProfileLevel, student?: StudentData): Question[] {
   let matched = QUESTIONS.filter(q => q.subject === subject && q.profileLevel === level);
-  if (student) {
-    if (student.biggestChallenge === 'Calculations') {
-      matched.sort((a, b) => {
-        const aMath = a.isMathHeavy ? 1 : 0;
-        const bMath = b.isMathHeavy ? 1 : 0;
-        return bMath - aMath;
-      });
+
+  // The bank contains 25 questions per subject/level. A live diagnostic uses
+  // exactly 4 from that pool so expanding the bank does not turn the assessment
+  // into an impractical 400-question test.
+  const seedText = student
+    ? `${student.name}|${student.phone}|${student.courseGoal}|${student.targetExam}|${subject}|${level}`
+    : `${subject}|${level}`;
+
+  const hash = (value: string) => {
+    let h = 2166136261;
+    for (let i = 0; i < value.length; i++) {
+      h ^= value.charCodeAt(i);
+      h = Math.imul(h, 16777619);
     }
-    if (student.readingPace === 'Fast skimmer' || student.readingPace === 'Struggles with focus') {
-      matched.sort((a, b) => {
-        const aShort = a.textLength === 'short' ? 1 : 0;
-        const bShort = b.textLength === 'short' ? 1 : 0;
-        return bShort - aShort;
-      });
-    }
+    return h >>> 0;
+  };
+
+  const seeded = [...matched].sort((a, b) => hash(seedText + a.id) - hash(seedText + b.id));
+
+  if (student?.biggestChallenge === 'Calculations') {
+    seeded.sort((a, b) => Number(Boolean(b.isMathHeavy)) - Number(Boolean(a.isMathHeavy)));
   }
-  return matched;
+
+  if (student?.readingPace === 'Fast skimmer' || student?.readingPace === 'Struggles with focus') {
+    seeded.sort((a, b) => Number(b.textLength === 'short') - Number(a.textLength === 'short'));
+  }
+
+  return seeded.slice(0, 4);
 }
 
 export function evaluateSubjectLevel(answers: Answer[], questionsInLevel: Question[]): { points: number, maxPoints: number, passed: boolean } {
