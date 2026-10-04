@@ -79,7 +79,7 @@ async function startServer() {
   });
 
   
-  app.post("/api/clinical-insight", async (req, res) => {
+  app.post("/api/learning-insight", async (req, res) => {
     try {
       const { answers } = req.body;
       
@@ -116,7 +116,7 @@ async function startServer() {
       const analysis = JSON.parse(rawText);
       res.json(analysis);
     } catch (error) {
-      console.error("Clinical Insight Error:", error);
+      console.error("Learning Insight Error:", error);
       res.status(500).json({ error: "Failed to generate clinical insight" });
     }
   });
