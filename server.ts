@@ -14,6 +14,37 @@ async function startServer() {
   app.use(express.json());
 
   // Define API routes FIRST
+  app.get("/api/questions", async (_req, res) => {
+    try {
+      const supabaseUrl = process.env.SUPABASE_URL;
+      const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+      if (!supabaseUrl || !serviceRoleKey) {
+        return res.status(503).json({ error: "Question database is not configured." });
+      }
+
+      const response = await fetch(
+        `${supabaseUrl}/rest/v1/science_restart_questions?select=id,subject,profile_level,knowledge_type,topic,text,options,explanation,is_math_heavy,text_length,cognitive_skills,difficulty&active=eq.true&order=id.asc`,
+        {
+          headers: {
+            "apikey": serviceRoleKey,
+            "Authorization": `Bearer ${serviceRoleKey}`
+          }
+        }
+      );
+
+      if (!response.ok) {
+        console.error("Supabase question retrieval failed:", await response.text());
+        return res.status(502).json({ error: "Unable to retrieve the question bank." });
+      }
+
+      const questions = await response.json();
+      return res.json({ questions });
+    } catch (error) {
+      console.error("Question retrieval error:", error);
+      return res.status(500).json({ error: "Unable to retrieve the question bank." });
+    }
+  });
+
   function adminAuthorized(req: express.Request) {
     const configured = process.env.ADMIN_DASHBOARD_KEY;
     const supplied = req.headers['x-admin-key'];
