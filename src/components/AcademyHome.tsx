@@ -40,7 +40,7 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
   };
 
   const sectionCopy: Record<Exclude<Section, 'home'>, { eyebrow: string; title: string; text: string }> = {
-    academy: { eyebrow: 'THE ACADEMY', title: 'A bridge into science, not another crash course.', text: 'Science Transition Academy helps learners rebuild the foundation they need to enter, understand and progress through science-related education.' },
+    academy: { eyebrow: 'THE ACADEMY', title: 'Start science again. Learn it properly. Move forward.', text: 'Science Restart Academy helps learners rebuild the foundation they need to enter, understand and progress through science-related education.' },
     programmes: { eyebrow: 'PROGRAMMES', title: 'A staged route from rebuilding to readiness.', text: 'The Academy is designed around progression: strengthen the foundation, build core science understanding, apply it, then prepare for the destination ahead.' },
     assessment: { eyebrow: 'SCIENCE READINESS ASSESSMENT', title: 'Know your starting point before you build.', text: 'The readiness assessment is one section of the Academy. It identifies where your current science foundation is strongest, where it needs rebuilding, and what to work on first.' },
     learning: { eyebrow: 'LEARNING HUB', title: 'Resources built for real learning.', text: 'Lessons, explanations, worksheets, practice and revision resources will live here as the Academy learning library grows.' },
@@ -111,17 +111,17 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
           <div className="relative max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-28 grid lg:grid-cols-[1.2fr_.8fr] gap-14 items-center">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/15 bg-white/5 text-blue-200 text-xs font-bold tracking-widest uppercase mb-7">
-                <Sparkles className="w-3.5 h-3.5" /> Science Transition Academy
+                <Sparkles className="w-3.5 h-3.5" /> Science Restart Academy
               </div>
-              <h1 className="text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[.98] max-w-4xl">You don't need another crash course. <span className="text-blue-300">You need a bridge.</span></h1>
-              <p className="mt-7 text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">A structured learning academy for people who want to move into science-related education or careers but need to rebuild the science foundation they never properly developed.</p>
+              <h1 className="text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[.98] max-w-4xl">You don't need another crash course. <span className="text-blue-300">You may need to restart properly.</span></h1>
+              <p className="mt-7 text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">A structured science academy for people who want a science-related future but need to rebuild the foundation they never properly developed.</p>
               <div className="flex flex-wrap gap-3 mt-9">
                 <button onClick={() => go('assessment')} className="px-6 py-4 rounded-2xl bg-white text-slate-950 font-black hover:bg-blue-50 transition">Check your science readiness <ArrowRight className="inline w-5 h-5 ml-1" /></button>
                 <button onClick={() => go('programmes')} className="px-6 py-4 rounded-2xl border border-white/20 font-bold hover:bg-white/10 transition">Explore the Academy</button>
               </div>
             </motion.div>
             <div className="rounded-[2rem] border border-white/10 bg-white/[.06] backdrop-blur p-7 md:p-8">
-              <p className="text-sm font-bold text-blue-200 uppercase tracking-widest mb-6">The transition</p>
+              <p className="text-sm font-bold text-blue-200 uppercase tracking-widest mb-6">The restart</p>
               {['Where I am now', 'Science Foundation', 'Core Science', 'Science Application', 'Where I want to go'].map((label, i) => (
                 <div key={label} className="flex items-center gap-4">
                   <div className="flex flex-col items-center">
@@ -139,7 +139,7 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
           <div className="max-w-3xl mb-12">
             <p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">WHY THE ACADEMY EXISTS</p>
             <h2 className="text-4xl md:text-5xl font-black tracking-tight">A different starting point for science learners.</h2>
-            <p className="mt-5 text-lg text-slate-600 leading-relaxed">The Academy is built around the gap between having a destination and having the foundation required to reach it.</p>
+            <p className="mt-5 text-lg text-slate-600 leading-relaxed">The Academy is built around the gap between where you are in science today and where you need to be.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-5">
             <InfoCard title="Build understanding" text="Learn the concepts and language you missed, in an order that makes sense." />
@@ -151,7 +151,7 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
         <section className="bg-slate-50 border-y border-slate-100">
           <div className="max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-24">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-              <div><p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">THE LEARNING JOURNEY</p><h2 className="text-4xl md:text-5xl font-black tracking-tight">Four stages. One transition.</h2></div>
+              <div><p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">THE LEARNING JOURNEY</p><h2 className="text-4xl md:text-5xl font-black tracking-tight">Four stages. One restart.</h2></div>
               <button onClick={() => go('programmes')} className="font-bold text-blue-700">View programmes <ChevronRight className="inline w-4 h-4" /></button>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">{programmes.map((item) => <ProgrammeCard key={item.title} {...item} />)}</div>
@@ -165,7 +165,7 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
           </div>
         </section>
       </main>
-      <footer className="border-t border-slate-100"><div className="max-w-7xl mx-auto px-5 sm:px-8 py-10 flex flex-col md:flex-row justify-between gap-4 text-sm text-slate-500"><span className="font-black text-slate-900">Science Transition Academy</span><span>Build the foundation. Make the transition. Keep moving.</span></div></footer>
+      <footer className="border-t border-slate-100"><div className="max-w-7xl mx-auto px-5 sm:px-8 py-10 flex flex-col md:flex-row justify-between gap-4 text-sm text-slate-500"><span className="font-black text-slate-900">Science Restart Academy</span><span>Build the foundation. Make the transition. Keep moving.</span></div></footer>
     </div>
   );
 }
@@ -176,7 +176,7 @@ function Header({ section, onNavigate, mobileOpen, setMobileOpen }: { section: S
       <div className="max-w-7xl mx-auto px-5 sm:px-8 h-18 min-h-[72px] flex items-center justify-between gap-6">
         <button onClick={() => onNavigate('home')} className="flex items-center gap-3 shrink-0 text-left">
           <div className="w-10 h-10 rounded-xl bg-slate-950 flex items-center justify-center"><Sparkles className="w-5 h-5 text-blue-300" /></div>
-          <span className="font-black tracking-tight hidden sm:block">Science Transition Academy</span>
+          <span className="font-black tracking-tight hidden sm:block">Science Restart Academy</span>
         </button>
         <nav className="hidden xl:flex items-center gap-1">
           {navItems.map((item) => <button key={item.id} onClick={() => onNavigate(item.id)} className={`px-3 py-2 rounded-lg text-sm font-bold transition ${section === item.id ? 'bg-slate-950 text-white' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950'}`}>{item.label}</button>)}
