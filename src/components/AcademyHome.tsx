@@ -1,5 +1,6 @@
 import { ArrowRight, BookOpen, Brain, BriefcaseBusiness, CheckCircle2, ChevronRight, GraduationCap, HeartPulse, Library, Menu, Sparkles, Target, Users, X } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useState } from 'react';
 
 type Section = 'home' | 'academy' | 'programmes' | 'assessment' | 'learning' | 'pathways' | 'cohort' | 'portal';
 
@@ -81,7 +82,7 @@ export default function AcademyHome({ section, onNavigate, hasBlueprint, student
               <p className="text-slate-300 leading-relaxed mb-7">Take the assessment to establish your current starting point and receive a Science Readiness Blueprint.</p>
               <div className="flex flex-wrap gap-3">
                 <button onClick={() => go('assessment')} className="px-6 py-3 rounded-xl bg-white text-slate-950 font-bold">Start assessment <ArrowRight className="inline w-4 h-4 ml-1" /></button>
-                {hasBlueprint && <button onClick={() => onNavigate('report' as Section)} className="px-6 py-3 rounded-xl border border-white/20 font-bold">View existing blueprint</button>}
+                {hasBlueprint && <button onClick={() => onNavigate('assessment')} className="px-6 py-3 rounded-xl border border-white/20 font-bold">View existing blueprint</button>}
               </div>
             </div>
           )}
@@ -204,4 +205,3 @@ function ComingSoon({ icon: Icon, label, action, actionLabel }: { icon: typeof L
   return <div className="mt-14 rounded-3xl border border-dashed border-slate-300 bg-white p-10 max-w-2xl"><Icon className="w-8 h-8 text-blue-700 mb-5" /><p className="text-lg font-bold text-slate-800">{label}</p>{action && <button onClick={action} className="mt-6 px-5 py-3 rounded-xl bg-slate-950 text-white font-bold">{actionLabel}</button>}</div>;
 }
 
-import React from 'react';
