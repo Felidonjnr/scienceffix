@@ -19,7 +19,7 @@ import {
   Clock, 
   BrainCircuit, 
   ShieldAlert, 
-  TrendingUp, 
+
   ChevronRight, 
   Search, 
   Home, 
@@ -240,7 +240,7 @@ export default function ReportView({
       return {
         subject: subject.substring(0, 4), // abbreviate for chart
         score: Math.round(subjectData.rawScore),
-        benchmark: 85, // Premium target
+
       };
     });
   }, [report]);
@@ -373,7 +373,6 @@ export default function ReportView({
                 </div>
                 <div className="flex gap-4 mt-4 text-[10px] font-bold uppercase tracking-wider">
                   <div className="flex items-center gap-1"><div className="w-2 h-2 bg-blue-500 rounded-full"></div> Your Score</div>
-                  <div className="flex items-center gap-1"><div className="w-2 h-2 bg-green-500 rounded-full"></div> Target (85%)</div>
                 </div>
               </div>
 
