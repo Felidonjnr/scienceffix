@@ -39,6 +39,11 @@ async function startServer() {
         
         Raw Score & Performance Data:
         ${JSON.stringify(report, null, 2)}
+
+        Measured Topic Performance (weakest first):
+        ${JSON.stringify(req.body.topicPerformance || [], null, 2)}
+
+        IMPORTANT: Treat the measured topic performance above as the factual basis for the roadmap. Do not invent topic weaknesses that are not represented there. The four-month prescription must explicitly prioritize the weakest measured topics first, then move toward broader integration and application.
         
         Your tone must be authoritative, academic, structured, and constructive. Diagnose where their conceptual foundation is incomplete or fragmented, and explain clearly what needs to be rebuilt to achieve their goal (${student.courseGoal || 'their target science program'}).
 
@@ -117,7 +122,7 @@ async function startServer() {
       res.json(analysis);
     } catch (error) {
       console.error("Learning Insight Error:", error);
-      res.status(500).json({ error: "Failed to generate clinical insight" });
+      res.status(500).json({ error: "Failed to generate learning insight" });
     }
   });
 
