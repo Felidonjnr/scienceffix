@@ -78,7 +78,7 @@ export default function App() {
     };
     const dummyAnswers: Answer[] = [];
     ['Mathematics', 'Physics', 'Chemistry', 'Biology'].forEach(subject => {
-      QUESTIONS.filter(q => q.subject === subject).sort(() => 0.5 - Math.random()).slice(0, 5).forEach(q => {
+      questionBank.filter(q => q.subject === subject).sort(() => 0.5 - Math.random()).slice(0, 5).forEach(q => {
         const option = q.options[Math.floor(Math.random() * q.options.length)];
         dummyAnswers.push({ questionId: q.id, optionId: option.id, points: option.points, timeSpent: Math.floor(Math.random() * 120) + 10, confidence: ['High', 'Medium', 'Low'][Math.floor(Math.random() * 3)] as 'High' | 'Medium' | 'Low' });
       });
