@@ -183,7 +183,7 @@ export default function AdminDashboard() {
                 <tr>
                   <th className="px-4 py-3">Date</th>
                   <th className="px-4 py-3">Learner</th>
-                  <th className="px-4 py-3">Phone</th>
+                  <th className="px-4 py-3">Contact</th>
                   <th className="px-4 py-3">Pathway</th>
                   <th className="px-4 py-3">Background</th>
                   <th className="px-4 py-3">Science situation</th>
@@ -197,8 +197,21 @@ export default function AdminDashboard() {
                   <tr key={lead.id} className="align-top hover:bg-white/[0.03]">
                     <td className="px-4 py-4 whitespace-nowrap text-slate-400">{new Date(lead.created_at).toLocaleString()}</td>
                     <td className="px-4 py-4 font-bold">{lead.name}</td>
-                    <td className="px-4 py-4 whitespace-nowrap">{lead.phone}</td>
-                    <td className="px-4 py-4">{lead.desired_pathway || '—'}</td>
+                    <td className="px-4 py-4 whitespace-nowrap">
+                      <div>{lead.phone}</div>
+                      <a
+                        href={`https://wa.me/${lead.phone.replace(/\\D/g, '')}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-1 inline-block text-xs font-bold text-emerald-300 hover:text-emerald-200"
+                      >
+                        WhatsApp →
+                      </a>
+                    </td>
+                    <td className="px-4 py-4">
+                      <div>{lead.desired_pathway || '—'}</div>
+                      {lead.wants_founding_cohort && <span className="mt-2 inline-flex rounded-full bg-blue-400/10 px-2 py-1 text-[10px] font-black uppercase tracking-wider text-blue-300">Founding cohort</span>}
+                    </td>
                     <td className="px-4 py-4">{lead.previous_background || '—'}</td>
                     <td className="px-4 py-4">{lead.science_status || '—'}</td>
                     <td className="px-4 py-4 max-w-xs">{lead.biggest_challenge || '—'}</td>
