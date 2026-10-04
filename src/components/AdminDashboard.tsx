@@ -200,7 +200,7 @@ export default function AdminDashboard() {
                     <td className="px-4 py-4 whitespace-nowrap">
                       <div>{lead.phone}</div>
                       <a
-                        href={`https://wa.me/${lead.phone.replace(/\\D/g, '')}`}
+                        href={`https://wa.me/${lead.phone.replace(/\D/g, '')}`}
                         target="_blank"
                         rel="noreferrer"
                         className="mt-1 inline-block text-xs font-bold text-emerald-300 hover:text-emerald-200"
