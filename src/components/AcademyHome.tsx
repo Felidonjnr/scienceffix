@@ -40,7 +40,7 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
 
   const sectionCopy: Record<Exclude<Section, 'home'>, { eyebrow: string; title: string; text: string }> = {
     academy: { eyebrow: 'THE ACADEMY', title: "You don't have to pretend you already know the science. Start from where you are.", text: 'Science Restart Academy helps learners rebuild the foundation they need to enter, understand and progress through science-related education.' },
-    programmes: { eyebrow: 'PROGRAMMES', title: 'A staged route from rebuilding to readiness.', text: 'The Academy is designed around progression: strengthen the foundation, build core science understanding, apply it, then prepare for the destination ahead.' },
+    programmes: { eyebrow: 'THE ACADEMY MODEL', title: 'A staged route from rebuilding to readiness.', text: 'These four stages describe how Science Restart Academy is designed to help learners progress. They are the Academy model—not four separate courses currently open for enrollment.' },
     assessment: { eyebrow: 'SCIENCE READINESS ASSESSMENT', title: 'Know your starting point before you build.', text: 'The readiness assessment is one section of the Academy. It identifies where your current science foundation is strongest, where it needs rebuilding, and what to work on first.' },
     pathways: { eyebrow: 'PATHWAYS', title: 'Start with the destination in mind.', text: 'Explore science-related academic pathways and understand the knowledge, subjects and preparation they require.' },
     cohort: { eyebrow: 'FOUNDING COHORT', title: 'The first Academy cohort is coming.', text: 'A focused founding cohort is planned for January 2027. Applications, schedule, programme details and fees will be shared as the founding cohort is finalised.' },
@@ -150,10 +150,10 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
         <section className="bg-slate-50 border-y border-slate-100">
           <div className="max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-24">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-              <div><p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">THE LEARNING JOURNEY</p><h2 className="text-4xl md:text-5xl font-black tracking-tight">Four stages. A clear way forward.</h2></div>
+              <div><p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">THE ACADEMY MODEL</p><h2 className="text-4xl md:text-5xl font-black tracking-tight">Four stages. A clear way forward.</h2></div>
               <button onClick={() => go('programmes')} className="font-bold text-blue-700">View programmes <ChevronRight className="inline w-4 h-4" /></button>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">{programmes.map((item) => <ProgrammeCard key={item.title} {...item} />)}</div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">{programmes.map((item) => <ProgrammeCard key={item.title} {...item} />)}</div><p className="mt-6 text-sm text-slate-500 max-w-3xl">The exact curriculum, duration and delivery for each stage will be shaped and validated as the Academy develops.</p>
           </div>
         </section>
 
