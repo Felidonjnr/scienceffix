@@ -75,7 +75,7 @@ export default function App() {
 
   const handleDevSkip = () => {
     const dummyStudent: StudentData = {
-      name: 'Test Student (Auto-filled)', phone: '08000000000', age: '18-20', courseGoal: 'Medicine', targetExam: 'JAMB 2027', startingLevel: 'F', employmentStatus: 'Working full-time', learningMethod: 'Visual', readingPace: 'Fast skimmer', dailyStudyHours: '< 1 hour', biggestChallenge: 'Calculations'
+      name: 'Test Student (Auto-filled)', phone: '08000000000', age: '18-20', courseGoal: 'Medicine', targetExam: 'JAMB / UTME', startingLevel: 'F', employmentStatus: 'Working full-time', learningMethod: 'Step-by-step explanation', readingPace: 'Understand with explanation', dailyStudyHours: '< 1 hour', biggestChallenge: 'Calculations'
     };
     const dummyAnswers: Answer[] = [];
     ['Mathematics', 'Physics', 'Chemistry', 'Biology'].forEach(subject => {
