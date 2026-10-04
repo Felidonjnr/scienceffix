@@ -214,7 +214,7 @@ export default function ReportView({
 
     const fetchClinicalInsight = async () => {
       try {
-        const response = await fetch('/api/clinical-insight', {
+        const response = await fetch('/api/learning-insight', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ answers })
