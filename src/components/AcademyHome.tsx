@@ -2,6 +2,7 @@ import { ArrowRight, BookOpen, Brain, BriefcaseBusiness, CheckCircle2, ChevronRi
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import FoundingCohortForm from './FoundingCohortForm';
+import LearningHub from './LearningHub';
 
 type Section = 'home' | 'academy' | 'programmes' | 'assessment' | 'learning' | 'pathways' | 'cohort' | 'portal';
 
@@ -90,7 +91,7 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
             </div>
           )}
 
-          {section === 'learning' && <ComingSoon icon={Library} label="Learning resources are being built into the Academy." />}
+          {section === 'learning' && <LearningHub onNavigate={onNavigate} />}
           {section === 'pathways' && (
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
               {['Nursing', 'Medical Laboratory Science', 'Public Health', 'Other Science Pathways'].map((name) => <PathwayCard key={name} name={name} />)}
