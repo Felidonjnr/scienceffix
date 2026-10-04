@@ -1,6 +1,6 @@
 {
-  "name": "The Science Foundation Lab",
-  "description": "Diagnostic and adaptive learning framework for identifying student science readiness.",
+  "name": "Science Transition Academy",
+  "description": "Science Readiness Assessment and foundational learning platform for students and career transitioners.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

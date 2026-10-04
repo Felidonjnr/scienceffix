@@ -54,3 +54,60 @@ export interface Scorecard {
   status: string;
 }
 
+export interface ApplicantIdentity {
+  fullName: string;
+  phone: string;
+  email?: string;
+}
+
+export interface ApplicantAcademicBackground {
+  previousBackground: string;
+  secondaryCompletionYear?: string;
+}
+
+export interface ApplicantAcademicGoal {
+  intendedPathway: string;
+  intendedExam?: string;
+}
+
+export interface ApplicantScienceBackground {
+  currentFoundation: string;
+  mostDifficultSubject: string;
+}
+
+export interface ApplicantMotivation {
+  mainReason: string;
+  targetOutcome?: string;
+}
+
+export interface ApplicantAvailability {
+  currentStatus: string;
+  weeklyStudyHours: string;
+  schedulingNotes?: string;
+}
+
+export interface ApplicantAssessmentContext {
+  completed: boolean;
+  baselineScore?: number;
+  courseGoal?: string;
+  timestamp?: string;
+}
+
+export interface FoundingCohortApplication {
+  id: string;
+  identity: ApplicantIdentity;
+  academicBackground: ApplicantAcademicBackground;
+  academicGoal: ApplicantAcademicGoal;
+  scienceBackground: ApplicantScienceBackground;
+  motivation: ApplicantMotivation;
+  availability: ApplicantAvailability;
+  assessmentContext?: ApplicantAssessmentContext;
+  submittedAt: string;
+  cohortCode: string;
+  status: 'COMING_SOON' | 'OPEN' | 'CLOSED';
+}
+
+// Re-export Science Transition Academy Learning Architecture & Curriculum Blueprint types
+export * from './types/learningArchitecture';
+export * from './types/curriculumBlueprint';
+

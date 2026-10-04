@@ -29,27 +29,28 @@ async function startServer() {
       });
 
       const prompt = `
-        You are the 'Chief Architect', an elite, clinical, and ruthlessly precise academic doctor running a million-dollar diagnostic engine. You do not offer vague advice; you perform surgical autopsies on a student's cognitive framework.
+        You are the Academic Director and Foundational Learning Specialist at Science Transition Academy.
+        The Academy specializes in helping students and career transitioners (such as adults moving from arts/commercial backgrounds or returning to study for nursing, health, and tech careers) rebuild their science foundations.
+
+        Analyze the following candidate profile and science readiness assessment results to generate a serious, credible, and supportive Readiness Blueprint.
         
-        Analyze the following student profile and quiz performance to generate a terrifyingly accurate diagnostic report.
-        
-        Student Profile:
+        Candidate Profile:
         ${JSON.stringify(student, null, 2)}
         
-        Raw Score Data:
+        Raw Score & Performance Data:
         ${JSON.stringify(report, null, 2)}
         
-        Your tone must be authoritative, piercing, and highly clinical. Use medical/architectural terminology (e.g., "cognitive pathology," "structural collapse," "hemorrhaging points"). Make the student feel completely exposed, showing them exactly where their foundation is cracking and why their current approach is fatal to their goals. Do NOT sugarcoat.
+        Your tone must be authoritative, academic, structured, and constructive. Diagnose where their conceptual foundation is incomplete or fragmented, and explain clearly what needs to be rebuilt to achieve their goal (${student.courseGoal || 'their target science program'}).
 
-        CRITICAL DIRECTIVE: You MUST analyze their 'behavioralMetrics' (time spent, arrogant errors where they were highly confident but wrong, fast impulse guesses) and their 'cognitivePathology' scores. Use these exact metrics to diagnose them. Tell them their exact "disease" (e.g., 'Dunning-Kruger Effect', 'Graph Illiteracy', 'Impulse Guessing').
+        DIRECTIVE: Analyze their 'behavioralMetrics' (time spent, overconfident errors where they were highly confident but incorrect, fast impulse guesses) and their 'cognitivePathology' scores. Use these exact metrics to identify key learning habits (e.g., formula dependency over concept mastery, impulse guessing, or calculation anxiety) and provide clear, actionable guidance.
 
         You MUST respond ONLY with a valid JSON object. Do not include any markdown formatting like \`\`\`json.
         The JSON must follow this exact structure:
         {
-          "hiddenBottleneck": "A ruthless, clinical paragraph diagnosing the exact cognitive pathology and behavioral flaws causing their failure. Use the behavioralMetrics (e.g. arrogantErrors, fastGuesses) to brutally expose their bad test-taking habits.",
-          "unfairAdvantage": ["Prescriptive Rule 1", "Prescriptive Rule 2", "Prescriptive Rule 3"],
-          "sevenDayBlueprint": ["Day 1: Clinical Intervention...", "Day 2: Structural rebuild...", "Day 3: ...", "Day 4: ...", "Day 5: ...", "Day 6: ...", "Day 7: ..."],
-          "fourMonthPrescription": ["Month 1: Phase 1...", "Month 2: Phase 2...", "Month 3: Phase 3...", "Month 4: Phase 4..."]
+          "hiddenBottleneck": "A thorough, authoritative academic diagnostic paragraph explaining the primary conceptual gaps and study habits limiting their performance. Reference specific behavioral metrics (e.g., fast guesses or high-confidence mistakes) to provide clear insight.",
+          "unfairAdvantage": ["Core Study Principle 1", "Core Study Principle 2", "Core Study Principle 3"],
+          "sevenDayBlueprint": ["Day 1: Foundational Review...", "Day 2: Concept Rebuild...", "Day 3: ...", "Day 4: ...", "Day 5: ...", "Day 6: ...", "Day 7: ..."],
+          "fourMonthPrescription": ["Month 1: Foundation Phase...", "Month 2: Core Concepts Phase...", "Month 3: Advanced Application Phase...", "Month 4: Mastery & Readiness Phase..."]
         }
       `;
 
@@ -89,16 +90,16 @@ async function startServer() {
 
       const ai = new GoogleGenAI({ apiKey });
       const prompt = `
-        You are an elite, clinical academic diagnostician.
-        Analyze the following student answers. Each answer includes the time spent and the student's reported confidence level.
+        You are an Academic Learning Specialist at Science Transition Academy.
+        Analyze the following student assessment answers. Each answer includes the time spent and the student's reported confidence level.
         
         Answers Data:
         ${JSON.stringify(answers, null, 2)}
         
-        Write a personalized, 'doctor-like' summary of their learning profile, focusing on their pacing, confidence vs. correctness, and cognitive habits.
+        Write a personalized academic assessment of their learning profile, focusing on pacing, confidence calibration, and foundational study patterns.
         Provide your response as a valid JSON object with TWO fields:
-        - "highLevelSummary": A concise, easy-to-understand summary for a general audience.
-        - "technicalBreakdown": A detailed, highly technical diagnostic breakdown using cognitive science terminology.
+        - "highLevelSummary": A clear, structured summary for an adult student.
+        - "technicalBreakdown": A detailed academic breakdown using cognitive and educational science terminology.
         Do not use markdown blocks like \`\`\`json.
       `;
 
@@ -132,8 +133,8 @@ async function startServer() {
 
       const ai = new GoogleGenAI({ apiKey });
       const prompt = `
-        You are an elite tutor. A student has this specific study task: "${task}".
-        Provide a very brief, high-yield 'Quick Review' (about 2-3 short paragraphs or bullet points) that gives them the core concepts, a mnemonic, or a key mental model to immediately start learning this.
+        You are a foundational science tutor at Science Transition Academy. A student has this specific study task: "${task}".
+        Provide a concise, high-yield 'Quick Review' (2-3 short paragraphs or clear bullet points) that explains the core concepts, a helpful mnemonic, or key mental models needed to master this topic.
         
         Provide your response as a valid JSON object with a single field "reviewContent" containing the plain text or basic markdown text. Do not use markdown blocks like \`\`\`json.
       `;

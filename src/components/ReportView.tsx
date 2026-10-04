@@ -1,12 +1,41 @@
-import { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { StudentData, Answer } from '../types';
 import { computeReport } from '../utils/engine';
-import { FileText, Download, BookOpen, ListTodo, RotateCcw, AlertTriangle, CheckCircle, XCircle, Info, ChevronDown, ChevronUp, Loader2, Sparkles, UserCheck, Clock, BrainCircuit, ShieldAlert, TrendingUp, ChevronRight, Search } from 'lucide-react';
+import { 
+  FileText, 
+  Download, 
+  BookOpen, 
+  ListTodo, 
+  RotateCcw, 
+  AlertTriangle, 
+  CheckCircle, 
+  XCircle, 
+  Info, 
+  ChevronDown, 
+  ChevronUp, 
+  Loader2, 
+  Sparkles, 
+  UserCheck, 
+  Clock, 
+  BrainCircuit, 
+  ShieldAlert, 
+  TrendingUp, 
+  ChevronRight, 
+  Search, 
+  Home, 
+  ArrowRight, 
+  MessageCircle, 
+  X, 
+  Send,
+  GraduationCap
+} from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip as RechartsTooltip } from 'recharts';
 import { QUESTIONS } from '../data/questions';
 // @ts-ignore
 import html2pdf from 'html2pdf.js';
+import { FOUNDING_COHORT_CONFIG, getCohortStatusInfo } from '../data/cohortConfig';
+import CohortApplicationModal from './CohortApplicationModal';
 
 interface AIAnalysis {
   hiddenBottleneck: string;
@@ -15,7 +44,17 @@ interface AIAnalysis {
   fourMonthPrescription?: string[];
 }
 
-export default function ReportView({ student, answers, onRestart }: { student: StudentData, answers: Answer[], onRestart: () => void }) {
+export default function ReportView({ 
+  student, 
+  answers, 
+  onRestart,
+  onNavigateHome 
+}: { 
+  student: StudentData; 
+  answers: Answer[]; 
+  onRestart: () => void;
+  onNavigateHome?: () => void;
+}) {
   const [report, setReport] = useState<ReturnType<typeof computeReport> | null>(null);
   const [aiAnalysis, setAiAnalysis] = useState<AIAnalysis | null>(null);
   const [clinicalInsight, setClinicalInsight] = useState<{highLevelSummary: string, technicalBreakdown: string} | null>(null);
@@ -29,6 +68,11 @@ export default function ReportView({ student, answers, onRestart }: { student: S
   const [quickReviewContent, setQuickReviewContent] = useState<string | null>(null);
   const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
   const [isReviewLoading, setIsReviewLoading] = useState(false);
+  
+  const statusInfo = getCohortStatusInfo(FOUNDING_COHORT_CONFIG.applicationStatus);
+
+  // Founding Cohort In-Report Application State
+  const [cohortModalOpen, setCohortModalOpen] = useState(false);
 
   const studyPlanTopics = useMemo(() => {
     if (!answers.length) return [];
@@ -128,7 +172,7 @@ export default function ReportView({ student, answers, onRestart }: { student: S
     if (!element) return;
     const opt = {
       margin:       0.2,
-      filename:     `${student.name.replace(/\s+/g, "_")}_Academic_Blueprint.pdf`,
+      filename:     `${student.name.replace(/\s+/g, "_")}_Science_Readiness_Blueprint.pdf`,
       image:        { type: "jpeg" as const, quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true },
       jsPDF:        { unit: "in", format: "letter", orientation: "portrait" as const }
@@ -218,19 +262,19 @@ export default function ReportView({ student, answers, onRestart }: { student: S
     let textColor = "";
     
     if (p >= 90) {
-      message = "Top 10% - Highly Competitive";
+      message = "Exemplary Readiness - Strong Foundation";
       color = "bg-green-50 border-green-200";
       textColor = "text-green-700";
     } else if (p >= 75) {
-      message = "Strong Candidate - On Track";
+      message = "Solid Foundation - Advanced Application Ready";
       color = "bg-emerald-50 border-emerald-200";
       textColor = "text-emerald-700";
     } else if (p >= 50) {
-      message = "Average - Needs Polish";
+      message = "Developing Foundation - Target Concepts First";
       color = "bg-yellow-50 border-yellow-200";
       textColor = "text-yellow-700";
     } else {
-      message = "Below Average - High Risk";
+      message = "Foundational Rebuild Recommended";
       color = "bg-red-50 border-red-200";
       textColor = "text-red-700";
     }
@@ -252,9 +296,9 @@ export default function ReportView({ student, answers, onRestart }: { student: S
         >
           <div className="w-16 h-16 border-4 border-slate-200 border-t-blue-600 rounded-full"></div>
         </motion.div>
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">Analyzing Diagnostic Data...</h2>
+        <h2 className="text-2xl font-bold text-slate-900 mb-2">Evaluating Science Readiness...</h2>
         <p className="text-slate-500 max-w-md">
-          Our AI engine is processing your answers, identifying cognitive patterns, and building your personalized academic profile based on your lifestyle inputs.
+          Analyzing your foundational responses, identifying concept gaps across core subjects, and calibrating your personalized Science Readiness Blueprint.
         </p>
       </div>
     );
@@ -270,10 +314,19 @@ export default function ReportView({ student, answers, onRestart }: { student: S
         <div className="bg-[#0F172A] text-white p-8 md:p-12 print:bg-white print:text-[#0F172A]">
           <div className="flex justify-between items-start mb-8">
             <div>
-              <h1 className="text-3xl font-bold tracking-tight mb-2">AI READINESS REPORT</h1>
-              <p className="text-[#94A3B8] print:text-[#64748B]">Personalized Diagnostic & Strategy Analysis</p>
+              <h1 className="text-3xl font-bold tracking-tight mb-2">SCIENCE READINESS BLUEPRINT</h1>
+              <p className="text-[#94A3B8] print:text-[#64748B]">Science Transition Academy • Foundation Analysis & Learning Roadmap</p>
             </div>
-            <div className="flex items-center gap-4 hidden md:flex print:hidden">
+            <div className="flex items-center gap-3 hidden md:flex print:hidden">
+              {onNavigateHome && (
+                <button 
+                  onClick={onNavigateHome}
+                  className="flex items-center gap-1.5 px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-lg transition-colors border border-white/10"
+                >
+                  <Home className="w-3.5 h-3.5" />
+                  <span>Academy Home</span>
+                </button>
+              )}
               <button 
                 onClick={() => handleDownloadPdf()}
                 className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold rounded-lg transition-colors shadow-sm"
@@ -281,8 +334,8 @@ export default function ReportView({ student, answers, onRestart }: { student: S
                 <Download className="w-4 h-4" />
                 Download PDF
               </button>
-              <div className="p-3 bg-white/10 rounded-lg">
-                <Sparkles className="w-8 h-8 text-[#60A5FA]" />
+              <div className="p-2.5 bg-white/10 rounded-lg">
+                <Sparkles className="w-6 h-6 text-[#60A5FA]" />
               </div>
             </div>
           </div>
@@ -315,7 +368,7 @@ export default function ReportView({ student, answers, onRestart }: { student: S
               <span className="text-4xl font-black text-white">{Math.round(avgOverall)}%</span>
             </div>
             <div className="flex-1">
-              <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-2">Diagnostic Baseline</p>
+              <p className="text-[10px] font-bold text-[#64748B] uppercase tracking-wider mb-2">Foundational Baseline</p>
               <h2 className="text-2xl md:text-3xl font-bold text-[#0F172A] mb-3 tracking-tight">{overallProfileName}</h2>
               <div className="grid grid-cols-2 gap-4 mt-4">
                 {Object.entries(subjectScores).map(([subject, data]) => {
@@ -346,9 +399,12 @@ export default function ReportView({ student, answers, onRestart }: { student: S
                 <span className={`text-5xl font-black ${percentileData.textColor}`}>{percentileData.p}</span>
                 <span className={`text-xl font-bold ${percentileData.textColor}`}>th</span>
               </div>
-              <p className={`text-sm font-bold mb-4 ${percentileData.textColor}`}>{percentileData.message}</p>
+              <p className={`text-sm font-bold mb-3 ${percentileData.textColor}`}>{percentileData.message}</p>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Based on historical data for students targeting <strong className="text-slate-800">{student.courseGoal}</strong>.
+                Relative baseline comparison for candidates targeting <strong className="text-slate-800">{student.courseGoal}</strong>.
+              </p>
+              <p className="text-[10px] text-slate-400 mt-2 leading-tight">
+                * Educational readiness indicator. Admission criteria vary by institution.
               </p>
             </div>
           </div>
@@ -358,7 +414,7 @@ export default function ReportView({ student, answers, onRestart }: { student: S
             <div className="grid md:grid-cols-2 gap-8">
               {/* Radar Chart (Always Visible) */}
               <div className="bg-white rounded-2xl p-8 border border-[#E2E8F0] flex flex-col items-center justify-center">
-                <h3 className="text-lg font-bold text-[#0F172A] w-full text-left mb-6">Competency Radar</h3>
+                <h3 className="text-lg font-bold text-[#0F172A] w-full text-left mb-6">Subject Foundation Radar</h3>
                 <div className="w-full h-[250px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
@@ -376,12 +432,12 @@ export default function ReportView({ student, answers, onRestart }: { student: S
                 </div>
               </div>
 
-              {/* Hidden Bottleneck */}
+              {/* Primary Foundation Gap */}
               {aiAnalysis ? (
                 <div className="bg-blue-50/50 rounded-2xl p-8 border border-blue-100 flex flex-col justify-center">
                   <div className="flex items-center gap-3 mb-4">
                     <BrainCircuit className="w-6 h-6 text-blue-600" />
-                    <h3 className="text-xl font-bold text-[#0F172A]">The Hidden Bottleneck</h3>
+                    <h3 className="text-xl font-bold text-[#0F172A]">Primary Foundation Gap</h3>
                   </div>
                   <p className="text-[#334155] leading-relaxed text-sm md:text-base font-medium">
                     {aiAnalysis.hiddenBottleneck}
@@ -390,18 +446,18 @@ export default function ReportView({ student, answers, onRestart }: { student: S
               ) : (
                 <div className="bg-blue-50/50 rounded-2xl p-8 border border-blue-100 flex flex-col justify-center items-center text-center">
                   <Loader2 className="w-8 h-8 text-blue-600 animate-spin mb-4" />
-                  <h3 className="text-lg font-bold text-[#0F172A] mb-2">Analyzing Deep Bottlenecks...</h3>
-                  <p className="text-[#334155] text-sm font-medium">The AI is connecting the dots on your performance.</p>
+                  <h3 className="text-lg font-bold text-[#0F172A] mb-2">Analyzing Foundation Gaps...</h3>
+                  <p className="text-[#334155] text-sm font-medium">Evaluating your conceptual starting points.</p>
                 </div>
               )}
             </div>
 
-            {/* Clinical Insight */}
+            {/* Learning Profile & Patterns */}
             <div className="bg-white rounded-2xl p-8 border border-[#E2E8F0]">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-[#E2E8F0] pb-4">
                 <div className="flex items-center gap-3">
                   <UserCheck className="w-6 h-6 text-emerald-600" />
-                  <h3 className="text-xl font-bold text-[#0F172A]">Clinical Insight</h3>
+                  <h3 className="text-xl font-bold text-[#0F172A]">Learning Profile & Cognitive Patterns</h3>
                 </div>
                 <div className="flex bg-slate-100 p-1 rounded-lg">
                   <button 
@@ -422,27 +478,27 @@ export default function ReportView({ student, answers, onRestart }: { student: S
                 {isInsightLoading ? (
                   <div className="flex flex-col items-center gap-3">
                     <Loader2 className="w-6 h-6 text-emerald-600 animate-spin" />
-                    <p className="text-sm font-medium text-slate-500">Generating personalized clinical insights...</p>
+                    <p className="text-sm font-medium text-slate-500">Generating personalized learning profile insights...</p>
                   </div>
                 ) : clinicalInsight ? (
                   <p className="text-slate-700 leading-relaxed font-medium">
                     {insightMode === 'highLevel' ? clinicalInsight.highLevelSummary : clinicalInsight.technicalBreakdown}
                   </p>
                 ) : (
-                  <p className="text-sm text-slate-500">Clinical insight is not available.</p>
+                  <p className="text-sm text-slate-500">Learning profile insight is not available.</p>
                 )}
               </div>
             </div>
 
             {aiAnalysis && (
               <>
-                {/* Unfair Advantage */}
+                {/* Learning Principles */}
                 <div className="bg-[#0F172A] rounded-2xl p-8 border border-[#1E293B] text-white">
                   <div className="flex items-center gap-3 mb-6 border-b border-white/10 pb-4">
                     <Sparkles className="w-6 h-6 text-blue-400" />
-                    <h3 className="text-xl font-bold text-white">Your "Unfair Advantage"</h3>
+                    <h3 className="text-xl font-bold text-white">Personalized Study Principles</h3>
                   </div>
-                  <p className="text-slate-400 text-sm mb-6">Strict rules tailored for a <strong className="text-white">{student.learningMethod}</strong> learner:</p>
+                  <p className="text-slate-400 text-sm mb-6">Recommended learning rules tailored for a <strong className="text-white">{student.learningMethod}</strong> learner:</p>
                   <ul className="space-y-5">
                     {Array.isArray(aiAnalysis.unfairAdvantage) ? aiAnalysis.unfairAdvantage.map((rule, idx) => (
                       <li key={idx} className="flex gap-3 items-start">
@@ -458,7 +514,7 @@ export default function ReportView({ student, answers, onRestart }: { student: S
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 border-b border-[#E2E8F0] pb-4">
                     <div className="flex items-center gap-3">
                       <ListTodo className="w-6 h-6 text-indigo-600" />
-                      <h3 className="text-xl font-bold text-[#0F172A]">Targeted Prescription Roadmap</h3>
+                      <h3 className="text-xl font-bold text-[#0F172A]">Science Foundation Roadmap</h3>
                     </div>
                     <div className="flex bg-slate-200 p-1 rounded-lg">
                       <button 
@@ -512,7 +568,7 @@ export default function ReportView({ student, answers, onRestart }: { student: S
             <div className="border-t border-[#E2E8F0] pt-8">
               <div className="flex items-center gap-3 mb-6">
                 <BookOpen className="w-6 h-6 text-[#0F172A]" />
-                <h3 className="text-2xl font-bold text-[#0F172A]">Subject Breakdown Insights</h3>
+                <h3 className="text-2xl font-bold text-[#0F172A]">Subject Readiness Breakdown</h3>
               </div>
               
               {/* Radar Chart */}
@@ -598,15 +654,15 @@ export default function ReportView({ student, answers, onRestart }: { student: S
                   className="px-8 py-4 bg-indigo-600 text-white rounded-xl text-base font-bold hover:bg-indigo-700 shadow-md transition-colors flex items-center gap-3"
                 >
                   <BookOpen className="w-5 h-5" />
-                  Generate Study Plan
+                  View Prioritized Foundation Plan
                 </button>
               ) : (
                 <div className="w-full bg-white rounded-2xl p-8 border border-indigo-100 shadow-sm">
                   <div className="flex items-center gap-3 mb-6 border-b border-[#E2E8F0] pb-4">
                     <ListTodo className="w-6 h-6 text-indigo-600" />
-                    <h3 className="text-xl font-bold text-[#0F172A]">Prioritized Study Topics</h3>
+                    <h3 className="text-xl font-bold text-[#0F172A]">Prioritized Foundation Topics</h3>
                   </div>
-                  <p className="text-sm text-slate-500 mb-6">Based on your diagnostic answers, here are the exact topics you need to focus on first, ranked by your proficiency gaps.</p>
+                  <p className="text-sm text-slate-500 mb-6">Based on your readiness assessment, here are the foundational topics to rebuild first, ranked by concept gap.</p>
                   
                   <div className="space-y-4">
                     {studyPlanTopics.length > 0 ? studyPlanTopics.map((topic, idx) => (
@@ -733,7 +789,7 @@ export default function ReportView({ student, answers, onRestart }: { student: S
             </AnimatePresence>
           </div>
 
-          {/* CTA Section */}
+          {/* Founding Cohort Connection Section */}
           {(() => {
             const failedTopics = Array.from(new Set(
               answers
@@ -741,42 +797,84 @@ export default function ReportView({ student, answers, onRestart }: { student: S
                 .map(a => QUESTIONS.find(q => q.id === a.questionId)?.topic)
                 .filter(Boolean)
             ));
-            const message = `Hello Chief! My name is ${student.name}. I just took the Science Diagnostic and scored ${Math.round(avgOverall)}%. I am a ${student.learningMethod} learner. My weakest areas were: ${failedTopics.join(', ')}. I would like to book a personalized strategy session!`;
+            const message = `Hello, I just completed the Science Readiness Assessment and would like to learn more about the Science Transition Academy Founding Cohort. (Candidate: ${student.name}, Foundational Baseline: ${Math.round(avgOverall)}%, Goal: ${student.courseGoal})`;
             const encodedMessage = encodeURIComponent(message);
-            // NOTE: Update this phone number with the actual WhatsApp number
-            const whatsappLink = `https://wa.me/2348024646351?text=${encodedMessage}`;
+            const whatsappLink = `https://wa.me/${FOUNDING_COHORT_CONFIG.contactWhatsAppNumber}?text=${encodedMessage}`;
 
             return (
-              <div className="bg-gradient-to-br from-[#0F172A] to-[#1E293B] rounded-2xl p-8 md:p-12 text-center text-white shadow-xl relative overflow-hidden print:hidden">
-                <div className="relative z-10 max-w-2xl mx-auto">
-                  <h3 className="text-2xl md:text-3xl font-bold mb-4">Want a Personalized Study Track?</h3>
-                  <p className="text-slate-300 mb-6 leading-relaxed">
-                    The AI has diagnosed your current baseline and learning style. To get your step-by-step roadmap, book a direct strategy session with the Chief Planner.
-                  </p>
-                  
-                  <div className="bg-white/10 p-6 rounded-xl border border-white/20 mb-8 text-left inline-block w-full max-w-md mx-auto">
-                    <p className="font-bold text-white mb-2 flex items-center gap-2">
-                      <Download className="w-4 h-4 text-blue-400" /> 
-                      Step 1: Save your report
-                    </p>
-                    <p className="text-sm text-slate-300 mb-6">Before reaching out, click the "Save Report" button at the very bottom of this page to download your PDF.</p>
-                    
-                    <p className="font-bold text-white mb-2 flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-[#25D366]" />
-                      Step 2: Send via WhatsApp
-                    </p>
-                    <p className="text-sm text-slate-300">Click below to send your results to my WhatsApp. Make sure to attach your PDF report to the chat!</p>
+              <div className="bg-slate-900 rounded-2xl p-8 md:p-12 text-white shadow-xl relative overflow-hidden print:hidden border border-slate-800">
+                <div className="relative z-10 max-w-2xl mx-auto text-center space-y-6">
+                  <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-400 uppercase tracking-wider">
+                    <Sparkles className="w-4 h-4" />
+                    <span>Next Steps · Science Transition Academy</span>
                   </div>
 
-                  <div>
-                    <a 
+                  <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight">
+                    Ready to Rebuild Your Science Foundation?
+                  </h3>
+
+                  <p className="text-slate-300 text-sm md:text-base leading-relaxed font-normal">
+                    The assessment shows you where you are starting. The Academy is designed to help you build from there. 
+                    You've identified your foundational baseline ({Math.round(avgOverall)}%) and key concept gaps. The next step is deciding how you want to build toward <strong className="text-white">{student.courseGoal}</strong>.
+                  </p>
+
+                  {/* Cohort Snapshot Card */}
+                  <div className="bg-white/5 p-6 rounded-xl border border-white/10 text-left space-y-3.5">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-3">
+                      <div>
+                        <h4 className="font-bold text-white text-base">Science Transition Academy — Founding Cohort</h4>
+                        <p className="text-xs text-blue-400">{statusInfo.badgeText} · {FOUNDING_COHORT_CONFIG.cohortCode}</p>
+                      </div>
+                      <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full border self-start sm:self-auto ${statusInfo.badgeColor}`}>
+                        {statusInfo.badgeText}
+                      </span>
+                    </div>
+                    <ul className="space-y-2 text-xs text-slate-300">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                        <span>Direct foundational instruction in Mathematics, Physics, Chemistry, and Biology.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                        <span>Guided practice clinics bridging formula memorization to intuitive problem solving.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                        <span>Personalized academic direction aligned with your target degree or nursing goal.</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+                    <button
+                      onClick={() => setCohortModalOpen(true)}
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-7 py-3.5 rounded-xl font-bold text-sm transition-colors shadow-md"
+                    >
+                      <span>{statusInfo.primaryButtonText}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+
+                    <a
                       href={whatsappLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 bg-[#25D366] text-white px-8 py-4 rounded-xl font-bold hover:bg-[#20bd5a] transition-colors shadow-lg shadow-[#25D366]/30 w-full sm:w-auto"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-7 py-3.5 rounded-xl font-bold text-sm transition-colors shadow-md"
                     >
-                      Send to WhatsApp
+                      <MessageCircle className="w-4 h-4" />
+                      <span>Discuss Blueprint on WhatsApp</span>
                     </a>
+                  </div>
+
+                  <div className="pt-2 text-center">
+                    {onNavigateHome && (
+                      <button
+                        onClick={onNavigateHome}
+                        className="text-xs text-slate-400 hover:text-white transition-colors underline"
+                      >
+                        Explore the Academy Homepage &rarr;
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -786,7 +884,7 @@ export default function ReportView({ student, answers, onRestart }: { student: S
 
         <div className="bg-[#F8FAFC] p-6 md:p-8 border-t border-[#E2E8F0] flex flex-col md:flex-row justify-between items-center gap-4 print:hidden">
           <p className="text-[10px] text-[#94A3B8] font-bold uppercase tracking-wider text-center md:text-left">
-            Powered by Gemini AI Engine
+            Science Transition Academy • Foundation Assessment Platform
           </p>
           <div className="flex gap-3">
             <button 
@@ -801,7 +899,7 @@ export default function ReportView({ student, answers, onRestart }: { student: S
               className="px-4 py-2 bg-slate-900 text-white rounded-md text-sm font-semibold hover:bg-slate-800 shadow-sm transition-colors flex items-center gap-2"
             >
               <Download className="w-4 h-4" />
-              Save Report
+              Save Blueprint
             </button>
           </div>
         </div>
@@ -840,7 +938,7 @@ export default function ReportView({ student, answers, onRestart }: { student: S
               <div className="p-6 overflow-y-auto flex-1 bg-slate-50">
                 <div className="mb-6">
                   <p className="text-sm text-slate-600">
-                    Below is the clinical breakdown of your exact performance within <strong>{selectedSubject}</strong>. We've isolated the foundational concepts and flagged the specific questions where your knowledge broke down.
+                    Below is the concept breakdown of your performance in <strong>{selectedSubject}</strong>. We've isolated each foundational concept and flagged specific questions to help you target your review.
                   </p>
                 </div>
                 
@@ -902,7 +1000,7 @@ export default function ReportView({ student, answers, onRestart }: { student: S
                               return (
                                 <div key={ans.questionId} className="bg-slate-50 rounded-lg p-5 border border-slate-200 relative">
                                   <div className="absolute top-0 right-0 px-3 py-1 bg-red-100 text-red-700 text-[10px] font-bold uppercase tracking-wider rounded-bl-lg rounded-tr-lg">
-                                    Missed Concept
+                                    Foundation Gap
                                   </div>
                                   <p className="font-bold text-slate-800 text-sm mb-4 pr-24">{q.text}</p>
                                   <div className="space-y-3">
@@ -914,7 +1012,7 @@ export default function ReportView({ student, answers, onRestart }: { student: S
                                       </div>
                                     </div>
                                     <div className="mt-4 border-l-2 border-indigo-200 pl-4">
-                                      <p className="text-[10px] font-bold text-indigo-800 uppercase tracking-wider mb-1">Clinical Explanation</p>
+                                      <p className="text-[10px] font-bold text-indigo-800 uppercase tracking-wider mb-1">Foundational Explanation</p>
                                       <p className="text-sm text-slate-600 leading-relaxed">{q.explanation || `The correct answer is rooted in the core principles of ${q.topic}. Reviewing this concept is essential to building a solid scientific foundation.`}</p>
                                     </div>
                                   </div>
@@ -983,6 +1081,15 @@ export default function ReportView({ student, answers, onRestart }: { student: S
           </div>
         )}
       </AnimatePresence>
+
+      {/* Founding Cohort In-Report Application Modal */}
+      <CohortApplicationModal
+        isOpen={cohortModalOpen}
+        onClose={() => setCohortModalOpen(false)}
+        student={student}
+        assessmentScore={avgOverall}
+        onNavigateHome={onNavigateHome}
+      />
     </div>
   );
 }

@@ -102,7 +102,14 @@ export default function App() {
           transition={{ duration: 0.3, ease: "easeInOut" }}
           className="min-h-screen"
         >
-          {step === 'landing' && <LandingView onStart={() => setStep('intake')} />}
+          {step === 'landing' && (
+            <LandingView 
+              onStart={() => setStep('intake')} 
+              hasExistingBlueprint={Boolean(student && answers.length > 0)}
+              onViewExistingBlueprint={() => setStep('report')}
+              student={student}
+            />
+          )}
           
           {step === 'intake' && (
             <IntakeForm 
@@ -128,6 +135,7 @@ export default function App() {
             <ReportView 
               student={student}
               answers={answers}
+              onNavigateHome={() => setStep('landing')}
               onRestart={() => {
                 localStorage.removeItem('science_transition_assessment_state');
                 setAnswers([]);
