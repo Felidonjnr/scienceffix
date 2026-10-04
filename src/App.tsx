@@ -10,7 +10,6 @@ import IntakeForm from './components/IntakeForm';
 import DiagnosticView from './components/DiagnosticView';
 import ReportView from './components/ReportView';
 import { StudentData, Answer, Question } from './types';
-import { isCompleteAssessment } from './utils/engine';
 
 
 type AcademySection = 'home' | 'academy' | 'programmes' | 'assessment' | 'learning' | 'pathways' | 'cohort' | 'portal';
