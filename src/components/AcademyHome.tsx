@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, Brain, CheckCircle2, ChevronRight, GraduationCap, HeartPulse, Menu, Sparkles, Target, X } from 'lucide-react';
+import { ArrowRight, Brain, CheckCircle2, HeartPulse, Menu, Sparkles, Target, X } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import FoundingCohortForm from './FoundingCohortForm';
@@ -17,20 +17,28 @@ interface AcademyHomeProps {
 const navItems: { id: Section; label: string }[] = [
   { id: 'home', label: 'Home' },
   { id: 'academy', label: 'The Academy' },
-  { id: 'programmes', label: 'Programmes' },
-  { id: 'assessment', label: 'Readiness Assessment' },
+  { id: 'assessment', label: 'Assessment' },
   { id: 'pathways', label: 'Pathways' },
   { id: 'cohort', label: 'Founding Cohort' },
 ];
 
 const programmes = [
-  { title: 'Science Foundation', text: 'Rebuild the concepts, vocabulary and study habits you need to begin learning science with confidence.', icon: BookOpen },
-  { title: 'Core Science', text: 'Develop connected understanding across Mathematics, Physics, Chemistry and Biology.', icon: Brain },
-  { title: 'Science Application', text: 'Move from knowing facts to explaining, solving, interpreting and applying scientific ideas.', icon: Target },
-  { title: 'Pathway Readiness', text: 'Connect your science foundation to the academic destination you are working toward.', icon: GraduationCap },
+  { title: 'Science Foundation', text: 'Rebuild what you missed and strengthen the foundation you need to learn science well.' },
+  { title: 'Core Science', text: 'Build connected understanding across Mathematics, Physics, Chemistry and Biology.' },
+  { title: 'Science Application', text: 'Move from knowing facts to explaining, solving and applying scientific ideas.' },
+  { title: 'Pathway Readiness', text: 'Connect your science capability to the academic destination you are working toward.' },
 ];
 
-export default function AcademyHome({ section, onNavigate, onStartAssessment, onViewBlueprint, hasBlueprint, studentName }: AcademyHomeProps) {
+const experience = [
+  ['Live teaching', 'Understand difficult concepts with guided instruction and interaction.'],
+  ['Practicals & simulations', 'See science applied instead of only reading about it.'],
+  ['Daily practice', 'Worksheets and guided practice turn lessons into progress.'],
+  ['Class recordings', 'Revisit lessons when work, family or life gets in the way.'],
+  ['Follow-up', 'We identify struggling areas before they become bigger problems.'],
+  ['Progress checks', 'Regular assessments show what is improving and what needs attention.'],
+];
+
+export default function AcademyHome({ section, onNavigate, onStartAssessment, onViewBlueprint, hasBlueprint }: AcademyHomeProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const go = (next: Section) => {
@@ -39,11 +47,31 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
   };
 
   const sectionCopy: Record<Exclude<Section, 'home'>, { eyebrow: string; title: string; text: string }> = {
-    academy: { eyebrow: 'THE ACADEMY', title: "You don't have to pretend you already know the science. Start from where you are.", text: 'Science Restart Academy helps learners rebuild the foundation they need to enter, understand and progress through science-related education.' },
-    programmes: { eyebrow: 'THE ACADEMY MODEL', title: 'A staged route from rebuilding to readiness.', text: 'These four stages describe how Science Restart Academy is designed to help learners progress. They are the Academy model—not four separate courses currently open for enrollment.' },
-    assessment: { eyebrow: 'SCIENCE READINESS ASSESSMENT', title: 'Know your starting point before you build.', text: 'The readiness assessment is one section of the Academy. It identifies where your current science foundation is strongest, where it needs rebuilding, and what to work on first.' },
-    pathways: { eyebrow: 'PATHWAYS', title: 'Start with the destination in mind.', text: 'Explore science-related academic pathways and understand the knowledge, subjects and preparation they require.' },
-    cohort: { eyebrow: 'FOUNDING COHORT', title: 'The first Academy cohort is coming.', text: 'A focused founding cohort is planned for January 2027. Applications, schedule, programme details and fees will be shared as the founding cohort is finalised.' },
+    academy: {
+      eyebrow: 'THE ACADEMY',
+      title: 'More than a class. A system built around your progress.',
+      text: 'Science Restart Academy helps learners rebuild science through structured teaching, practice, practical learning, follow-up and clear progression.',
+    },
+    programmes: {
+      eyebrow: 'THE ACADEMY MODEL',
+      title: 'A clear route from rebuilding to readiness.',
+      text: 'The four stages describe the Academy journey. They are not separate courses currently open for enrollment.',
+    },
+    assessment: {
+      eyebrow: 'SCIENCE READINESS ASSESSMENT',
+      title: 'Know where you stand before you spend another year guessing.',
+      text: 'Find out where your current science foundation is strongest, where it needs rebuilding and what you should work on first.',
+    },
+    pathways: {
+      eyebrow: 'PATHWAYS',
+      title: 'Start with the destination in mind.',
+      text: 'Explore science-related directions and understand how a stronger science foundation can support your next academic step.',
+    },
+    cohort: {
+      eyebrow: 'FOUNDING COHORT',
+      title: 'Build your science foundation with the first Academy cohort.',
+      text: 'A focused founding cohort is planned for January 2027. Tell us about your goals and current situation so we can design the experience around real learners.',
+    },
   };
 
   if (section !== 'home') {
@@ -59,66 +87,72 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
           </div>
 
           {section === 'academy' && (
-            <div className="grid md:grid-cols-3 gap-5 mt-14">
-              {[
-                ['Learn the missing pieces', 'We start from what you actually know instead of assuming the foundation is already there.'],
-                ['Learn how science works', 'Understanding, reasoning and practice matter—not memorising disconnected facts.'],
-                ['Keep moving despite life', 'The model is being designed for adults balancing work, family and other responsibilities.'],
-              ].map(([title, text]) => <InfoCard key={title} title={title} text={text} />)}
+            <div className="mt-14">
+              <section className="rounded-[2rem] bg-slate-950 text-white p-8 md:p-12">
+                <p className="text-sm font-black tracking-[0.18em] text-blue-300 mb-4">THE EXPERIENCE</p>
+                <h2 className="text-3xl md:text-5xl font-black max-w-3xl">You are not just paying for lessons. You are paying for a system that keeps you moving.</h2>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
+                  {experience.map(([title, text]) => (
+                    <div key={title} className="rounded-2xl border border-white/10 bg-white/[.06] p-5">
+                      <CheckCircle2 className="w-5 h-5 text-blue-300 mb-4" />
+                      <h3 className="font-black text-lg">{title}</h3>
+                      <p className="text-slate-300 text-sm leading-relaxed mt-2">{text}</p>
+                    </div>
+                  ))}
+                </div>
+              </section>
+              <div className="grid md:grid-cols-3 gap-5 mt-8">
+                <InfoCard title="Start from where you are" text="We do not assume you remember everything. Your starting point matters." />
+                <InfoCard title="Learn with structure" text="Know what you are learning, what to practise and what comes next." />
+                <InfoCard title="Keep moving when life happens" text="Recordings, recovery and follow-up help you get back on track." />
+              </div>
             </div>
           )}
 
           {section === 'programmes' && (
             <div className="grid md:grid-cols-2 gap-5 mt-14">
-              {programmes.map((item) => <ProgrammeCard key={item.title} {...item} />)}
+              {programmes.map((item, i) => <ProgrammeCard key={item.title} index={i + 1} {...item} />)}
             </div>
           )}
 
           {section === 'assessment' && (
-            <div className="mt-14 max-w-3xl rounded-3xl bg-slate-950 text-white p-8 md:p-10">
+            <div className="mt-14 max-w-4xl rounded-[2rem] bg-slate-950 text-white p-8 md:p-10">
               <div className="w-12 h-12 rounded-2xl bg-blue-500/15 flex items-center justify-center mb-6"><Brain className="w-6 h-6 text-blue-300" /></div>
               <h2 className="text-2xl md:text-3xl font-black mb-3">Science Readiness Assessment</h2>
-              <p className="text-slate-300 leading-relaxed mb-7">Take the assessment to establish your current starting point and receive a Science Readiness Blueprint.</p>
+              <p className="text-slate-300 leading-relaxed mb-7 max-w-2xl">A structured diagnostic across Mathematics, Physics, Chemistry and Biology. It is a starting point—not an IQ test or entrance examination.</p>
               <div className="flex flex-wrap gap-3">
                 <button onClick={onStartAssessment} className="px-6 py-3 rounded-xl bg-white text-slate-950 font-bold">Start assessment <ArrowRight className="inline w-4 h-4 ml-1" /></button>
-                {hasBlueprint && <button onClick={() => onViewBlueprint()} className="px-6 py-3 rounded-xl border border-white/20 font-bold">View existing blueprint</button>}
+                {hasBlueprint && <button onClick={onViewBlueprint} className="px-6 py-3 rounded-xl border border-white/20 font-bold">View existing blueprint</button>}
               </div>
             </div>
           )}
 
           {section === 'pathways' && (
-            <div className="mt-14 space-y-10">
-              <div className="rounded-3xl bg-white border border-slate-200 p-7 md:p-9 max-w-4xl">
-                <p className="text-sm font-black tracking-[0.16em] text-blue-700 mb-3">START WITH YOUR DESTINATION</p>
-                <h2 className="text-2xl md:text-3xl font-black mb-3">You do not need to have your whole pathway figured out yet.</h2>
-                <p className="text-slate-600 leading-relaxed">
-                  These are starting points for the guidance we are building. Requirements vary by institution and programme, so use the pathway ideas to understand what science preparation may matter—not as a substitute for checking the requirements of your chosen school.
-                </p>
+            <div className="mt-14 space-y-8">
+              <div className="rounded-[2rem] bg-white border border-slate-200 p-7 md:p-9 max-w-4xl">
+                <p className="text-sm font-black tracking-[0.16em] text-blue-700 mb-3">YOUR DESTINATION</p>
+                <h2 className="text-2xl md:text-3xl font-black mb-3">You do not need to have everything figured out yet.</h2>
+                <p className="text-slate-600 leading-relaxed">Your destination helps shape what you need to prepare for. Requirements vary by institution and programme, so always confirm official requirements with your chosen school.</p>
               </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                {[
-                  ['Nursing', 'A health-focused route where Biology, Chemistry, Physics and Mathematics foundations can become important for later study.'],
-                  ['Medicine', 'A demanding health-science route built on strong Biology, Chemistry, Physics and Mathematics foundations.'],
-                  ['Pharmacy', 'A health-science route where Chemistry, Biology, Physics and Mathematics provide important foundations for later study.'],
-                  ['Medical Laboratory Science', 'A laboratory and health-science route that depends on a strong understanding of core science concepts.'],
-                  ['Public Health', 'A health-focused route where science, quantitative reasoning and the ability to interpret evidence can matter.'],
-                  ['Engineering', 'A broad technology and problem-solving family where Mathematics and Physics are especially important foundations, with Chemistry relevant to some fields.'],
-                  ['Computer Science & Technology', 'A technology pathway where Mathematics, logical reasoning and problem-solving form important foundations.'],
-                  ['Pure & Applied Sciences', 'Physics, Chemistry, Biology, Mathematics, Statistics, Environmental Science and related disciplines can all require a strong science foundation.'],
-                  ['Agriculture & Environmental Sciences', 'Agricultural science, Biology, Chemistry, Mathematics and related scientific reasoning can support many programmes in this family.'],
-                  ['Other Science Pathways', 'There are many other science, technology and health-related destinations. If you are unsure, start with your current foundation and let the pathway become clearer.'],
-                ].map(([name, text]) => <PathwayCard key={name} name={name} text={text} />)}
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {['Nursing', 'Medicine', 'Pharmacy', 'Medical Laboratory Science', 'Public Health', 'Engineering', 'Computer Science & Technology', 'Pure & Applied Sciences', 'Agriculture & Environmental Sciences'].map((name) => (
+                  <div key={name} className="rounded-2xl border border-slate-200 bg-white p-5">
+                    <HeartPulse className="w-5 h-5 text-blue-700 mb-4" />
+                    <h3 className="font-black">{name}</h3>
+                  </div>
+                ))}
               </div>
-              <div className="rounded-3xl bg-slate-950 text-white p-7 md:p-9 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
+              <div className="rounded-[2rem] bg-blue-700 text-white p-7 md:p-9 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
                 <div>
-                  <p className="text-sm font-black tracking-[0.16em] text-blue-300 mb-2">NOT SURE YET?</p>
-                  <h2 className="text-2xl font-black">That is a valid starting point.</h2>
-                  <p className="text-slate-300 mt-2 max-w-2xl">You can take the Readiness Assessment even if you have not chosen a final science pathway. We can start with where you are.</p>
+                  <p className="text-sm font-black tracking-[0.16em] text-blue-200 mb-2">NOT SURE YET?</p>
+                  <h2 className="text-2xl font-black">Start with your science foundation.</h2>
+                  <p className="text-blue-100 mt-2 max-w-2xl">You can take the Readiness Assessment even if your final destination is still unclear.</p>
                 </div>
-                <button onClick={onStartAssessment} className="shrink-0 px-6 py-3.5 rounded-xl bg-white text-slate-950 font-black">Check your readiness <ArrowRight className="inline w-4 h-4 ml-1" /></button>
+                <button onClick={onStartAssessment} className="shrink-0 px-6 py-3.5 rounded-xl bg-white text-slate-950 font-black">Check readiness <ArrowRight className="inline w-4 h-4 ml-1" /></button>
               </div>
             </div>
           )}
+
           {section === 'cohort' && <FoundingCohortForm onAssessment={onStartAssessment} />}
         </main>
       </div>
@@ -131,70 +165,115 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
       <main>
         <section className="relative overflow-hidden bg-slate-950 text-white">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(37,99,235,.28),transparent_34%),radial-gradient(circle_at_15%_80%,rgba(14,165,233,.14),transparent_30%)]" />
-          <div className="relative max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-28 grid lg:grid-cols-[1.2fr_.8fr] gap-14 items-center">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+          <div className="relative max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-28">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/15 bg-white/5 text-blue-200 text-xs font-bold tracking-widest uppercase mb-7">
                 <Sparkles className="w-3.5 h-3.5" /> Science Restart Academy
               </div>
-              <h1 className="text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[.98] max-w-4xl">You want a science future. <span className="text-blue-300">But your foundation is holding you back.</span></h1>
-              <p className="mt-7 text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">Science Restart Academy helps adults and other learners rebuild the science foundation they need for the next step in their education or career.</p>
+              <h1 className="text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[.98]">You know where you want to go. <span className="text-blue-300">Science keeps getting in the way.</span></h1>
+              <p className="mt-7 text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">You may have the ambition, but weak foundations, repeated exam setbacks or forgotten science can keep the future you want out of reach. We help you rebuild the foundation and move forward.</p>
               <div className="flex flex-wrap gap-3 mt-9">
                 <button onClick={() => go('assessment')} className="px-6 py-4 rounded-2xl bg-white text-slate-950 font-black hover:bg-blue-50 transition">Check your science readiness <ArrowRight className="inline w-5 h-5 ml-1" /></button>
-                <button onClick={() => go('cohort')} className="px-6 py-4 rounded-2xl border border-white/20 font-bold hover:bg-white/10 transition">Join the founding cohort list</button>
+                <button onClick={() => go('academy')} className="px-6 py-4 rounded-2xl border border-white/20 font-bold hover:bg-white/10 transition">See the Academy</button>
               </div>
             </motion.div>
-            <div className="rounded-[2rem] border border-white/10 bg-white/[.06] backdrop-blur p-7 md:p-8">
-              <p className="text-sm font-bold text-blue-200 uppercase tracking-widest mb-6">The restart</p>
-              {['Where I am now', 'Science Foundation', 'Core Science', 'Science Application', 'Where I want to go'].map((label, i) => (
-                <div key={label} className="flex items-center gap-4">
-                  <div className="flex flex-col items-center">
-                    <div className={`w-3 h-3 rounded-full ${i === 0 || i === 4 ? 'bg-white' : 'bg-blue-400'}`} />
-                    {i < 4 && <div className="w-px h-9 bg-white/15" />}
-                  </div>
-                  <span className={`pb-8 ${i === 0 || i === 4 ? 'font-black text-white' : 'text-slate-300'}`}>{label}</span>
+          </div>
+        </section>
+
+        <section className="max-w-7xl mx-auto px-5 sm:px-8 py-16 md:py-20">
+          <div className="grid lg:grid-cols-[.75fr_1.25fr] gap-10 items-start">
+            <div>
+              <p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">THE PAIN</p>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight">You don't need another year of trying the same thing.</h2>
+            </div>
+            <div>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {[
+                  'Failed an important examination before?',
+                  'Studied science years ago and forgotten most of it?',
+                  'Keep joining tutorials but still do not understand the basics?',
+                  'Know the career you want, but science keeps getting in the way?',
+                ].map((text) => <div key={text} className="rounded-2xl bg-slate-50 border border-slate-200 p-5"><CheckCircle2 className="w-5 h-5 text-blue-600 mb-4" /><p className="font-semibold text-slate-700 leading-relaxed">{text}</p></div>)}
+              </div>
+              <p className="text-xl md:text-2xl font-black mt-7">The problem may not be effort. It may be the foundation you are building on.</p>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-slate-50 border-y border-slate-100">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8 py-16 md:py-20">
+            <div className="max-w-3xl">
+              <p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">THE RESTART</p>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight">Maybe you don't need another tutorial. Maybe you need a restart.</h2>
+              <p className="mt-5 text-lg text-slate-600 leading-relaxed">We first find out what you actually understand. Then we rebuild the gaps, strengthen your science and help you apply what you learn to your next academic step.</p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-10">
+              {['Assess', 'Rebuild', 'Practise', 'Apply'].map((item, i) => <div key={item} className="rounded-2xl bg-white border border-slate-200 p-5"><span className="text-xs font-black text-blue-700">0{i + 1}</span><h3 className="text-xl font-black mt-2">{item}</h3></div>)}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-slate-950 text-white">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8 py-16 md:py-20">
+            <div className="max-w-3xl">
+              <p className="text-sm font-black tracking-[0.2em] text-blue-300 mb-4">THE EXPERIENCE</p>
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight">More than a class. A system built around your progress.</h2>
+              <p className="mt-5 text-lg text-slate-300 leading-relaxed">Premium learning should feel organised, supported and intentional—not like another class you attend and forget.</p>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
+              {experience.map(([title, text]) => (
+                <div key={title} className="rounded-2xl border border-white/10 bg-white/[.05] p-5">
+                  <CheckCircle2 className="w-5 h-5 text-blue-300 mb-4" />
+                  <h3 className="font-black text-lg">{title}</h3>
+                  <p className="text-slate-300 text-sm leading-relaxed mt-2">{text}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-24">
-          <div className="grid lg:grid-cols-[.8fr_1.2fr] gap-12 items-start">
-            <div>
-              <p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">DOES THIS SOUND LIKE YOU?</p>
-              <h2 className="text-4xl md:text-5xl font-black tracking-tight">You know where you want to go. You just don't know how to catch up in science.</h2>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {[
-                'You studied Arts or Commercial subjects but now want a science-related career.',
-                'You studied science years ago, but you have forgotten most of it.',
-                "You can pass some questions, but you don't really understand the science behind them.",
-                'You keep joining exam classes, but the foundation you need never gets fixed.'
-              ].map((text) => <div key={text} className="rounded-2xl bg-slate-50 border border-slate-200 p-5"><CheckCircle2 className="w-5 h-5 text-blue-600 mb-4" /><p className="font-semibold text-slate-700 leading-relaxed">{text}</p></div>)}
+        <section className="max-w-7xl mx-auto px-5 sm:px-8 py-16 md:py-20">
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-8 md:p-10">
+            <p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-3">BUILT FOR REAL LIFE</p>
+            <h2 className="text-3xl md:text-4xl font-black">Work. Family. Responsibilities. Life happens.</h2>
+            <p className="mt-4 text-lg text-slate-600 max-w-3xl leading-relaxed">Your learning system should account for that. Recordings, catch-up support and structured weekly targets help you keep moving.</p>
+            <div className="grid sm:grid-cols-3 gap-3 mt-8">
+              {['Recordings', 'Catch-up support', 'Weekly targets'].map((item) => <div key={item} className="rounded-xl bg-slate-50 p-4 font-black">{item}</div>)}
             </div>
           </div>
         </section>
 
         <section className="bg-slate-50 border-y border-slate-100">
-          <div className="max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-24">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-              <div><p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">THE ACADEMY MODEL</p><h2 className="text-4xl md:text-5xl font-black tracking-tight">Four stages. A clear way forward.</h2></div>
-              <button onClick={() => go('programmes')} className="font-bold text-blue-700">See the Academy model <ChevronRight className="inline w-4 h-4" /></button>
+          <div className="max-w-7xl mx-auto px-5 sm:px-8 py-16 md:py-20">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-10">
+              <div><p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">YOUR RESTART PATH</p><h2 className="text-4xl md:text-5xl font-black tracking-tight">A clear way forward.</h2></div>
+              <button onClick={() => go('programmes')} className="font-bold text-blue-700">See the model <ArrowRight className="inline w-4 h-4 ml-1" /></button>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">{programmes.map((item) => <ProgrammeCard key={item.title} {...item} />)}</div><p className="mt-6 text-sm text-slate-500 max-w-3xl">The exact curriculum, duration and delivery for each stage will be shaped and validated as the Academy develops.</p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {programmes.map((item, i) => <ProgrammeCard key={item.title} index={i + 1} {...item} />)}
+            </div>
           </div>
         </section>
 
-        <section className="bg-slate-950 text-white">
-          <div className="max-w-7xl mx-auto px-5 sm:px-8 py-14 md:py-16 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between">
-            <div><p className="text-xs font-black tracking-[0.2em] text-blue-300 mb-2">JANUARY 2027</p><h2 className="text-2xl md:text-3xl font-black">We are building the first Science Restart Academy cohort.</h2><p className="text-slate-300 mt-2">If the Academy sounds right for you, tell us about your situation and what you need.</p></div>
-            <button onClick={() => go('cohort')} className="shrink-0 px-6 py-3.5 rounded-xl bg-white text-slate-950 font-black">Express founding cohort interest <ArrowRight className="inline w-4 h-4 ml-1" /></button>
+        <section className="max-w-7xl mx-auto px-5 sm:px-8 py-16 md:py-20">
+          <div className="max-w-3xl">
+            <p className="text-sm font-black tracking-[0.2em] text-blue-700 mb-4">YOUR DESTINATION</p>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight">Where are you trying to go?</h2>
+            <p className="mt-4 text-lg text-slate-600">Nursing, Medicine, Pharmacy, Medical Laboratory Science, Public Health, Engineering, Technology, Pure & Applied Sciences—and other science-related pathways.</p>
           </div>
+          <div className="flex flex-wrap gap-2 mt-7">
+            {['Nursing', 'Medicine', 'Pharmacy', 'Medical Laboratory Science', 'Public Health', 'Engineering', 'Computer Science & Technology', 'Pure & Applied Sciences'].map((name) => <span key={name} className="px-4 py-2.5 rounded-full border border-slate-200 bg-white text-sm font-bold">{name}</span>)}
+          </div>
+          <button onClick={() => go('pathways')} className="mt-6 font-bold text-blue-700">Explore pathways <ArrowRight className="inline w-4 h-4 ml-1" /></button>
         </section>
 
-        <section className="max-w-7xl mx-auto px-5 sm:px-8 py-20 md:py-24">
-          <div className="rounded-[2rem] bg-blue-700 text-white p-8 md:p-12 flex flex-col lg:flex-row justify-between gap-10 items-start lg:items-center">
-            <div className="max-w-2xl"><p className="text-sm font-black tracking-[0.2em] text-blue-200 mb-4">START HERE</p><h2 className="text-3xl md:text-4xl font-black">Before you prepare for the next exam, find out what you actually need to learn.</h2><p className="mt-4 text-blue-100 leading-relaxed">The Readiness Assessment is one part of the Academy—not the Academy itself. Use it to establish your starting point.</p></div>
+        <section className="max-w-7xl mx-auto px-5 sm:px-8 pb-16 md:pb-20">
+          <div className="rounded-[2rem] bg-blue-700 text-white p-8 md:p-12 flex flex-col lg:flex-row justify-between gap-8 items-start lg:items-center">
+            <div className="max-w-2xl">
+              <p className="text-sm font-black tracking-[0.2em] text-blue-200 mb-4">START HERE</p>
+              <h2 className="text-3xl md:text-4xl font-black">Before you spend another year guessing, find out where you stand.</h2>
+              <p className="mt-4 text-blue-100 leading-relaxed">The Science Readiness Assessment gives you a clearer picture of your current foundation and what to work on first.</p>
+            </div>
             <button onClick={() => go('assessment')} className="shrink-0 px-7 py-4 rounded-2xl bg-white text-slate-950 font-black">Check your readiness <ArrowRight className="inline w-5 h-5 ml-1" /></button>
           </div>
         </section>
@@ -207,7 +286,7 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
 function Header({ section, onNavigate, mobileOpen, setMobileOpen }: { section: Section; onNavigate: (section: Section) => void; mobileOpen: boolean; setMobileOpen: (open: boolean) => void }) {
   return (
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-100">
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 h-18 min-h-[72px] flex items-center justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 min-h-[72px] flex items-center justify-between gap-6">
         <button onClick={() => onNavigate('home')} className="flex items-center gap-3 shrink-0 text-left">
           <div className="w-10 h-10 rounded-xl bg-slate-950 flex items-center justify-center"><Sparkles className="w-5 h-5 text-blue-300" /></div>
           <span className="font-black tracking-tight hidden sm:block">Science Restart Academy</span>
@@ -229,16 +308,6 @@ function InfoCard({ title, text }: { title: string; text: string }) {
   return <div className="rounded-2xl border border-slate-200 bg-white p-6"><CheckCircle2 className="w-5 h-5 text-blue-600 mb-5" /><h3 className="text-xl font-black mb-2">{title}</h3><p className="text-slate-600 leading-relaxed">{text}</p></div>;
 }
 
-function ProgrammeCard({ title, text, icon: Icon }: { title: string; text: string; icon: typeof BookOpen }) {
-  return <div className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-blue-200 hover:shadow-lg transition"><div className="w-11 h-11 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center mb-6"><Icon className="w-5 h-5" /></div><h3 className="text-xl font-black mb-2">{title}</h3><p className="text-slate-600 leading-relaxed">{text}</p></div>;
+function ProgrammeCard({ title, text, index }: { title: string; text: string; index: number }) {
+  return <div className="rounded-2xl border border-slate-200 bg-white p-6 hover:border-blue-200 hover:shadow-lg transition"><span className="text-xs font-black tracking-widest text-blue-700">0{index}</span><h3 className="text-xl font-black mt-3 mb-2">{title}</h3><p className="text-slate-600 leading-relaxed">{text}</p></div>;
 }
-
-function PathwayCard({ name, text }: { name: string; text: string }) {
-  return <div className="text-left rounded-2xl border border-slate-200 bg-white p-6">
-    <HeartPulse className="w-6 h-6 text-blue-700 mb-5" />
-    <h3 className="font-black text-lg">{name}</h3>
-    <p className="text-sm text-slate-600 mt-2 leading-relaxed">{text}</p>
-    <p className="text-[11px] text-slate-400 mt-4">Guidance under development</p>
-  </div>;
-}
-
