@@ -172,9 +172,14 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
               </div>
               <h1 className="text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[.98]">You know where you want to go. <span className="text-blue-300">Science keeps getting in the way.</span></h1>
               <p className="mt-7 text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">You may have the ambition, but weak foundations, repeated exam setbacks or forgotten science can keep the future you want out of reach. We help you rebuild the foundation and move forward.</p>
-              <div className="flex flex-wrap gap-3 mt-9">
-                <button onClick={() => go('assessment')} className="px-6 py-4 rounded-2xl bg-white text-slate-950 font-black hover:bg-blue-50 transition">Check your science readiness <ArrowRight className="inline w-5 h-5 ml-1" /></button>
-                <button onClick={() => go('academy')} className="px-6 py-4 rounded-2xl border border-white/20 font-bold hover:bg-white/10 transition">See the Academy</button>
+              <div className="mt-8 max-w-2xl rounded-[1.5rem] border border-blue-300/20 bg-blue-500/10 p-5 md:p-6">
+                <p className="text-xs font-black tracking-[0.18em] text-blue-200 uppercase">January 2027 Founding Cohort</p>
+                <h2 className="text-2xl md:text-3xl font-black mt-2">Join the first Science Restart Academy cohort.</h2>
+                <p className="text-slate-300 mt-2 leading-relaxed">A structured science restart for learners who are ready to stop guessing and start rebuilding properly.</p>
+                <div className="flex flex-wrap gap-3 mt-5">
+                  <button onClick={() => go('cohort')} className="px-6 py-4 rounded-2xl bg-white text-slate-950 font-black hover:bg-blue-50 transition">Join the January Cohort <ArrowRight className="inline w-5 h-5 ml-1" /></button>
+                  <button onClick={() => go('assessment')} className="px-5 py-4 rounded-2xl border border-white/20 font-bold hover:bg-white/10 transition">Check my readiness</button>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -295,7 +300,7 @@ function Header({ section, onNavigate, mobileOpen, setMobileOpen }: { section: S
           {navItems.map((item) => <button key={item.id} onClick={() => onNavigate(item.id)} className={`px-3 py-2 rounded-lg text-sm font-bold transition ${section === item.id ? 'bg-slate-950 text-white' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950'}`}>{item.label}</button>)}
         </nav>
         <div className="flex items-center gap-2">
-          <button onClick={() => onNavigate('assessment')} className="hidden md:block px-4 py-2.5 rounded-xl bg-blue-700 text-white text-sm font-black">Check readiness</button>
+          <button onClick={() => onNavigate('cohort')} className="hidden md:block px-4 py-2.5 rounded-xl bg-blue-700 text-white text-sm font-black">Join January Cohort</button>
           <button onClick={() => setMobileOpen(!mobileOpen)} className="xl:hidden p-2 rounded-lg hover:bg-slate-100" aria-label="Toggle navigation">{mobileOpen ? <X /> : <Menu />}</button>
         </div>
       </div>
