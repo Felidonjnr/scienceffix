@@ -19,7 +19,7 @@ const navItems: { id: Section; label: string }[] = [
   { id: 'academy', label: 'The Academy' },
   { id: 'assessment', label: 'Assessment' },
   { id: 'pathways', label: 'Pathways' },
-  { id: 'cohort', label: 'Founding Cohort' },
+  { id: 'cohort', label: 'January Cohort' },
 ];
 
 const programmes = [
@@ -68,9 +68,9 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
       text: 'Explore science-related directions and understand how a stronger science foundation can support your next academic step.',
     },
     cohort: {
-      eyebrow: 'FOUNDING COHORT',
-      title: 'Build your science foundation with the first Academy cohort.',
-      text: 'A focused founding cohort is planned for January 2027. Tell us about your goals and current situation so we can design the experience around real learners.',
+      eyebrow: 'JANUARY COHORT',
+      title: 'Build your science foundation with the January Academy cohort.',
+      text: 'A focused January cohort is planned for January 2027. Tell us about your goals and current situation so we can design the experience around real learners.',
     },
   };
 
@@ -173,8 +173,8 @@ export default function AcademyHome({ section, onNavigate, onStartAssessment, on
               <h1 className="text-5xl md:text-7xl font-black tracking-[-0.04em] leading-[.98]">You know where you want to go. <span className="text-blue-300">Science keeps getting in the way.</span></h1>
               <p className="mt-7 text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">You may have the ambition, but weak foundations, repeated exam setbacks or forgotten science can keep the future you want out of reach. We help you rebuild the foundation and move forward.</p>
               <div className="mt-8 max-w-2xl rounded-[1.5rem] border border-blue-300/20 bg-blue-500/10 p-5 md:p-6">
-                <p className="text-xs font-black tracking-[0.18em] text-blue-200 uppercase">January 2027 Founding Cohort</p>
-                <h2 className="text-2xl md:text-3xl font-black mt-2">Join the first Science Restart Academy cohort.</h2>
+                <p className="text-xs font-black tracking-[0.18em] text-blue-200 uppercase">January 2027 January Cohort</p>
+                <h2 className="text-2xl md:text-3xl font-black mt-2">Join the January Science Restart Academy cohort.</h2>
                 <p className="text-slate-300 mt-2 leading-relaxed">A structured science restart for learners who are ready to stop guessing and start rebuilding properly.</p>
                 <div className="flex flex-wrap gap-3 mt-5">
                   <button onClick={() => go('cohort')} className="px-6 py-4 rounded-2xl bg-white text-slate-950 font-black hover:bg-blue-50 transition">Join the January Cohort <ArrowRight className="inline w-5 h-5 ml-1" /></button>
