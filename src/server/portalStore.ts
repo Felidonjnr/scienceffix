@@ -473,6 +473,9 @@ class TutorialPortalStore {
   private followUps: TeacherFollowUpItem[] = [];
 
   private dbPath = path.join(process.cwd(), 'data', 'portal_database.json');
+  private supabaseEnabled = false;
+  private persistenceReady = false;
+  private persistencePromise: Promise<void> | null = null;
 
   constructor() {
     this.init();
@@ -508,29 +511,108 @@ class TutorialPortalStore {
     this.saveToDisk();
   }
 
+  private buildState() {
+    return {
+      updatedAt: new Date().toISOString(),
+      students: Array.from(this.students.entries()),
+      profiles: Array.from(this.profiles.entries()),
+      plans: Array.from(this.plans.entries()),
+      streaks: Array.from(this.streaks.entries()),
+      sessions: this.sessions,
+      assignments: this.assignments,
+      dailyPractices: this.dailyPractices,
+      readingTasks: this.readingTasks,
+      masteryRecords: this.masteryRecords,
+      followUps: this.followUps,
+      sessionsMap: Array.from(activeSessions.entries())
+    };
+  }
+
   public saveToDisk() {
+    const data = this.buildState();
     try {
       const dir = path.dirname(this.dbPath);
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir, { recursive: true });
-      }
-      const data = {
-        updatedAt: new Date().toISOString(),
-        students: Array.from(this.students.entries()),
-        profiles: Array.from(this.profiles.entries()),
-        plans: Array.from(this.plans.entries()),
-        streaks: Array.from(this.streaks.entries()),
-        sessions: this.sessions,
-        assignments: this.assignments,
-        dailyPractices: this.dailyPractices,
-        readingTasks: this.readingTasks,
-        masteryRecords: this.masteryRecords,
-        followUps: this.followUps,
-        sessionsMap: Array.from(activeSessions.entries())
-      };
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
       fs.writeFileSync(this.dbPath, JSON.stringify(data, null, 2), 'utf8');
     } catch (err) {
       console.error('[PortalStore] Error persisting database to disk:', err);
+    }
+    void this.persistToSupabase(data);
+  }
+
+  private async persistToSupabase(data: any) {
+    if (!this.supabaseEnabled) return;
+    const url = process.env.SUPABASE_URL;
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!url || !key) return;
+    try {
+      const response = await fetch(`${url}/rest/v1/sciencefix_portal_state?on_conflict=id`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': key,
+          'Authorization': `Bearer ${key}`,
+          'Prefer': 'resolution=merge-duplicates,return=minimal'
+        },
+        body: JSON.stringify({ id: 'singleton', state: data, updated_at: new Date().toISOString() })
+      });
+      if (!response.ok) console.error('[PortalStore] Supabase persistence failed:', await response.text());
+    } catch (err) {
+      console.error('[PortalStore] Supabase persistence error:', err);
+    }
+  }
+
+  public async initializePersistence() {
+    if (this.persistencePromise) return this.persistencePromise;
+    this.persistencePromise = (async () => {
+      const url = process.env.SUPABASE_URL;
+      const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+      if (!url || !key) {
+        this.persistenceReady = true;
+        console.warn('[PortalStore] Supabase credentials missing; using local persistence.');
+        return;
+      }
+      this.supabaseEnabled = true;
+      try {
+        const response = await fetch(
+          `${url}/rest/v1/sciencefix_portal_state?select=state&limit=1`,
+          { headers: { apikey: key, Authorization: `Bearer ${key}` } }
+        );
+        if (!response.ok) {
+          console.warn('[PortalStore] Could not load Supabase portal state:', await response.text());
+          return;
+        }
+        const rows = await response.json();
+        if (Array.isArray(rows) && rows[0]?.state) {
+          this.hydrate(rows[0].state);
+          console.log(`[PortalStore] Loaded production portal state with ${this.students.size} students.`);
+        } else {
+          await this.persistToSupabase(this.buildState());
+          console.log('[PortalStore] Seeded production portal state.');
+        }
+      } catch (err) {
+        console.error('[PortalStore] Supabase initialization failed:', err);
+      } finally {
+        this.persistenceReady = true;
+      }
+    })();
+    return this.persistencePromise;
+  }
+
+  private hydrate(data: any) {
+    if (data.students && Array.isArray(data.students)) this.students = new Map(data.students);
+    this.profiles = new Map(data.profiles || []);
+    this.plans = new Map(data.plans || []);
+    this.streaks = new Map(data.streaks || []);
+    this.sessions = data.sessions || [];
+    this.assignments = data.assignments || [];
+    this.dailyPractices = data.dailyPractices || [];
+    this.readingTasks = data.readingTasks || [];
+    this.masteryRecords = data.masteryRecords || [];
+    this.followUps = data.followUps || [];
+    activeSessions.clear();
+    if (Array.isArray(data.sessionsMap)) {
+      data.sessionsMap.forEach(([k, v]: [string, SessionRecord]) => activeSessions.set(k, v));
     }
   }
 

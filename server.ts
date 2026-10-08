@@ -5,10 +5,12 @@ import OpenAI from "openai";
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
 import { portalStore } from "./src/server/portalStore";
+import tutorialRoutes from "./src/server/tutorialRoutes";
 
 dotenv.config();
 
 async function startServer() {
+  await portalStore.initializePersistence();
   const app = express();
   const PORT = 3000;
 
@@ -507,6 +509,9 @@ async function startServer() {
     const context = portalStore.buildStudentLearningContext(student.id);
     return res.json(context);
   });
+
+  // Personal tutorial workspace routes share the existing portal database/service layer.
+  app.use("/api/tutorial", tutorialRoutes);
 
   // Vite middleware for development
 
