@@ -11,16 +11,20 @@ import DiagnosticView from './components/DiagnosticView';
 import ReportView from './components/ReportView';
 import AdminDashboard from './components/AdminDashboard';
 import StudentPortal from './components/StudentPortal';
+import PersonalTutorialPortal from './components/PersonalTutorialPortal';
+import TutorialTeacherDashboard from './components/TutorialTeacherDashboard';
 import { StudentData, Answer, Question } from './types';
 
 
 type AcademySection = 'home' | 'academy' | 'programmes' | 'assessment' | 'pathways' | 'cohort' | 'portal';
-type View = AcademySection | 'intake' | 'diagnostic' | 'report';
+type View = AcademySection | 'intake' | 'diagnostic' | 'report' | 'tutorial' | 'teacher';
 
 export default function App() {
   const [view, setView] = useState<View>(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('admin') === '1') return 'home';
+    if (params.get('teacher') === '1') return 'teacher';
+    if (params.get('tutorial') === '1') return 'tutorial';
     if (params.get('portal') === '1') return 'portal';
     return 'home';
   });
@@ -111,6 +115,14 @@ export default function App() {
 
   if (isAdminRoute) {
     return <AdminDashboard />;
+  }
+
+  if (view === 'teacher') {
+    return <TutorialTeacherDashboard />;
+  }
+
+  if (view === 'tutorial') {
+    return <PersonalTutorialPortal onBackToHome={() => setView('home')} />;
   }
 
   if (!isLoaded) {
