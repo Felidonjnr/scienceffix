@@ -10,6 +10,7 @@ import tutorialRoutes from "./src/server/tutorialRoutes";
 dotenv.config();
 
 async function startServer() {
+  await portalStore.initializePersistence();
   const app = express();
   const PORT = 3000;
 
