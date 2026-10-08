@@ -23,8 +23,8 @@ export default function App() {
   const [view, setView] = useState<View>(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.get('admin') === '1') return 'home';
-    if (params.get('teacher') === '1') return 'teacher';
-    if (params.get('tutorial') === '1') return 'tutorial';
+    if (params.get('teacher') === '1' || window.location.pathname === '/teacher') return 'teacher';
+    if (params.get('tutorial') === '1' || window.location.pathname === '/student-portal') return 'tutorial';
     if (params.get('portal') === '1') return 'portal';
     return 'home';
   });
