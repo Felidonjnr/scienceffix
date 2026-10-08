@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState, FormEvent } from 'react';
 
 type Lead = {
   id: string;
@@ -49,7 +49,7 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleLogin = (event: React.FormEvent) => {
+  const handleLogin = (event: FormEvent) => {
     event.preventDefault();
     if (draftKey.trim()) loadLeads(draftKey.trim());
   };

@@ -10,14 +10,20 @@ import IntakeForm from './components/IntakeForm';
 import DiagnosticView from './components/DiagnosticView';
 import ReportView from './components/ReportView';
 import AdminDashboard from './components/AdminDashboard';
+import StudentPortal from './components/StudentPortal';
 import { StudentData, Answer, Question } from './types';
 
 
-type AcademySection = 'home' | 'academy' | 'programmes' | 'assessment' | 'pathways' | 'cohort';
+type AcademySection = 'home' | 'academy' | 'programmes' | 'assessment' | 'pathways' | 'cohort' | 'portal';
 type View = AcademySection | 'intake' | 'diagnostic' | 'report';
 
 export default function App() {
-  const [view, setView] = useState<View>(() => new URLSearchParams(window.location.search).get('admin') === '1' ? 'home' : 'home');
+  const [view, setView] = useState<View>(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('admin') === '1') return 'home';
+    if (params.get('portal') === '1') return 'portal';
+    return 'home';
+  });
   const [isAdminRoute] = useState(() => new URLSearchParams(window.location.search).get('admin') === '1');
   const [student, setStudent] = useState<StudentData | null>(null);
   const [answers, setAnswers] = useState<Answer[]>([]);
@@ -150,7 +156,9 @@ export default function App() {
         <motion.div key={view} initial="initial" animate="animate" exit="exit" variants={pageVariants} transition={{ duration: 0.22, ease: 'easeInOut' }} className="min-h-screen">
           {(['home', 'academy', 'programmes', 'assessment', 'pathways', 'cohort'] as AcademySection[]).includes(view as AcademySection) && academyView(view as AcademySection)}
 
-          {view === 'intake' && <IntakeForm onSubmit={(data) => { setStudent(data); setView('diagnostic'); fetch('/api/interest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: data.name, phone: data.phone, ageRange: data.age, previousBackground: data.startingLevel, desiredPathway: data.courseGoal, scienceStatus: data.startingLevel, biggestChallenge: data.biggestChallenge, employmentStatus: data.employmentStatus, source: 'science-readiness-assessment' }) }).catch(() => undefined); }} onDevSkip={import.meta.env.DEV ? handleDevSkip : undefined} />}
+          {view === 'portal' && <StudentPortal onBackToHome={() => setView('home')} />}
+
+          {view === 'intake' && <IntakeForm onSubmit={(data) => { setStudent(data); setView('diagnostic'); fetch('/api/interest', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: data.name, phone: data.phone, ageRange: data.age, previousBackground: data.startingLevel, desiredPathway: data.courseGoal, scienceStatus: data.startingLevel, biggestChallenge: data.biggestChallenge, employmentStatus: data.employmentStatus, source: 'science-readiness-assessment' }) }).catch(() => undefined); }} onDevSkip={Boolean((import.meta as any).env?.DEV) ? handleDevSkip : undefined} />}
 
           {view === 'diagnostic' && student && <DiagnosticView student={student} questionBank={questionBank} onComplete={(finalAnswers) => { setAnswers(finalAnswers); setView('report'); }} />}
 

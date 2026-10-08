@@ -1,7 +1,19 @@
-import { ArrowRight, Brain, Target, ShieldCheck, Sparkles, ChevronRight, BookOpen, Clock, Activity } from 'lucide-react';
+import { ArrowRight, Brain, Target, ShieldCheck, Sparkles, ChevronRight, Clock, Activity, FileText } from 'lucide-react';
 import { motion } from 'motion/react';
+import { StudentData } from '../types';
 
-export default function LandingView({ onStart }: { onStart: () => void }) {
+interface LandingViewProps {
+  onStart: () => void;
+  hasExistingBlueprint?: boolean;
+  onViewExistingBlueprint?: () => void;
+  student?: StudentData | null;
+}
+
+export default function LandingView({ 
+  onStart,
+  hasExistingBlueprint,
+  onViewExistingBlueprint
+}: LandingViewProps) {
   return (
     <div className="min-h-screen bg-slate-50 relative overflow-hidden">
       {/* Background Gradients */}
@@ -17,6 +29,16 @@ export default function LandingView({ onStart }: { onStart: () => void }) {
             </div>
             <span className="font-bold text-xl tracking-tight text-slate-900">Science Transition Academy</span>
           </div>
+
+          {hasExistingBlueprint && onViewExistingBlueprint && (
+            <button
+              onClick={onViewExistingBlueprint}
+              className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 border border-blue-200 px-4 py-2 rounded-xl text-sm font-bold hover:bg-blue-100 transition-colors shadow-sm"
+            >
+              <FileText className="w-4 h-4 text-blue-600" />
+              <span>View Saved Blueprint</span>
+            </button>
+          )}
         </nav>
         
         <main className="grid lg:grid-cols-2 gap-16 items-center">
@@ -56,7 +78,7 @@ export default function LandingView({ onStart }: { onStart: () => void }) {
             <div className="flex items-center gap-6 pt-4 border-t border-slate-200/60">
               <div className="flex -space-x-3">
                 {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className={`w-10 h-10 rounded-full border-2 border-white bg-slate-[${100 * i}] flex items-center justify-center overflow-hidden shadow-sm`}>
+                  <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-slate-200 flex items-center justify-center overflow-hidden shadow-sm">
                     <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 15}`} alt="student" className="w-full h-full bg-slate-100" />
                   </div>
                 ))}

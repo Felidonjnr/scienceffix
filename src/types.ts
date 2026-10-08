@@ -110,4 +110,5 @@ export interface FoundingCohortApplication {
 // Re-export Science Transition Academy Learning Architecture & Curriculum Blueprint types
 export * from './types/learningArchitecture';
 export * from './types/curriculumBlueprint';
+export * from './types/studentPortal';
 

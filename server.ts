@@ -4,6 +4,7 @@ import { createServer as createViteServer } from "vite";
 import OpenAI from "openai";
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
+import { portalStore } from "./src/server/portalStore";
 
 dotenv.config();
 
@@ -294,6 +295,217 @@ async function startServer() {
       console.error("Quick Review Error:", error);
       res.status(500).json({ error: "Failed to generate quick review" });
     }
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // STUDENT PORTAL API ROUTES (Connected to persistent disk/database store)
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  function getStudentAuth(req: express.Request) {
+    const authHeader = req.headers.authorization;
+    let token = '';
+    if (authHeader && authHeader.startsWith('Bearer ')) {
+      token = authHeader.slice(7).trim();
+    } else if (typeof req.headers['x-portal-token'] === 'string') {
+      token = req.headers['x-portal-token'].trim();
+    }
+    if (!token) return null;
+    return portalStore.getStudentByToken(token);
+  }
+
+  // Student PIN Login
+  app.post("/api/portal/auth/pin", (req, res) => {
+    try {
+      const { accessCode } = req.body || {};
+      if (!accessCode || typeof accessCode !== 'string') {
+        return res.status(400).json({ error: "Access code or PIN is required." });
+      }
+      const clientIp = (req.headers['x-forwarded-for'] as string)?.split(',')[0] || req.ip || req.socket.remoteAddress || '127.0.0.1';
+      const result = portalStore.verifyStudentPIN(accessCode, clientIp);
+      if (!result.success || !result.student || !result.token) {
+        return res.status(401).json({ error: result.error || "Invalid student PIN." });
+      }
+
+      const profile = portalStore.getProfile(result.student.id);
+      const plan = portalStore.getLearningPlan(result.student.id);
+      const streak = portalStore.getStreak(result.student.id);
+
+      return res.json({
+        success: true,
+        student: result.student,
+        token: result.token,
+        profile,
+        plan,
+        streak
+      });
+    } catch (err) {
+      console.error("PIN auth error:", err);
+      return res.status(500).json({ error: "Failed to authenticate PIN." });
+    }
+  });
+
+  // Student Registration (Self-enrollment)
+  app.post("/api/portal/auth/register", (req, res) => {
+    try {
+      const { name, phone, targetPathway, startingLevel, subjects, currentGoal } = req.body || {};
+      if (!name || typeof name !== 'string' || name.trim().length < 2) {
+        return res.status(400).json({ error: "Valid student name is required." });
+      }
+      const newAccount = portalStore.registerNewStudent({
+        name,
+        phone,
+        targetPathway,
+        startingLevel,
+        subjects,
+        currentGoal
+      });
+      return res.json({
+        success: true,
+        student: newAccount.student,
+        token: newAccount.token,
+        accessCode: newAccount.accessCode,
+        profile: newAccount.profile,
+        plan: newAccount.learningPlan
+      });
+    } catch (err) {
+      console.error("Student register error:", err);
+      return res.status(500).json({ error: "Failed to register student." });
+    }
+  });
+
+  // Current session status
+  app.get("/api/portal/me", (req, res) => {
+    const student = getStudentAuth(req);
+    if (!student) {
+      return res.status(401).json({ error: "Unauthorized: Invalid or expired student session." });
+    }
+    return res.json({
+      student,
+      profile: portalStore.getProfile(student.id),
+      plan: portalStore.getLearningPlan(student.id),
+      streak: portalStore.getStreak(student.id)
+    });
+  });
+
+  // Student Dashboard data
+  app.get("/api/portal/dashboard", (req, res) => {
+    const student = getStudentAuth(req);
+    if (!student) {
+      return res.status(401).json({ error: "Unauthorized: Please log in with your student PIN." });
+    }
+    const dashboard = portalStore.getStudentHomeDashboard(student.id);
+    if (!dashboard) {
+      return res.status(404).json({ error: "Student dashboard not found." });
+    }
+    return res.json(dashboard);
+  });
+
+  // Start or get Daily Fix Practice
+  app.post("/api/portal/daily-fix/start", (req, res) => {
+    const student = getStudentAuth(req);
+    if (!student) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const { customTopic, customSubject } = req.body || {};
+    try {
+      const practice = portalStore.generateDailyFix(student.id, customTopic, customSubject);
+      return res.json(practice);
+    } catch (err) {
+      console.error("Daily fix start error:", err);
+      return res.status(500).json({ error: "Failed to start daily fix clinic." });
+    }
+  });
+
+  // Submit Daily Fix Practice
+  app.post("/api/portal/daily-fix/submit", (req, res) => {
+    const student = getStudentAuth(req);
+    if (!student) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const { practiceId, submissions } = req.body || {};
+    if (!practiceId || !Array.isArray(submissions)) {
+      return res.status(400).json({ error: "Practice ID and submissions array are required." });
+    }
+    try {
+      const result = portalStore.submitDailyPracticeAnswers(practiceId, student.id, submissions);
+      return res.json(result);
+    } catch (err: any) {
+      console.error("Daily practice submit error:", err);
+      return res.status(400).json({ error: err.message || "Failed to mark daily practice." });
+    }
+  });
+
+  // List student's assignments
+  app.get("/api/portal/assignments", (req, res) => {
+    const student = getStudentAuth(req);
+    if (!student) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const assignments = portalStore.getAllAssignmentsForStudent(student.id);
+    return res.json({ assignments });
+  });
+
+  // Submit Assignment
+  app.post("/api/portal/assignments/:id/submit", (req, res) => {
+    const student = getStudentAuth(req);
+    if (!student) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const { submissions } = req.body || {};
+    if (!Array.isArray(submissions)) {
+      return res.status(400).json({ error: "Submissions array is required." });
+    }
+    try {
+      const result = portalStore.submitAssignmentAnswers(req.params.id, student.id, submissions);
+      return res.json(result);
+    } catch (err: any) {
+      console.error("Assignment submit error:", err);
+      return res.status(400).json({ error: err.message || "Failed to mark assignment." });
+    }
+  });
+
+  // List student's reading tasks
+  app.get("/api/portal/reading-tasks", (req, res) => {
+    const student = getStudentAuth(req);
+    if (!student) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const readingTasks = portalStore.getReadingTasksForStudent(student.id);
+    return res.json({ readingTasks });
+  });
+
+  // Complete Reading Task
+  app.post("/api/portal/reading-tasks/:id/complete", (req, res) => {
+    const student = getStudentAuth(req);
+    if (!student) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const { durationMinutes } = req.body || {};
+    const success = portalStore.completeReadingTask(req.params.id, student.id, Number(durationMinutes) || 10);
+    if (!success) {
+      return res.status(404).json({ error: "Reading task not found or already completed." });
+    }
+    return res.json({ success: true, streak: portalStore.getStreak(student.id) });
+  });
+
+  // Get topic mastery
+  app.get("/api/portal/mastery", (req, res) => {
+    const student = getStudentAuth(req);
+    if (!student) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const mastery = portalStore.getTopicMasteryForStudent(student.id);
+    return res.json({ mastery });
+  });
+
+  // Get learning context
+  app.get("/api/portal/context", (req, res) => {
+    const student = getStudentAuth(req);
+    if (!student) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const context = portalStore.buildStudentLearningContext(student.id);
+    return res.json(context);
   });
 
   // Vite middleware for development
