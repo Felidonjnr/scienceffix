@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/teacher",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/teacher/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/student-portal",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/student-portal/",
+      "destination": "/index.html"
+    }
+  ]
+}
