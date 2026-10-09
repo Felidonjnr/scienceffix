@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
 import { portalStore } from "./src/server/portalStore";
 import tutorialRoutes from "./src/server/tutorialRoutes";
+import { QUESTIONS } from "./src/data/questions";
 
 dotenv.config();
 
@@ -21,30 +22,36 @@ async function startServer() {
     try {
       const supabaseUrl = process.env.SUPABASE_URL;
       const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-      if (!supabaseUrl || !serviceRoleKey) {
-        return res.status(503).json({ error: "Question database is not configured." });
-      }
+      if (supabaseUrl && serviceRoleKey) {
+        try {
+          const response = await fetch(
+            `${supabaseUrl}/rest/v1/science_restart_questions?select=id,subject,profile_level,knowledge_type,topic,text,options,explanation,is_math_heavy,text_length,cognitive_skills,difficulty&active=eq.true&order=id.asc`,
+            {
+              headers: {
+                "apikey": serviceRoleKey,
+                "Authorization": `Bearer ${serviceRoleKey}`
+              }
+            }
+          );
 
-      const response = await fetch(
-        `${supabaseUrl}/rest/v1/science_restart_questions?select=id,subject,profile_level,knowledge_type,topic,text,options,explanation,is_math_heavy,text_length,cognitive_skills,difficulty&active=eq.true&order=id.asc`,
-        {
-          headers: {
-            "apikey": serviceRoleKey,
-            "Authorization": `Bearer ${serviceRoleKey}`
+          if (response.ok) {
+            const questions = await response.json();
+            if (Array.isArray(questions) && questions.length > 0) {
+              return res.json({ questions });
+            }
+          } else {
+            console.warn("Supabase question retrieval failed, serving bundled question bank.");
           }
+        } catch (supabaseErr) {
+          console.warn("Supabase network error, serving bundled question bank:", supabaseErr);
         }
-      );
-
-      if (!response.ok) {
-        console.error("Supabase question retrieval failed:", await response.text());
-        return res.status(502).json({ error: "Unable to retrieve the question bank." });
       }
 
-      const questions = await response.json();
-      return res.json({ questions });
+      // Always reliably serve the complete 400-question production curriculum bank
+      return res.json({ questions: QUESTIONS });
     } catch (error) {
       console.error("Question retrieval error:", error);
-      return res.status(500).json({ error: "Unable to retrieve the question bank." });
+      return res.json({ questions: QUESTIONS });
     }
   });
 
@@ -54,7 +61,7 @@ async function startServer() {
     return Boolean(configured && typeof supplied === 'string' && supplied === configured);
   }
 
-  app.get("/api/admin/leads", async (req, res) => {
+  const handleAdminLeads = async (req: express.Request, res: express.Response) => {
     if (!adminAuthorized(req)) return res.status(401).json({ error: "Unauthorized" });
     try {
       const supabaseUrl = process.env.SUPABASE_URL;
@@ -69,9 +76,12 @@ async function startServer() {
       console.error("Lead retrieval error:", error);
       res.status(500).json({ error: "Unable to retrieve leads." });
     }
-  });
+  };
 
-  app.get("/api/admin/export", async (req, res) => {
+  app.get("/api/admin/leads", handleAdminLeads);
+  app.get("/api/admin-leads", handleAdminLeads);
+
+  const handleAdminExport = async (req: express.Request, res: express.Response) => {
     if (!adminAuthorized(req)) return res.status(401).send("Unauthorized");
     try {
       const supabaseUrl = process.env.SUPABASE_URL;
@@ -92,7 +102,10 @@ async function startServer() {
       console.error("Lead export error:", error);
       res.status(500).send("Unable to export leads.");
     }
-  });
+  };
+
+  app.get("/api/admin/export", handleAdminExport);
+  app.get("/api/admin-export", handleAdminExport);
 
   app.post("/api/interest", async (req, res) => {
     try {

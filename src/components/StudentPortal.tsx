@@ -82,6 +82,7 @@ export default function StudentPortal({ onBackToHome }: StudentPortalProps) {
   const [regSubjects, setRegSubjects] = useState<Subject[]>(['Chemistry', 'Biology']);
   const [regSuccessPin, setRegSuccessPin] = useState<string | null>(null);
   const [regLoading, setRegLoading] = useState(false);
+  const [regError, setRegError] = useState<string | null>(null);
 
   // Load session or check current token
   useEffect(() => {
@@ -168,6 +169,7 @@ export default function StudentPortal({ onBackToHome }: StudentPortalProps) {
     e.preventDefault();
     if (!regName.trim()) return;
     setRegLoading(true);
+    setRegError(null);
     try {
       const res = await fetch('/api/portal/auth/register', {
         method: 'POST',
@@ -189,11 +191,11 @@ export default function StudentPortal({ onBackToHome }: StudentPortalProps) {
         setStudent(data.student);
         fetchDashboard(data.token);
       } else {
-        alert(data.error || 'Failed to create student account.');
+        setRegError(data.error || 'Failed to create student account.');
       }
     } catch (err) {
       console.error('Registration error:', err);
-      alert('Network error while registering student.');
+      setRegError('Network error while registering student. Please check your connection.');
     } finally {
       setRegLoading(false);
     }
@@ -506,6 +508,12 @@ export default function StudentPortal({ onBackToHome }: StudentPortalProps) {
                 </div>
               ) : (
                 <form onSubmit={handleRegister} className="space-y-4 text-sm">
+                  {regError && (
+                    <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-3 text-red-300 text-xs flex items-center gap-2">
+                      <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+                      <span>{regError}</span>
+                    </div>
+                  )}
                   <div>
                     <label className="block text-xs font-bold text-slate-300 mb-1">Full Name</label>
                     <input

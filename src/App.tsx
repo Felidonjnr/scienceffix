@@ -44,7 +44,8 @@ export default function App() {
       const savedData = localStorage.getItem('science_transition_assessment_state');
       try {
         const questionResponse = await fetch('/api/questions');
-        if (questionResponse.ok) {
+        const contentType = questionResponse.headers.get('content-type');
+        if (questionResponse.ok && contentType && contentType.includes('application/json')) {
           const data = await questionResponse.json();
           if (Array.isArray(data.questions) && data.questions.length > 0) {
             setQuestionBank(data.questions as Question[]);
@@ -56,8 +57,7 @@ export default function App() {
           const { QUESTIONS } = await import('./data/questions');
           setQuestionBank(QUESTIONS);
         }
-      } catch (error) {
-        console.error('Failed to load live question bank; using local fallback', error);
+      } catch (_error) {
         const { QUESTIONS } = await import('./data/questions');
         setQuestionBank(QUESTIONS);
       }
