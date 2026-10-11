@@ -12,7 +12,7 @@ import ReportView from './components/ReportView';
 import AdminDashboard from './components/AdminDashboard';
 import StudentPortal from './components/StudentPortal';
 import PersonalTutorialPortal from './components/PersonalTutorialPortal';
-import TutorialTeacherDashboard from './components/TutorialTeacherDashboard';
+import TutorialTeacherDashboardFoundation from './components/TutorialTeacherDashboardFoundation';
 import { StudentData, Answer, Question } from './types';
 
 
@@ -118,7 +118,7 @@ export default function App() {
   }
 
   if (view === 'teacher') {
-    return <TutorialTeacherDashboard />;
+    return <TutorialTeacherDashboardFoundation />;
   }
 
   if (view === 'tutorial') {
