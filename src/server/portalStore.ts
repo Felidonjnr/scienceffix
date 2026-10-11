@@ -237,19 +237,22 @@ const SEED_TEACHING_SESSIONS: TeachingSessionLog[] = [
   }
 ];
 
-// Helper to pull relevant questions from the 400-question repository
+// Return only questions that match the requested topic. Never silently
+// replace a topic-specific practice set with unrelated subject questions.
 function findQuestionsForTopic(subject: Subject, topicKeyword: string, count: number = 5) {
-  const matches = QUESTIONS.filter(q => 
-    q.subject === subject && 
-    (q.topic.toLowerCase().includes(topicKeyword.toLowerCase()) || 
-     q.text.toLowerCase().includes(topicKeyword.toLowerCase()))
-  );
-  if (matches.length >= count) {
-    return matches.slice(0, count);
-  }
-  // fallback to subject pool
-  const subjectPool = QUESTIONS.filter(q => q.subject === subject);
-  return subjectPool.slice(0, count);
+  const normalize = (value: string) => value.toLocaleLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const topicKey = normalize(topicKeyword);
+  if (!topicKey) return [];
+  const matches = QUESTIONS.filter(q => {
+    if (q.subject !== subject) return false;
+    const questionTopic = normalize(String(q.topic || ''));
+    const questionText = normalize(String(q.text || ''));
+    return questionTopic === topicKey ||
+      questionTopic.includes(topicKey) ||
+      topicKey.includes(questionTopic) ||
+      questionText.includes(topicKey);
+  });
+  return matches.slice(0, Math.max(1, Math.min(20, Number(count) || 5)));
 }
 
 // Transform Question to AssignmentQuestionItem
