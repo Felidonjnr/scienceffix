@@ -113,6 +113,39 @@ router.post('/teacher/assignments', (req, res) => {
   }
 });
 
+router.post('/teacher/assignments/:id/publish', (req, res) => {
+  if (!guard(req, res)) return;
+  const id = String(req.params.id || '').trim();
+  if (!id) return res.status(400).json({ error: 'Assignment ID is required.' });
+  const a = portalStore.publishAssignment(id);
+  if (!a) return res.status(404).json({ error: 'Assignment not found.' });
+  res.json({ success: true, assignment: a });
+});
+
+router.post('/teacher/assignments/:id/review', (req, res) => {
+  if (!guard(req, res)) return;
+  const id = String(req.params.id || '').trim();
+  if (!id) return res.status(400).json({ error: 'Assignment ID is required.' });
+  const { feedback, teacherScore } = req.body || {};
+  const a = portalStore.reviewAssignment(id, String(feedback || ''), teacherScore);
+  if (!a) return res.status(404).json({ error: 'Assignment not found.' });
+  res.json({ success: true, assignment: a });
+});
+
+router.post('/teacher/learning-plan', (req, res) => {
+  if (!guard(req, res)) return;
+  const { studentId, plan } = req.body || {};
+  if (!studentId || typeof studentId !== 'string') {
+    return res.status(400).json({ error: 'Valid student ID is required.' });
+  }
+  if (!plan || typeof plan !== 'object') {
+    return res.status(400).json({ error: 'Plan update payload is required.' });
+  }
+  const updated = portalStore.updateStudentLearningPlan(studentId, plan);
+  if (!updated) return res.status(404).json({ error: 'Student learning plan not found.' });
+  res.json({ success: true, learningPlan: portalStore.getStudentFullDetailForTeacher(studentId)?.learningPlan });
+});
+
 router.post('/teacher/lesson', (req, res) => {
   if (!guard(req, res)) return;
   try {

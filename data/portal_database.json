@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-10T19:21:32.527Z",
+  "updatedAt": "2026-10-11T09:17:30.958Z",
   "students": [
     [
       "student-david",
@@ -158,7 +158,292 @@
       }
     ]
   ],
-  "profiles": [],
+  "profiles": [
+    [
+      "student-david",
+      {
+        "studentId": "student-david",
+        "subjects": [
+          "Chemistry",
+          "Biology"
+        ],
+        "overallLevel": "F",
+        "strengths": [
+          "States of Matter",
+          "Conservation of Mass",
+          "Cell Organization"
+        ],
+        "needsImprovement": [
+          "Electron Configuration",
+          "Chemical Bonding",
+          "Solution Molarity"
+        ],
+        "targetPathway": "Nursing & Midwifery",
+        "dailyQuestionTarget": 5,
+        "dailyReadingTargetMinutes": 15,
+        "teacherNotes": "David grasps intuitive analogies well but hesitates when notation becomes symbolic (e.g. 1s² 2s² 2p⁶). Needs deliberate reinforcement on subshell capacities before proceeding to covalent bonding.",
+        "updatedAt": "2026-10-11T09:17:19.865Z"
+      }
+    ],
+    [
+      "student-aisha",
+      {
+        "studentId": "student-aisha",
+        "subjects": [
+          "Mathematics",
+          "Chemistry"
+        ],
+        "overallLevel": "Z",
+        "strengths": [
+          "Direct Proportions",
+          "Everyday Arithmetic"
+        ],
+        "needsImprovement": [
+          "Linear Equation Balancing",
+          "Negative Numbers",
+          "Fractions with Unlike Denominators"
+        ],
+        "targetPathway": "Pharmacy & Health Sciences",
+        "dailyQuestionTarget": 5,
+        "dailyReadingTargetMinutes": 20,
+        "teacherNotes": "Aisha switched from Commercial subjects. She has strong motivation but missed early algebra foundations. Prefers step-by-step worked examples before attempting independent practice.",
+        "updatedAt": "2026-10-11T09:17:19.865Z"
+      }
+    ],
+    [
+      "student-emeka",
+      {
+        "studentId": "student-emeka",
+        "subjects": [
+          "Physics",
+          "Mathematics"
+        ],
+        "overallLevel": "P",
+        "strengths": [
+          "Formula Execution (W=Fd, V=IR)",
+          "Algebraic Manipulation"
+        ],
+        "needsImprovement": [
+          "Motion Graphs Interpretation",
+          "Newton’s Third Law Interaction Pairs",
+          "Vector Resolution"
+        ],
+        "targetPathway": "Mechanical / Electrical Engineering",
+        "dailyQuestionTarget": 8,
+        "dailyReadingTargetMinutes": 20,
+        "teacherNotes": "Emeka relies heavily on formula plugging without visualizing the underlying physical interaction. We need to detach him from mechanical calculation toward qualitative reasoning.",
+        "updatedAt": "2026-10-11T09:17:19.865Z"
+      }
+    ],
+    [
+      "student-mv00sqelj4f3",
+      {
+        "studentId": "student-mv00sqelj4f3",
+        "subjects": [
+          "Chemistry",
+          "Biology"
+        ],
+        "overallLevel": "F",
+        "strengths": [
+          "Foundational Science"
+        ],
+        "needsImprovement": [
+          "Atomic Structure"
+        ],
+        "targetPathway": "Pharmacy & Health Sciences",
+        "dailyQuestionTarget": 5,
+        "dailyReadingTargetMinutes": 15,
+        "teacherNotes": "",
+        "updatedAt": "2026-10-11T09:17:19.870Z"
+      }
+    ],
+    [
+      "student-mv1h3qcs5uz0",
+      {
+        "studentId": "student-mv1h3qcs5uz0",
+        "subjects": [
+          "Chemistry",
+          "Biology",
+          "Mathematics"
+        ],
+        "overallLevel": "F",
+        "strengths": [
+          "Foundational Science"
+        ],
+        "needsImprovement": [
+          "Atomic Structure"
+        ],
+        "targetPathway": "Pharmacy",
+        "dailyQuestionTarget": 5,
+        "dailyReadingTargetMinutes": 15,
+        "teacherNotes": "",
+        "updatedAt": "2026-10-11T09:17:19.870Z"
+      }
+    ],
+    [
+      "student-mv1h3xoajj6w",
+      {
+        "studentId": "student-mv1h3xoajj6w",
+        "subjects": [
+          "Chemistry",
+          "Biology",
+          "Mathematics"
+        ],
+        "overallLevel": "F",
+        "strengths": [
+          "Foundational Science"
+        ],
+        "needsImprovement": [
+          "Atomic Structure"
+        ],
+        "targetPathway": "Electrical Science",
+        "dailyQuestionTarget": 5,
+        "dailyReadingTargetMinutes": 15,
+        "teacherNotes": "",
+        "updatedAt": "2026-10-11T09:17:19.870Z"
+      }
+    ],
+    [
+      "student-mv1h4s3fjry6",
+      {
+        "studentId": "student-mv1h4s3fjry6",
+        "subjects": [
+          "Chemistry",
+          "Biology",
+          "Mathematics"
+        ],
+        "overallLevel": "F",
+        "strengths": [
+          "Foundational Science"
+        ],
+        "needsImprovement": [
+          "Atomic Structure"
+        ],
+        "targetPathway": "Radiology",
+        "dailyQuestionTarget": 5,
+        "dailyReadingTargetMinutes": 15,
+        "teacherNotes": "",
+        "updatedAt": "2026-10-11T09:17:19.870Z"
+      }
+    ],
+    [
+      "student-mv1h59y25kng",
+      {
+        "studentId": "student-mv1h59y25kng",
+        "subjects": [
+          "Chemistry",
+          "Biology",
+          "Mathematics"
+        ],
+        "overallLevel": "F",
+        "strengths": [
+          "Foundational Science"
+        ],
+        "needsImprovement": [
+          "Atomic Structure"
+        ],
+        "targetPathway": "Biochemistry",
+        "dailyQuestionTarget": 5,
+        "dailyReadingTargetMinutes": 15,
+        "teacherNotes": "",
+        "updatedAt": "2026-10-11T09:17:19.870Z"
+      }
+    ],
+    [
+      "student-mv2o23pw7wu8",
+      {
+        "studentId": "student-mv2o23pw7wu8",
+        "subjects": [
+          "Chemistry",
+          "Biology",
+          "Mathematics"
+        ],
+        "overallLevel": "F",
+        "strengths": [
+          "Foundational Science"
+        ],
+        "needsImprovement": [
+          "Atomic Structure"
+        ],
+        "targetPathway": "Science Foundation Transition",
+        "dailyQuestionTarget": 5,
+        "dailyReadingTargetMinutes": 15,
+        "teacherNotes": "",
+        "updatedAt": "2026-10-11T09:17:19.870Z"
+      }
+    ],
+    [
+      "student-mv2o23q4oy5t",
+      {
+        "studentId": "student-mv2o23q4oy5t",
+        "subjects": [
+          "Chemistry",
+          "Biology",
+          "Mathematics",
+          null
+        ],
+        "overallLevel": "F",
+        "strengths": [
+          "Foundational Science"
+        ],
+        "needsImprovement": [
+          "Atomic Structure"
+        ],
+        "targetPathway": "Science Foundation Transition",
+        "dailyQuestionTarget": 5,
+        "dailyReadingTargetMinutes": 15,
+        "teacherNotes": "",
+        "updatedAt": "2026-10-11T09:17:19.870Z"
+      }
+    ],
+    [
+      "student-mv2o3yxvcb9a",
+      {
+        "studentId": "student-mv2o3yxvcb9a",
+        "subjects": [
+          "Chemistry",
+          "Biology",
+          "Mathematics"
+        ],
+        "overallLevel": "F",
+        "strengths": [
+          "Foundational Science"
+        ],
+        "needsImprovement": [
+          "Atomic Structure"
+        ],
+        "targetPathway": "Science Foundation Transition",
+        "dailyQuestionTarget": 5,
+        "dailyReadingTargetMinutes": 15,
+        "teacherNotes": "",
+        "updatedAt": "2026-10-11T09:17:19.870Z"
+      }
+    ],
+    [
+      "student-mv2o3yy2elcj",
+      {
+        "studentId": "student-mv2o3yy2elcj",
+        "subjects": [
+          "Chemistry",
+          "Biology",
+          "Mathematics",
+          null
+        ],
+        "overallLevel": "F",
+        "strengths": [
+          "Foundational Science"
+        ],
+        "needsImprovement": [
+          "Atomic Structure"
+        ],
+        "targetPathway": "Science Foundation Transition",
+        "dailyQuestionTarget": 5,
+        "dailyReadingTargetMinutes": 15,
+        "teacherNotes": "",
+        "updatedAt": "2026-10-11T09:17:19.870Z"
+      }
+    ]
+  ],
   "plans": [
     [
       "student-david",
@@ -167,7 +452,7 @@
         "subjects": [
           {
             "subject": "Chemistry",
-            "currentTopic": "Atomic Structure & Subshells",
+            "currentTopic": "Periodic Table & Ionization Energy",
             "targetTopics": [
               "Chemical Bonding",
               "Solution Molarity",
@@ -200,12 +485,12 @@
             "preferredDifficulty": 2
           }
         ],
-        "nextRecommendedAction": "Practise 5 questions on electron configuration rules (Aufbau & Pauli).",
+        "nextRecommendedAction": "Master Ionization Energy Exceptions & Trends",
         "learningGoals": [
-          "Master valence electron filling",
-          "Understand nursing fluid concentration calculations"
+          "Achieve 85% on JAMB Chemistry",
+          "Solidify Periodic Table Fundamentals"
         ],
-        "updatedAt": "2026-10-08T20:59:44.894Z"
+        "updatedAt": "2026-10-11T09:17:30.958Z"
       }
     ],
     [
@@ -840,9 +1125,9 @@
       "student-david",
       {
         "studentId": "student-david",
-        "currentStreakDays": 5,
+        "currentStreakDays": 6,
         "longestStreakDays": 7,
-        "lastActiveDate": "2026-10-10",
+        "lastActiveDate": "2026-10-11",
         "todayCompleted": true
       }
     ],
@@ -969,6 +1254,20 @@
   ],
   "sessions": [
     {
+      "studentId": "student-david",
+      "date": "2026-10-11",
+      "subject": "Chemistry",
+      "topic": "Periodic Table & Ionization Energy",
+      "subtopic": "Electronegativity Trends",
+      "whatWasTaught": "Taught periodic trends across period 3 and down group 1/7.",
+      "struggles": "Confusion on why noble gases have high ionization energy.",
+      "teacherEmphasis": "Explain effective nuclear charge shielding.",
+      "understandingLevel": 3,
+      "recommendedNextStep": "Practice 5 past questions on ionization energy exceptions.",
+      "id": "sess-1791710250951",
+      "createdAt": "2026-10-11T09:17:30.951Z"
+    },
+    {
       "studentId": "student-mv2o3yy2elcj",
       "summary": "Lesson on Cell Biology",
       "topicsCovered": [
@@ -1033,6 +1332,173 @@
     }
   ],
   "assignments": [
+    {
+      "studentId": "student-david",
+      "title": "Chemical Bonding & Hybridization Assignment",
+      "subject": "Chemistry",
+      "topic": "Chemical Bonding & Hybridization",
+      "instructions": "Complete the questions carefully. Your result will guide the next tutorial step.",
+      "questions": [
+        {
+          "id": "CHE_F_02",
+          "text": "If a liquid turns blue litmus paper red, what does this tell you about the liquid?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is an alkali (base).",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is an acid.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "It is neutral, like pure water.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is salty.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "",
+          "subject": "Chemistry",
+          "topic": "Acids & Bases",
+          "difficulty": 3,
+          "learningObjective": "Master Acids & Bases principles and problem solving."
+        },
+        {
+          "id": "CHE_F_03",
+          "text": "Why do atoms bond together to form molecules like H2O or NaCl?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Because they are naturally sticky.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "To achieve a full, stable outer shell of electrons.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "To cancel out their protons.",
+              "points": 1
+            },
+            {
+              "id": "d",
+              "text": "Because heat forces them together.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "",
+          "subject": "Chemistry",
+          "topic": "Chemical Bonding",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Bonding principles and problem solving."
+        },
+        {
+          "id": "CHE_F_04",
+          "text": "Elements in the same vertical column (Group) on the Periodic Table share what important feature?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "They have the same atomic mass.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "They have the same number of protons.",
+              "points": 1
+            },
+            {
+              "id": "c",
+              "text": "They have similar chemical reactions because they have the same number of outer electrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "They were discovered in the same year.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "",
+          "subject": "Chemistry",
+          "topic": "Periodic Table",
+          "difficulty": 3,
+          "learningObjective": "Master Periodic Table principles and problem solving."
+        }
+      ],
+      "difficulty": 2.3333333333333335,
+      "dueDate": "2026-10-14T09:17:30.857Z",
+      "estimatedMinutes": 10,
+      "status": "completed",
+      "id": "assign-1791710250868",
+      "createdAt": "2026-10-11T09:17:30.868Z",
+      "completedAt": "2026-10-11T09:17:30.911Z",
+      "score": 3,
+      "maxScore": 15,
+      "percentage": 20,
+      "submissions": [
+        {
+          "questionId": "CHE_F_02",
+          "selectedOptionId": "a",
+          "timeSpentSeconds": 45
+        },
+        {
+          "questionId": "CHE_F_03",
+          "selectedOptionId": "a",
+          "timeSpentSeconds": 45
+        },
+        {
+          "questionId": "CHE_F_04",
+          "selectedOptionId": "a",
+          "timeSpentSeconds": 45
+        }
+      ],
+      "questionResults": [
+        {
+          "questionId": "CHE_F_02",
+          "text": "If a liquid turns blue litmus paper red, what does this tell you about the liquid?",
+          "selectedOptionId": "a",
+          "correctOptionId": "b",
+          "isCorrect": false,
+          "pointsEarned": 1,
+          "explanation": ""
+        },
+        {
+          "questionId": "CHE_F_03",
+          "text": "Why do atoms bond together to form molecules like H2O or NaCl?",
+          "selectedOptionId": "a",
+          "correctOptionId": "b",
+          "isCorrect": false,
+          "pointsEarned": 1,
+          "explanation": ""
+        },
+        {
+          "questionId": "CHE_F_04",
+          "text": "Elements in the same vertical column (Group) on the Periodic Table share what important feature?",
+          "selectedOptionId": "a",
+          "correctOptionId": "c",
+          "isCorrect": false,
+          "pointsEarned": 1,
+          "explanation": ""
+        }
+      ],
+      "teacherFeedback": "Solid effort on bonding concepts. Pay special attention to sp3 hybridization geometry.",
+      "reviewedAt": "2026-10-11T09:17:30.940Z",
+      "reviewedBy": "Academy Teacher"
+    },
     {
       "title": "Audit Assignment",
       "studentId": "student-mv2o3yy2elcj",
@@ -5117,6 +5583,358 @@
         }
       ],
       "status": "pending"
+    },
+    {
+      "id": "daily-student-david-2026-10-11-1791708374131",
+      "studentId": "student-david",
+      "date": "2026-10-11",
+      "subject": "Chemistry",
+      "focusTopic": "Electron Configuration",
+      "reason": "weak_area_reinforcement",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "daily-student-david-2026-10-11-1791709877105",
+      "studentId": "student-david",
+      "date": "2026-10-11",
+      "subject": "Chemistry",
+      "focusTopic": "Electron Configuration",
+      "reason": "weak_area_reinforcement",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
     }
   ],
   "readingTasks": [
@@ -5639,9 +6457,32 @@
       "totalQuestions": 1,
       "lastTestedAt": "2026-10-10T19:20:03.515Z",
       "trend": "new"
+    },
+    {
+      "id": "mst-student-david-1791710250911",
+      "studentId": "student-david",
+      "subject": "Chemistry",
+      "topic": "Chemical Bonding & Hybridization",
+      "masteryPercent": 20,
+      "attemptCount": 1,
+      "correctCount": 0,
+      "totalQuestions": 3,
+      "lastTestedAt": "2026-10-11T09:17:30.911Z",
+      "trend": "new"
     }
   ],
   "followUps": [
+    {
+      "studentId": "student-david",
+      "studentName": "David Eze",
+      "issue": "Low score on assignment: \"Chemical Bonding & Hybridization Assignment\" (20%)",
+      "triggerType": "repeated_low_score",
+      "priority": "high",
+      "recommendedAction": "Schedule 1-on-1 review for Chemical Bonding & Hybridization.",
+      "id": "fu-1791710250911-506",
+      "status": "open",
+      "createdAt": "2026-10-11T09:17:30.911Z"
+    },
     {
       "studentId": "student-david",
       "studentName": "David Eze",
@@ -5816,6 +6657,20 @@
       {
         "studentId": "student-aisha",
         "expiresAt": 1794252092527
+      }
+    ],
+    [
+      "1918d30a9fb452357402b42f980b8fcc20ec5399c5550fbd20c71b86495730ba",
+      {
+        "studentId": "student-david",
+        "expiresAt": 1794300373949
+      }
+    ],
+    [
+      "85929eb85616c6c734e1a6056cd4e9a276563ebf82ee2f6c6d3bf22744040672",
+      {
+        "studentId": "student-david",
+        "expiresAt": 1794302250879
       }
     ]
   ],

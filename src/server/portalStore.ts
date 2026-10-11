@@ -580,6 +580,31 @@ class TutorialPortalStore {
         if (data.students && Array.isArray(data.students)) {
           this.students = new Map(data.students);
           this.profiles = new Map(data.profiles || []);
+          if (this.profiles.size === 0) {
+            SEED_PROFILES.forEach((p, k) => this.profiles.set(k, { ...p }));
+          }
+          for (const [id, student] of this.students.entries()) {
+            if (!this.profiles.has(id)) {
+              const seedP = SEED_PROFILES.get(id);
+              if (seedP) {
+                this.profiles.set(id, { ...seedP });
+              } else {
+                const plan = (data.plans && new Map(data.plans).get(id)) as StudentLearningPlan | undefined;
+                this.profiles.set(id, {
+                  studentId: id,
+                  subjects: plan?.subjects?.map(s => s.subject) || ['Chemistry'],
+                  overallLevel: 'F',
+                  strengths: ['Foundational Science'],
+                  needsImprovement: plan?.subjects?.[0]?.weakTopics || ['Calculations'],
+                  targetPathway: student.currentGoal || 'Science Foundation',
+                  dailyQuestionTarget: 5,
+                  dailyReadingTargetMinutes: 15,
+                  teacherNotes: '',
+                  updatedAt: new Date().toISOString()
+                });
+              }
+            }
+          }
           this.plans = new Map(data.plans || []);
           this.streaks = new Map(data.streaks || []);
           this.sessions = data.sessions || [];
@@ -770,6 +795,31 @@ class TutorialPortalStore {
   private hydrate(data: any) {
     if (data.students && Array.isArray(data.students)) this.students = new Map(data.students);
     this.profiles = new Map(data.profiles || []);
+    if (this.profiles.size === 0) {
+      SEED_PROFILES.forEach((p, k) => this.profiles.set(k, { ...p }));
+    }
+    for (const [id, student] of this.students.entries()) {
+      if (!this.profiles.has(id)) {
+        const seedP = SEED_PROFILES.get(id);
+        if (seedP) {
+          this.profiles.set(id, { ...seedP });
+        } else {
+          const plan = (data.plans && new Map(data.plans).get(id)) as StudentLearningPlan | undefined;
+          this.profiles.set(id, {
+            studentId: id,
+            subjects: plan?.subjects?.map(s => s.subject) || ['Chemistry'],
+            overallLevel: 'F',
+            strengths: ['Foundational Science'],
+            needsImprovement: plan?.subjects?.[0]?.weakTopics || ['Calculations'],
+            targetPathway: student.currentGoal || 'Science Foundation',
+            dailyQuestionTarget: 5,
+            dailyReadingTargetMinutes: 15,
+            teacherNotes: '',
+            updatedAt: new Date().toISOString()
+          });
+        }
+      }
+    }
     this.plans = new Map(data.plans || []);
     this.streaks = new Map(data.streaks || []);
     this.sessions = data.sessions || [];
@@ -952,6 +1002,10 @@ class TutorialPortalStore {
       .filter(a => a.studentId === studentId && a.status === 'pending')
       .map(sanitizeAssignmentForStudent);
 
+    const completedAssignments = this.assignments
+      .filter(a => a.studentId === studentId && a.status === 'completed')
+      .map(sanitizeAssignmentForStudent);
+
     const todayReading = this.readingTasks.find(
       r => r.studentId === studentId && r.status === 'pending'
     ) || null;
@@ -1003,6 +1057,7 @@ class TutorialPortalStore {
       learningPlan,
       todayPractice: todayPractice ? sanitizePracticeForStudent(todayPractice) : null,
       pendingAssignments,
+      completedAssignments,
       todayReading,
       recentScore,
       currentFocus,
@@ -1187,6 +1242,8 @@ class TutorialPortalStore {
     targetAssignment.score = earnedScore;
     targetAssignment.maxScore = maxScore;
     targetAssignment.percentage = percentage;
+    targetAssignment.submissions = submissions;
+    targetAssignment.questionResults = questionResults;
 
     // Update Topic Mastery
     this.recordTopicMastery(studentId, targetAssignment.subject, targetAssignment.topic, percentage, targetAssignment.questions.length, questionResults.filter(r => r.isCorrect).length);
@@ -1462,7 +1519,7 @@ class TutorialPortalStore {
     return session;
   }
 
-  public createAssignment(data: Omit<StudentAssignment, 'id' | 'createdAt' | 'status'>): StudentAssignment {
+  public createAssignment(data: Omit<StudentAssignment, 'id' | 'createdAt'> & { id?: string; status?: 'draft' | 'pending' | 'completed' }): StudentAssignment {
     if (!data || typeof data !== 'object') {
       throw new Error('Assignment data object is required.');
     }
@@ -1488,13 +1545,52 @@ class TutorialPortalStore {
     }
     const assignment: StudentAssignment = {
       ...data,
-      id: `assign-${Date.now()}`,
-      status: 'pending',
+      id: data.id || `assign-${Date.now()}`,
+      status: data.status || 'pending',
       createdAt: new Date().toISOString()
     };
     this.assignments.unshift(assignment);
     this.saveToDisk();
     return assignment;
+  }
+
+  public publishAssignment(assignmentId: string): StudentAssignment | null {
+    if (!assignmentId || typeof assignmentId !== 'string') return null;
+    const a = this.assignments.find(item => item.id === assignmentId);
+    if (!a) return null;
+    a.status = 'pending';
+    this.saveToDisk();
+    return a;
+  }
+
+  public updateAssignment(assignmentId: string, updates: Partial<StudentAssignment>): StudentAssignment | null {
+    if (!assignmentId || typeof assignmentId !== 'string') return null;
+    const a = this.assignments.find(item => item.id === assignmentId);
+    if (!a) return null;
+    if (updates.title) a.title = updates.title.trim();
+    if (updates.instructions) a.instructions = updates.instructions.trim();
+    if (updates.dueDate) a.dueDate = updates.dueDate;
+    if (Array.isArray(updates.questions) && updates.questions.length > 0) a.questions = updates.questions;
+    if (updates.status) a.status = updates.status;
+    this.saveToDisk();
+    return a;
+  }
+
+  public reviewAssignment(assignmentId: string, feedback: string, teacherScore?: number): StudentAssignment | null {
+    if (!assignmentId || typeof assignmentId !== 'string') return null;
+    const a = this.assignments.find(item => item.id === assignmentId);
+    if (!a) return null;
+    a.teacherFeedback = feedback?.trim() || '';
+    a.reviewedAt = new Date().toISOString();
+    a.reviewedBy = 'Academy Teacher';
+    if (typeof teacherScore === 'number' && !isNaN(teacherScore)) {
+      a.score = teacherScore;
+      if (a.maxScore) {
+        a.percentage = Math.round((teacherScore / a.maxScore) * 100);
+      }
+    }
+    this.saveToDisk();
+    return a;
   }
 
   public createFollowUp(item: Omit<TeacherFollowUpItem, 'id' | 'createdAt' | 'status'>): TeacherFollowUpItem {
@@ -1525,9 +1621,15 @@ class TutorialPortalStore {
     const todayStr = new Date().toISOString().slice(0, 10);
     const activeToday = Array.from(this.streaks.values()).filter(s => s.lastActiveDate === todayStr && s.todayCompleted).length;
     const pendingAssignmentsCount = this.assignments.filter(a => a.status === 'pending').length;
+    const submittedAwaitingReviewCount = this.assignments.filter(a => a.status === 'completed' && !a.reviewedAt).length;
+    const draftAssignmentsCount = this.assignments.filter(a => a.status === 'draft').length;
+    const completedReadings = this.readingTasks.filter(r => r.status === 'completed').length;
+    const totalReadings = this.readingTasks.length;
+    const readingParticipationPercent = totalReadings > 0 ? Math.round((completedReadings / totalReadings) * 100) : 100;
 
     const studentsSummary = students.map(student => {
       const plan = this.plans.get(student.id);
+      const profile = this.profiles.get(student.id);
       const streak = this.streaks.get(student.id);
       const studentFollowUps = this.followUps.filter(f => f.studentId === student.id && f.status === 'open');
 
@@ -1540,18 +1642,27 @@ class TutorialPortalStore {
         : 70;
 
       const firstSubj = plan?.subjects[0];
+      const studentPending = this.assignments.filter(a => a.studentId === student.id && a.status === 'pending').length;
+      const studentCompleted = this.assignments.filter(a => a.studentId === student.id && a.status === 'completed').length;
       const needsAttention = studentFollowUps.length > 0 || recentAverageScore < 50;
 
       return {
         id: student.id,
         name: student.name,
+        phone: student.phone,
+        accessCode: student.accessCode,
         avatarSeed: student.avatarSeed,
         goal: student.currentGoal,
+        overallLevel: profile?.overallLevel,
+        subjects: profile?.subjects,
+        createdAt: student.createdAt,
         currentSubject: firstSubj?.subject || 'Chemistry',
         currentTopic: firstSubj?.currentTopic || 'Foundation Basics',
         streakDays: streak?.currentStreakDays || 0,
         todayStatus: (streak?.todayCompleted ? 'completed' : 'pending') as 'completed' | 'pending' | 'inactive',
         recentAverageScore,
+        pendingCount: studentPending,
+        completedCount: studentCompleted,
         needsAttention,
         attentionReason: studentFollowUps[0]?.issue
       };
@@ -1561,9 +1672,13 @@ class TutorialPortalStore {
       totalStudents: students.length,
       activeToday,
       pendingAssignmentsCount,
-      readingParticipationPercent: 80,
+      submittedAwaitingReviewCount,
+      draftAssignmentsCount,
+      recentTeachingActivityCount: this.sessions.length,
+      readingParticipationPercent,
       attentionRequiredCount: studentsSummary.filter(s => s.needsAttention).length,
       followUps: this.followUps.filter(f => f.status === 'open'),
+      recentSessions: this.sessions.slice(0, 10),
       studentsSummary
     };
   }
@@ -1572,9 +1687,27 @@ class TutorialPortalStore {
     const student = this.students.get(studentId);
     if (!student) return null;
 
+    let profile = this.profiles.get(studentId);
+    if (!profile) {
+      const plan = this.plans.get(studentId);
+      profile = {
+        studentId,
+        subjects: plan?.subjects?.map(s => s.subject) || ['Chemistry', 'Biology'],
+        overallLevel: 'F',
+        strengths: ['Foundational Concepts'],
+        needsImprovement: plan?.subjects?.[0]?.weakTopics || ['Calculations'],
+        targetPathway: student.currentGoal || 'Science Foundation',
+        dailyQuestionTarget: 5,
+        dailyReadingTargetMinutes: 15,
+        teacherNotes: '',
+        updatedAt: new Date().toISOString()
+      };
+      this.profiles.set(studentId, profile);
+    }
+
     return {
       student,
-      profile: this.profiles.get(studentId),
+      profile,
       learningPlan: this.plans.get(studentId),
       streak: this.streaks.get(studentId),
       sessions: this.sessions.filter(s => s.studentId === studentId),

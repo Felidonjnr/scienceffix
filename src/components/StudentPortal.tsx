@@ -1148,6 +1148,49 @@ export default function StudentPortal({ onBackToHome }: StudentPortalProps) {
                 ))}
               </div>
             )}
+
+            {/* Completed Assignments & Teacher Reviews */}
+            {dashboard?.completedAssignments && dashboard.completedAssignments.length > 0 && (
+              <div className="mt-10 space-y-4">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-black text-lg text-slate-900">Completed Work & Teacher Feedback</h4>
+                  <span className="text-xs font-bold text-slate-400">
+                    {dashboard.completedAssignments.length} submitted
+                  </span>
+                </div>
+                <div className="space-y-3">
+                  {dashboard.completedAssignments.map(assign => (
+                    <div key={assign.id} className="p-6 rounded-2xl bg-white border border-slate-200">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-xs font-black uppercase px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
+                              {assign.subject}
+                            </span>
+                            <span className="text-xs text-slate-500 font-bold">
+                              Completed {assign.completedAt ? new Date(assign.completedAt).toLocaleDateString() : ''}
+                            </span>
+                          </div>
+                          <h5 className="font-black text-base text-slate-900">{assign.title}</h5>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <span className={`text-xl font-black ${(assign.percentage || 0) >= 60 ? 'text-emerald-600' : 'text-amber-600'}`}>
+                            {assign.percentage != null ? `${assign.percentage}%` : 'Graded'}
+                          </span>
+                        </div>
+                      </div>
+
+                      {assign.teacherFeedback && (
+                        <div className="mt-4 p-4 rounded-xl bg-blue-50/80 border border-blue-200 text-blue-950 text-sm">
+                          <p className="font-bold text-xs uppercase tracking-wider text-blue-700 mb-1">Teacher Feedback</p>
+                          <p className="leading-relaxed">{assign.teacherFeedback}</p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
 

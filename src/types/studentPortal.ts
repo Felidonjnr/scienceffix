@@ -89,7 +89,7 @@ export interface StudentAssignment {
   difficulty: number;
   dueDate: string; // ISO string
   estimatedMinutes: number;
-  status: 'pending' | 'completed' | 'overdue';
+  status: 'draft' | 'pending' | 'completed' | 'overdue';
   createdAt: string;
   completedAt?: string;
   score?: number;
@@ -97,6 +97,19 @@ export interface StudentAssignment {
   percentage?: number;
   areasToPractise?: string[];
   strengthsObserved?: string[];
+  submissions?: StudentAnswerSubmission[];
+  questionResults?: {
+    questionId: string;
+    text: string;
+    selectedOptionId: string;
+    correctOptionId: string;
+    isCorrect: boolean;
+    pointsEarned: number;
+    explanation: string;
+  }[];
+  teacherFeedback?: string;
+  reviewedAt?: string;
+  reviewedBy?: string;
 }
 
 export interface StudentAnswerSubmission {
@@ -230,6 +243,7 @@ export interface StudentHomeDashboardData {
   learningPlan: StudentLearningPlan;
   todayPractice: DailyFixPractice | null;
   pendingAssignments: StudentAssignment[];
+  completedAssignments?: StudentAssignment[];
   todayReading: ReadingTask | null;
   recentScore: {
     title: string;
@@ -248,14 +262,23 @@ export interface TeacherDashboardData {
   totalStudents: number;
   activeToday: number;
   pendingAssignmentsCount: number;
+  submittedAwaitingReviewCount: number;
+  draftAssignmentsCount: number;
+  recentTeachingActivityCount: number;
   readingParticipationPercent: number;
   attentionRequiredCount: number;
   followUps: TeacherFollowUpItem[];
+  recentSessions?: TeachingSessionLog[];
   studentsSummary: {
     id: string;
     name: string;
     avatarSeed: string;
     goal: string;
+    phone?: string;
+    accessCode?: string;
+    overallLevel?: ProfileLevel;
+    subjects?: Subject[];
+    createdAt?: string;
     currentSubject: Subject;
     currentTopic: string;
     streakDays: number;
@@ -263,5 +286,7 @@ export interface TeacherDashboardData {
     recentAverageScore: number;
     needsAttention: boolean;
     attentionReason?: string;
+    pendingCount?: number;
+    completedCount?: number;
   }[];
 }

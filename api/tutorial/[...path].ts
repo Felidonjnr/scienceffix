@@ -90,6 +90,42 @@ export default async function handler(req: any, res: any) {
       return res.status(200).json({ success: true, assignment });
     }
 
+    if (route.startsWith('teacher/assignments/') && route.endsWith('/publish')) {
+      if (req.method !== 'POST') {
+        res.setHeader('Allow', 'POST');
+        return sendError(res, 405, 'Method not allowed');
+      }
+      const id = route.slice('teacher/assignments/'.length, -'/publish'.length);
+      const assignment = portalStore.publishAssignment(decodeURIComponent(id));
+      if (!assignment) return sendError(res, 404, 'Assignment not found.');
+      return res.status(200).json({ success: true, assignment });
+    }
+
+    if (route.startsWith('teacher/assignments/') && route.endsWith('/review')) {
+      if (req.method !== 'POST') {
+        res.setHeader('Allow', 'POST');
+        return sendError(res, 405, 'Method not allowed');
+      }
+      const id = route.slice('teacher/assignments/'.length, -'/review'.length);
+      const { feedback, teacherScore } = req.body || {};
+      const assignment = portalStore.reviewAssignment(decodeURIComponent(id), String(feedback || ''), teacherScore);
+      if (!assignment) return sendError(res, 404, 'Assignment not found.');
+      return res.status(200).json({ success: true, assignment });
+    }
+
+    if (route === 'teacher/learning-plan') {
+      if (req.method !== 'POST') {
+        res.setHeader('Allow', 'POST');
+        return sendError(res, 405, 'Method not allowed');
+      }
+      const { studentId, plan } = req.body || {};
+      if (!studentId || typeof studentId !== 'string') return sendError(res, 400, 'Valid student ID is required.');
+      if (!plan || typeof plan !== 'object') return sendError(res, 400, 'Plan update payload is required.');
+      const updated = portalStore.updateStudentLearningPlan(studentId, plan);
+      if (!updated) return sendError(res, 404, 'Student learning plan not found.');
+      return res.status(200).json({ success: true, learningPlan: portalStore.getStudentFullDetailForTeacher(studentId)?.learningPlan });
+    }
+
     if (route === 'teacher/lesson') {
       if (req.method !== 'POST') {
         res.setHeader('Allow', 'POST');
