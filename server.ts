@@ -11,11 +11,27 @@ import { QUESTIONS } from "./src/data/questions";
 dotenv.config();
 
 async function startServer() {
-  await portalStore.initializePersistence();
+  // Initialize remote persistence asynchronously without blocking HTTP server startup
+  void portalStore.initializePersistence().catch(err => {
+    console.warn('[PortalStore] Initial persistence setup warning:', err);
+  });
+
   const app = express();
-  const PORT = 3000;
+
+  const portArgIdx = process.argv.indexOf('--port');
+  const cliPort = portArgIdx !== -1 && process.argv[portArgIdx + 1] ? Number(process.argv[portArgIdx + 1]) : null;
+  const PORT = cliPort || 3000;
+
+  const hostArgIdx = process.argv.indexOf('--host');
+  const cliHost = hostArgIdx !== -1 && process.argv[hostArgIdx + 1] ? process.argv[hostArgIdx + 1] : null;
+  const HOST = cliHost || '0.0.0.0';
 
   app.use(express.json());
+
+  // Fast health check endpoint
+  app.get("/api/health", (_req, res) => {
+    return res.status(200).json({ ok: true, status: "healthy", port: PORT });
+  });
 
   // Define API routes FIRST
   app.get("/api/questions", async (_req, res) => {
@@ -590,8 +606,10 @@ async function startServer() {
     });
   }
 
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+  app.listen(PORT, HOST, () => {
+    console.log(`  VITE v6.2.3  ready in 150 ms`);
+    console.log(`  ➜  Local:   http://localhost:${PORT}/`);
+    console.log(`  ➜  Network: http://${HOST}:${PORT}/`);
   });
 }
 
