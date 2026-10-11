@@ -55,7 +55,7 @@ router.post('/teacher/students', (req, res) => {
 router.post('/teacher/assignment-draft', (req, res) => {
   if (!guard(req, res)) return;
   try {
-    const { studentId, subject, topic, count = 5 } = req.body || {};
+    const { studentId, subject, topic, keyPoints = [], count = 5 } = req.body || {};
     if (typeof studentId !== 'string' || !studentId.trim()) {
       return res.status(400).json({ error: 'Select a student before generating an assignment.' });
     }
@@ -66,6 +66,10 @@ router.post('/teacher/assignment-draft', (req, res) => {
     if (typeof subject !== 'string' || !validSubjects.includes(subject)) {
       return res.status(400).json({ error: 'Choose a valid subject.' });
     }
+    if (!Array.isArray(keyPoints) || keyPoints.some((p: unknown) => typeof p !== 'string')) {
+      return res.status(400).json({ error: 'Lesson key points must be a list of text items.' });
+    }
+    const cleanKeyPoints = keyPoints.map((p: string) => p.trim()).filter(Boolean).slice(0, 20);
     const requestedCount = Number(count);
     if (!Number.isInteger(requestedCount) || requestedCount < 1 || requestedCount > 20) {
       return res.status(400).json({ error: 'Question count must be a whole number between 1 and 20.' });
@@ -76,6 +80,8 @@ router.post('/teacher/assignment-draft', (req, res) => {
     const focus = topic.trim();
     const normalize = (value: string) => value.toLocaleLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
     const topicKey = normalize(focus);
+    const topicWords = topicKey.split(/\s+/).filter(Boolean);
+    const stopWords = new Set(['a', 'an', 'and', 'are', 'as', 'at', 'by', 'for', 'from', 'in', 'into', 'is', 'of', 'on', 'or', 'the', 'to', 'was', 'were', 'with']);
     const used = new Set<string>();
     (detail.assignments || []).forEach((a: any) => {
       if (a.status !== 'draft') (a.questions || []).forEach((q: any) => used.add(q.id));
@@ -84,10 +90,18 @@ router.post('/teacher/assignment-draft', (req, res) => {
     const topicMatches = subjectQuestions.filter((q: any) => {
       const questionTopic = normalize(String(q.topic || ''));
       const questionText = normalize(String(q.text || ''));
-      return questionTopic === topicKey ||
-        questionTopic.includes(topicKey) ||
-        topicKey.includes(questionTopic) ||
-        questionText.includes(topicKey);
+      if (!questionTopic || !topicKey) return false;
+      const qWords = questionTopic.split(/\s+/).filter((w: string) => !stopWords.has(w));
+      const tWords = topicWords.filter((w: string) => !stopWords.has(w));
+      const overlap = tWords.filter((w: string) => qWords.includes(w)).length;
+      const topicMatch = questionTopic === topicKey || questionTopic.includes(topicKey) ||
+        topicKey.includes(questionTopic) || (tWords.length > 0 && overlap / tWords.length >= 0.6);
+      const pointMatch = cleanKeyPoints.length === 0 || cleanKeyPoints.some((point: string) => {
+        const pWords = normalize(point).split(/\s+/).filter((w: string) => w.length > 2 && !stopWords.has(w));
+        const searchable = ' ' + questionTopic + ' ' + questionText + ' ';
+        return pWords.length > 0 && pWords.filter((w: string) => searchable.includes(' ' + w + ' ')).length / pWords.length >= 0.5;
+      });
+      return topicMatch && pointMatch;
     });
     if (!topicMatches.length) {
       return res.status(400).json({
@@ -112,7 +126,7 @@ router.post('/teacher/assignment-draft', (req, res) => {
         subject: q.subject,
         topic: q.topic,
         difficulty: q.difficulty || 2,
-        learningObjective: 'Master ' + q.topic + ' principles and problem solving.'
+        learningObjective: cleanKeyPoints.length ? 'Practise: ' + cleanKeyPoints.join('; ') : 'Master ' + q.topic + ' principles and problem solving.'
       };
     });
     res.json({
@@ -121,6 +135,9 @@ router.post('/teacher/assignment-draft', (req, res) => {
         title: focus + ' Assignment',
         subject: chosenSubject,
         topic: focus,
+        keyPoints: cleanKeyPoints,
+        requestedQuestionCount: requestedCount,
+        questionCountWarning: questions.length < requestedCount ? 'Only ' + questions.length + ' suitable bank question(s) matched. Add vetted questions for this topic; unrelated questions were not substituted.' : '',
         instructions: 'Complete the questions carefully. Your result will guide the next tutorial step.',
         questions,
         difficulty: questions.reduce((a: any, q: any) => a + (q.difficulty || 2), 0) / questions.length,

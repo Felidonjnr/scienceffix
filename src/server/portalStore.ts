@@ -243,14 +243,21 @@ function findQuestionsForTopic(subject: Subject, topicKeyword: string, count: nu
   const normalize = (value: string) => value.toLocaleLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
   const topicKey = normalize(topicKeyword);
   if (!topicKey) return [];
+  const topicWords = topicKey.split(/\s+/).filter(Boolean);
+  const stopWords = new Set(['a', 'an', 'and', 'are', 'as', 'at', 'by', 'for', 'from', 'in', 'into', 'is', 'of', 'on', 'or', 'the', 'to', 'was', 'were', 'with']);
   const matches = QUESTIONS.filter(q => {
     if (q.subject !== subject) return false;
     const questionTopic = normalize(String(q.topic || ''));
+    if (!questionTopic) return false;
     const questionText = normalize(String(q.text || ''));
-    return questionTopic === topicKey ||
+    const qWords = questionTopic.split(/\s+/).filter((w: string) => !stopWords.has(w));
+    const tWords = topicWords.filter((w: string) => !stopWords.has(w));
+    const overlap = tWords.filter((w: string) => qWords.includes(w)).length;
+    const topicMatch = questionTopic === topicKey ||
       questionTopic.includes(topicKey) ||
       topicKey.includes(questionTopic) ||
-      questionText.includes(topicKey);
+      (tWords.length > 0 && overlap / tWords.length >= 0.6);
+    return topicMatch && (questionText.length > 0);
   });
   return matches.slice(0, Math.max(1, Math.min(20, Number(count) || 5)));
 }
@@ -1141,11 +1148,19 @@ class TutorialPortalStore {
   public generateDailyFix(studentId: string, customTopic?: string, customSubject?: Subject): DailyFixPractice {
     const student = this.students.get(studentId);
     const plan = this.plans.get(studentId);
-    const subjectPlan = plan?.subjects[0];
+    const subjectPlans = plan?.subjects || [];
+    // Rotate to the least recently practised planned subject rather than always selecting subjects[0].
+    const subjectPlan = customSubject
+      ? subjectPlans.find(p => p.subject === customSubject)
+      : subjectPlans.slice().sort((a, b) => {
+          const lastA = this.dailyPractices.filter(p => p.studentId === studentId && p.subject === a.subject).reduce((latest, p) => p.date > latest ? p.date : latest, '');
+          const lastB = this.dailyPractices.filter(p => p.studentId === studentId && p.subject === b.subject).reduce((latest, p) => p.date > latest ? p.date : latest, '');
+          return lastA.localeCompare(lastB);
+        })[0];
 
     const subject: Subject = customSubject || subjectPlan?.subject || 'Chemistry';
     const focusTopic = customTopic || (
-      subjectPlan?.weakTopics?.length ? subjectPlan.weakTopics[0] : (subjectPlan?.currentTopic || 'Foundation Concepts')
+      subjectPlan?.weakTopics?.length ? subjectPlan.weakTopics[0] : (subjectPlan?.currentTopic || '')
     );
 
     const questions = findQuestionsForTopic(subject, focusTopic, 5).map(toAssignmentQuestion);
@@ -1157,7 +1172,7 @@ class TutorialPortalStore {
       date: todayStr,
       subject,
       focusTopic,
-      reason: subjectPlan?.weakTopics?.includes(focusTopic) ? 'weak_area_reinforcement' : 'current_focus',
+      reason: !questions.length ? 'no_vetted_questions_for_taught_topic' : (subjectPlan?.weakTopics?.includes(focusTopic) ? 'weak_area_reinforcement' : 'current_focus'),
       questions,
       status: 'pending'
     };
