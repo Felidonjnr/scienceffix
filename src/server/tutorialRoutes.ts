@@ -56,20 +56,50 @@ router.post('/teacher/assignment-draft', (req, res) => {
   if (!guard(req, res)) return;
   try {
     const { studentId, subject, topic, count = 5 } = req.body || {};
-    if (!studentId || typeof studentId !== 'string' || !studentId.trim()) {
-      return res.status(400).json({ error: 'Student ID is required.' });
+    if (typeof studentId !== 'string' || !studentId.trim()) {
+      return res.status(400).json({ error: 'Select a student before generating an assignment.' });
+    }
+    if (typeof topic !== 'string' || !topic.trim()) {
+      return res.status(400).json({ error: 'Enter the exact topic taught before generating questions.' });
+    }
+    const validSubjects = ['Mathematics', 'Physics', 'Chemistry', 'Biology'];
+    if (typeof subject !== 'string' || !validSubjects.includes(subject)) {
+      return res.status(400).json({ error: 'Choose a valid subject.' });
+    }
+    const requestedCount = Number(count);
+    if (!Number.isInteger(requestedCount) || requestedCount < 1 || requestedCount > 20) {
+      return res.status(400).json({ error: 'Question count must be a whole number between 1 and 20.' });
     }
     const detail = portalStore.getStudentFullDetailForTeacher(studentId.trim());
     if (!detail) return res.status(404).json({ error: 'Student not found.' });
-    const plan = detail.learningPlan;
-    const chosenSubject = subject || plan?.subjects?.[0]?.subject || 'Biology';
-    const focus = String(topic || plan?.subjects?.find((s: any) => s.subject === chosenSubject)?.currentTopic || 'Foundation Concepts');
+    const chosenSubject = subject;
+    const focus = topic.trim();
+    const normalize = (value: string) => value.toLocaleLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    const topicKey = normalize(focus);
     const used = new Set<string>();
-    (detail.assignments || []).forEach((a: any) => (a.questions || []).forEach((q: any) => used.add(q.id)));
-    const pool = QUESTIONS.filter((q: any) => q.subject === chosenSubject && !used.has(q.id) && (!topic || q.topic.toLowerCase().includes(String(topic).toLowerCase()) || q.text.toLowerCase().includes(String(topic).toLowerCase())));
-    const fallback = QUESTIONS.filter((q: any) => q.subject === chosenSubject && !used.has(q.id));
-    const chosen = (pool.length ? pool : fallback).slice(0, Math.max(1, Math.min(20, Number(count) || 5)));
-    if (!chosen.length) return res.status(400).json({ error: 'No questions available for this subject.' });
+    (detail.assignments || []).forEach((a: any) => {
+      if (a.status !== 'draft') (a.questions || []).forEach((q: any) => used.add(q.id));
+    });
+    const subjectQuestions = QUESTIONS.filter((q: any) => q.subject === chosenSubject);
+    const topicMatches = subjectQuestions.filter((q: any) => {
+      const questionTopic = normalize(String(q.topic || ''));
+      const questionText = normalize(String(q.text || ''));
+      return questionTopic === topicKey ||
+        questionTopic.includes(topicKey) ||
+        topicKey.includes(questionTopic) ||
+        questionText.includes(topicKey);
+    });
+    if (!topicMatches.length) {
+      return res.status(400).json({
+        error: `No ${chosenSubject} questions match “${focus}”. No off-topic questions were added. Try the topic name used in the question bank, or broaden the topic deliberately.`
+      });
+    }
+    const unusedMatches = topicMatches.filter((q: any) => !used.has(q.id));
+    const available = unusedMatches.length ? unusedMatches : topicMatches;
+    const chosen = available.slice(0, requestedCount);
+    if (!chosen.length) {
+      return res.status(400).json({ error: `No questions are available for “${focus}”.` });
+    }
     const questions = chosen.map((q: any) => {
       const correct = q.options.reduce((p: any, c: any) => p.points > c.points ? p : c, q.options[0]);
       return {
