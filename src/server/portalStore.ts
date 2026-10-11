@@ -243,14 +243,14 @@ function findQuestionsForTopic(subject: Subject, topicKeyword: string, count: nu
   const normalize = (value: string) => value.toLocaleLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
   const topicKey = normalize(topicKeyword);
   if (!topicKey) return [];
-  const topicWords = topicKey.split(/\\s+/).filter(Boolean);
+  const topicWords = topicKey.split(/\s+/).filter(Boolean);
   const stopWords = new Set(['a', 'an', 'and', 'are', 'as', 'at', 'by', 'for', 'from', 'in', 'into', 'is', 'of', 'on', 'or', 'the', 'to', 'was', 'were', 'with']);
   const matches = QUESTIONS.filter(q => {
     if (q.subject !== subject) return false;
     const questionTopic = normalize(String(q.topic || ''));
     if (!questionTopic) return false;
     const questionText = normalize(String(q.text || ''));
-    const qWords = questionTopic.split(/\\s+/).filter((w: string) => !stopWords.has(w));
+    const qWords = questionTopic.split(/\s+/).filter((w: string) => !stopWords.has(w));
     const tWords = topicWords.filter((w: string) => !stopWords.has(w));
     const overlap = tWords.filter((w: string) => qWords.includes(w)).length;
     const topicMatch = questionTopic === topicKey ||
