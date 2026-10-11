@@ -55,7 +55,7 @@ router.post('/teacher/students', (req, res) => {
 router.post('/teacher/assignment-draft', (req, res) => {
   if (!guard(req, res)) return;
   try {
-    const { studentId, subject, topic, count = 5 } = req.body || {};
+    const { studentId, subject, topic, keyPoints = [], count = 5 } = req.body || {};
     if (typeof studentId !== 'string' || !studentId.trim()) {
       return res.status(400).json({ error: 'Select a student before generating an assignment.' });
     }
@@ -66,7 +66,7 @@ router.post('/teacher/assignment-draft', (req, res) => {
     if (typeof subject !== 'string' || !validSubjects.includes(subject)) {
       return res.status(400).json({ error: 'Choose a valid subject.' });
     }
-    const requestedCount = Number(count);
+    if (!Array.isArray(keyPoints) || keyPoints.some((p: unknown) => typeof p !== 'string')) {\n      return res.status(400).json({ error: 'Lesson key points must be a list of text items.' });\n    }\n    const cleanKeyPoints = keyPoints.map((p: string) => p.trim()).filter(Boolean).slice(0, 20);\n    const requestedCount = Number(count);
     if (!Number.isInteger(requestedCount) || requestedCount < 1 || requestedCount > 20) {
       return res.status(400).json({ error: 'Question count must be a whole number between 1 and 20.' });
     }
@@ -112,7 +112,7 @@ router.post('/teacher/assignment-draft', (req, res) => {
         subject: q.subject,
         topic: q.topic,
         difficulty: q.difficulty || 2,
-        learningObjective: 'Master ' + q.topic + ' principles and problem solving.'
+        learningObjective: cleanKeyPoints.length ? 'Practise: ' + cleanKeyPoints.join('; ') : 'Master ' + q.topic + ' principles and problem solving.'
       };
     });
     res.json({
