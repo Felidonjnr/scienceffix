@@ -237,19 +237,22 @@ const SEED_TEACHING_SESSIONS: TeachingSessionLog[] = [
   }
 ];
 
-// Helper to pull relevant questions from the 400-question repository
+// Return only questions that match the requested topic. Never silently
+// replace a topic-specific practice set with unrelated subject questions.
 function findQuestionsForTopic(subject: Subject, topicKeyword: string, count: number = 5) {
-  const matches = QUESTIONS.filter(q => 
-    q.subject === subject && 
-    (q.topic.toLowerCase().includes(topicKeyword.toLowerCase()) || 
-     q.text.toLowerCase().includes(topicKeyword.toLowerCase()))
-  );
-  if (matches.length >= count) {
-    return matches.slice(0, count);
-  }
-  // fallback to subject pool
-  const subjectPool = QUESTIONS.filter(q => q.subject === subject);
-  return subjectPool.slice(0, count);
+  const normalize = (value: string) => value.toLocaleLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const topicKey = normalize(topicKeyword);
+  if (!topicKey) return [];
+  const matches = QUESTIONS.filter(q => {
+    if (q.subject !== subject) return false;
+    const questionTopic = normalize(String(q.topic || ''));
+    const questionText = normalize(String(q.text || ''));
+    return questionTopic === topicKey ||
+      questionTopic.includes(topicKey) ||
+      topicKey.includes(questionTopic) ||
+      questionText.includes(topicKey);
+  });
+  return matches.slice(0, Math.max(1, Math.min(20, Number(count) || 5)));
 }
 
 // Transform Question to AssignmentQuestionItem
@@ -1165,11 +1168,11 @@ class TutorialPortalStore {
   }
 
   // 5. Server-Authoritative Assignment & Practice Submission Marking
-  public async submitAssignmentAnswers(
+  public submitAssignmentAnswers(
     assignmentId: string,
     studentId: string,
     submissions: StudentAnswerSubmission[]
-  ): Promise<AssignmentResult> {
+  ): AssignmentResult {
     if (!assignmentId || typeof assignmentId !== 'string') {
       throw new Error('Valid assignment ID is required.');
     }
@@ -1191,12 +1194,9 @@ class TutorialPortalStore {
       throw new Error('Forbidden: You are not authorized to submit this assignment.');
     }
 
-    // Check submission status: prevent resubmissions of already completed assignments or submission of drafts
-    if (targetAssignment.status !== 'pending') {
-      if (targetAssignment.status === 'completed') {
-        throw new Error('Assignment has already been completed.');
-      }
-      throw new Error(`Assignment is not available for submission (current status: ${targetAssignment.status}).`);
+    // Check submission status: prevent resubmissions of already completed assignments
+    if (targetAssignment.status === 'completed') {
+      throw new Error('Assignment has already been completed.');
     }
 
     const seenQuestionIds = new Set<string>();
@@ -1223,8 +1223,8 @@ class TutorialPortalStore {
     const maxScore = targetAssignment.questions.length * 5;
     const questionResults = targetAssignment.questions.map(q => {
       const sub = submissions.find(s => s.questionId === q.id);
-      const isCorrect = Boolean(sub?.selectedOptionId && sub.selectedOptionId === q.correctOptionId);
-      const pts = isCorrect ? 5 : 0;
+      const isCorrect = sub?.selectedOptionId === q.correctOptionId;
+      const pts = isCorrect ? 5 : (sub?.selectedOptionId ? 1 : 0);
       earnedScore += pts;
       return {
         questionId: q.id,
@@ -1266,7 +1266,7 @@ class TutorialPortalStore {
       });
     }
 
-    await this.commitChanges();
+    this.saveToDisk();
 
     return {
       assignmentId,
@@ -1466,7 +1466,7 @@ class TutorialPortalStore {
   }
 
   // 8. Teaching Session Logging & Learning Plan Updates
-  public async logTeachingSession(data: Omit<TeachingSessionLog, 'id' | 'createdAt'>): Promise<TeachingSessionLog> {
+  public logTeachingSession(data: Omit<TeachingSessionLog, 'id' | 'createdAt'>): TeachingSessionLog {
     if (!data || typeof data !== 'object') {
       throw new Error('Teaching session data object is required.');
     }
@@ -1518,11 +1518,11 @@ class TutorialPortalStore {
       });
     }
 
-    await this.commitChanges();
+    this.saveToDisk();
     return session;
   }
 
-  public async createAssignment(data: Omit<StudentAssignment, 'id' | 'createdAt'> & { id?: string; status?: 'draft' | 'pending' | 'completed' }): Promise<StudentAssignment> {
+  public createAssignment(data: Omit<StudentAssignment, 'id' | 'createdAt'> & { id?: string; status?: 'draft' | 'pending' | 'completed' }): StudentAssignment {
     if (!data || typeof data !== 'object') {
       throw new Error('Assignment data object is required.');
     }
@@ -1532,71 +1532,41 @@ class TutorialPortalStore {
     if (!data.title || typeof data.title !== 'string' || !data.title.trim()) {
       throw new Error('Assignment title is required.');
     }
-    if (!data.subject || typeof data.subject !== 'string' || !['Mathematics', 'Physics', 'Chemistry', 'Biology'].includes(data.subject)) {
-      throw new Error('Valid subject is required (Mathematics, Physics, Chemistry, Biology).');
+    if (!data.subject || typeof data.subject !== 'string') {
+      throw new Error('Assignment subject is required.');
     }
-    if (!data.topic || typeof data.topic !== 'string' || !data.topic.trim()) {
+    if (!data.topic || typeof data.topic !== 'string') {
       throw new Error('Assignment topic is required.');
     }
     if (!Array.isArray(data.questions) || data.questions.length === 0) {
       throw new Error('Assignment must contain at least one question.');
     }
-
-    const seenQuestionIds = new Set<string>();
     for (const q of data.questions) {
-      if (!q || typeof q !== 'object') {
-        throw new Error('Each question item must be a valid object.');
-      }
-      if (!q.id || typeof q.id !== 'string' || !q.id.trim()) {
-        throw new Error('Each question must have a non-empty string ID.');
-      }
-      if (seenQuestionIds.has(q.id)) {
-        throw new Error(`Duplicate question ID detected: ${q.id}. Question IDs within an assignment must be unique.`);
-      }
-      seenQuestionIds.add(q.id);
-
-      if (!q.text || typeof q.text !== 'string' || !q.text.trim()) {
-        throw new Error(`Question ${q.id} must have non-empty text.`);
-      }
-      if (!Array.isArray(q.options) || q.options.length < 2) {
-        throw new Error(`Question ${q.id} must have at least 2 options.`);
-      }
-      const optionIds = new Set<string>();
-      for (const opt of q.options) {
-        if (!opt || !opt.id || typeof opt.text !== 'string' || !opt.text.trim()) {
-          throw new Error(`Question ${q.id} contains an invalid option with missing ID or text.`);
-        }
-        if (optionIds.has(opt.id)) {
-          throw new Error(`Question ${q.id} contains duplicate option ID: ${opt.id}.`);
-        }
-        optionIds.add(opt.id);
-      }
-      if (!q.correctOptionId || !optionIds.has(q.correctOptionId)) {
-        throw new Error(`Question ${q.id} must specify a valid correctOptionId that exists in its options.`);
+      if (!q.id || !q.text || !Array.isArray(q.options) || q.options.length < 2 || !q.correctOptionId) {
+        throw new Error('Each assignment question must have id, text, options, and correctOptionId.');
       }
     }
-
     const assignment: StudentAssignment = {
       ...data,
-      id: data.id || `assign-${Date.now()}-${crypto.randomBytes(3).toString('hex')}`,
+      id: data.id || `assign-${Date.now()}`,
       status: data.status || 'pending',
       createdAt: new Date().toISOString()
     };
     this.assignments.unshift(assignment);
-    await this.commitChanges();
+    this.saveToDisk();
     return assignment;
   }
 
-  public async publishAssignment(assignmentId: string): Promise<StudentAssignment | null> {
+  public publishAssignment(assignmentId: string): StudentAssignment | null {
     if (!assignmentId || typeof assignmentId !== 'string') return null;
     const a = this.assignments.find(item => item.id === assignmentId);
     if (!a) return null;
     a.status = 'pending';
-    await this.commitChanges();
+    this.saveToDisk();
     return a;
   }
 
-  public async updateAssignment(assignmentId: string, updates: Partial<StudentAssignment>): Promise<StudentAssignment | null> {
+  public updateAssignment(assignmentId: string, updates: Partial<StudentAssignment>): StudentAssignment | null {
     if (!assignmentId || typeof assignmentId !== 'string') return null;
     const a = this.assignments.find(item => item.id === assignmentId);
     if (!a) return null;
@@ -1605,11 +1575,11 @@ class TutorialPortalStore {
     if (updates.dueDate) a.dueDate = updates.dueDate;
     if (Array.isArray(updates.questions) && updates.questions.length > 0) a.questions = updates.questions;
     if (updates.status) a.status = updates.status;
-    await this.commitChanges();
+    this.saveToDisk();
     return a;
   }
 
-  public async reviewAssignment(assignmentId: string, feedback: string, teacherScore?: number): Promise<StudentAssignment | null> {
+  public reviewAssignment(assignmentId: string, feedback: string, teacherScore?: number): StudentAssignment | null {
     if (!assignmentId || typeof assignmentId !== 'string') return null;
     const a = this.assignments.find(item => item.id === assignmentId);
     if (!a) return null;
@@ -1622,7 +1592,7 @@ class TutorialPortalStore {
         a.percentage = Math.round((teacherScore / a.maxScore) * 100);
       }
     }
-    await this.commitChanges();
+    this.saveToDisk();
     return a;
   }
 
@@ -1752,7 +1722,7 @@ class TutorialPortalStore {
     };
   }
 
-  public async updateStudentLearningPlan(studentId: string, plan: Partial<StudentLearningPlan>): Promise<boolean> {
+  public updateStudentLearningPlan(studentId: string, plan: Partial<StudentLearningPlan>): boolean {
     const existing = this.plans.get(studentId);
     if (!existing) return false;
     this.plans.set(studentId, {
@@ -1760,7 +1730,7 @@ class TutorialPortalStore {
       ...plan,
       updatedAt: new Date().toISOString()
     });
-    await this.commitChanges();
+    this.saveToDisk();
     return true;
   }
 
@@ -1896,7 +1866,7 @@ class TutorialPortalStore {
 
   public getAllAssignmentsForStudent(studentId: string): StudentAssignment[] {
     return this.assignments
-      .filter(a => a.studentId === studentId && a.status !== 'draft')
+      .filter(a => a.studentId === studentId)
       .map(sanitizeAssignmentForStudent);
   }
 
@@ -1911,7 +1881,7 @@ class TutorialPortalStore {
   public getAssignmentForStudent(assignmentId: string, studentId: string): StudentAssignment | null {
     if (!assignmentId || !studentId) return null;
     const a = this.assignments.find(a => a.id === assignmentId);
-    if (!a || a.studentId !== studentId || a.status === 'draft') return null;
+    if (!a || a.studentId !== studentId) return null;
     return sanitizeAssignmentForStudent(a);
   }
 
