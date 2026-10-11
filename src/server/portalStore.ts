@@ -269,6 +269,96 @@ function toAssignmentQuestion(q: (typeof QUESTIONS)[0]) {
   };
 }
 
+/**
+ * Timing-safe admin key verifier.
+ * Fails closed if ADMIN_DASHBOARD_KEY is not configured.
+ */
+export function verifyAdminKey(suppliedKey: unknown): boolean {
+  const configured = process.env.ADMIN_DASHBOARD_KEY;
+  if (!configured || typeof suppliedKey !== 'string') return false;
+  const cfg = configured.trim();
+  const sup = (suppliedKey as string).trim();
+  if (!cfg || !sup) return false;
+  const supBuf = Buffer.from(sup);
+  const cfgBuf = Buffer.from(cfg);
+  if (supBuf.length !== cfgBuf.length) return false;
+  return crypto.timingSafeEqual(supBuf, cfgBuf);
+}
+
+/**
+ * Strips correctOptionId, explanations, and option point values from questions
+ * when delivered to student client environments to prevent answer-key exposure.
+ */
+function sanitizeQuestionForStudent(q: any) {
+  return {
+    id: q.id,
+    text: q.text,
+    type: q.type,
+    options: (q.options || []).map((o: any) => ({
+      id: o.id,
+      text: o.text
+    })),
+    subject: q.subject,
+    topic: q.topic,
+    difficulty: q.difficulty,
+    learningObjective: q.learningObjective
+  };
+}
+
+export function sanitizeAssignmentForStudent(assignment: StudentAssignment): StudentAssignment {
+  if (assignment.status === 'completed') {
+    return {
+      ...assignment,
+      questions: (assignment.questions || []).map((q: any) => ({
+        id: q.id,
+        text: q.text,
+        type: q.type,
+        options: (q.options || []).map((o: any) => ({
+          id: o.id,
+          text: o.text
+        })),
+        subject: q.subject,
+        topic: q.topic,
+        difficulty: q.difficulty,
+        learningObjective: q.learningObjective,
+        correctOptionId: q.correctOptionId,
+        explanation: q.explanation
+      })) as any
+    };
+  }
+  return {
+    ...assignment,
+    questions: (assignment.questions || []).map(sanitizeQuestionForStudent) as any
+  };
+}
+
+export function sanitizePracticeForStudent(practice: DailyFixPractice): DailyFixPractice {
+  if (practice.status === 'completed') {
+    return {
+      ...practice,
+      questions: (practice.questions || []).map((q: any) => ({
+        id: q.id,
+        text: q.text,
+        type: q.type,
+        options: (q.options || []).map((o: any) => ({
+          id: o.id,
+          text: o.text
+        })),
+        subject: q.subject,
+        topic: q.topic,
+        difficulty: q.difficulty,
+        learningObjective: q.learningObjective,
+        correctOptionId: q.correctOptionId,
+        explanation: q.explanation
+      })) as any
+    };
+  }
+  return {
+    ...practice,
+    questions: (practice.questions || []).map(sanitizeQuestionForStudent) as any
+  };
+}
+
 const SEED_ASSIGNMENTS: StudentAssignment[] = [
   {
     id: 'assign-david-1',
@@ -476,6 +566,7 @@ class TutorialPortalStore {
   private supabaseEnabled = false;
   private persistenceReady = false;
   private persistencePromise: Promise<void> | null = null;
+  private writeQueue: Promise<void> = Promise.resolve();
 
   constructor() {
     this.init();
@@ -498,7 +589,16 @@ class TutorialPortalStore {
           this.masteryRecords = data.masteryRecords || [];
           this.followUps = data.followUps || [];
           if (Array.isArray(data.sessionsMap)) {
-            data.sessionsMap.forEach(([k, v]: [string, SessionRecord]) => activeSessions.set(k, v));
+            const now = Date.now();
+            data.sessionsMap.forEach(([k, v]: [string, SessionRecord]) => {
+              if (v && v.expiresAt > now) activeSessions.set(k, v);
+            });
+          }
+          if (Array.isArray(data.rateLimits)) {
+            const now = Date.now();
+            data.rateLimits.forEach(([k, v]: [string, RateLimitRecord]) => {
+              if (v && (v.lockoutUntil > now || v.attempts > 0)) pinRateLimits.set(k, v);
+            });
           }
           console.log(`[PortalStore] Loaded database from ${this.dbPath} with ${this.students.size} students`);
           return;
@@ -512,6 +612,7 @@ class TutorialPortalStore {
   }
 
   private buildState() {
+    const now = Date.now();
     return {
       updatedAt: new Date().toISOString(),
       students: Array.from(this.students.entries()),
@@ -524,7 +625,8 @@ class TutorialPortalStore {
       readingTasks: this.readingTasks,
       masteryRecords: this.masteryRecords,
       followUps: this.followUps,
-      sessionsMap: Array.from(activeSessions.entries())
+      sessionsMap: Array.from(activeSessions.entries()).filter(([_, s]) => s && s.expiresAt > now),
+      rateLimits: Array.from(pinRateLimits.entries()).filter(([_, r]) => r && (r.lockoutUntil > now || r.attempts > 0))
     };
   }
 
@@ -540,8 +642,49 @@ class TutorialPortalStore {
     void this.persistToSupabase(data);
   }
 
-  private async persistToSupabase(data: any) {
-    if (!this.supabaseEnabled) return;
+  /**
+   * Persists the current state to disk and, when Supabase is enabled,
+   * awaits the remote write to ensure durability before responding.
+   */
+  public async commitChanges(): Promise<void> {
+    const data = this.buildState();
+    try {
+      const dir = path.dirname(this.dbPath);
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(this.dbPath, JSON.stringify(data, null, 2), 'utf8');
+    } catch (err) {
+      console.error('[PortalStore] Error persisting database to disk:', err);
+    }
+
+    if (this.supabaseEnabled) {
+      await this.persistToSupabase(data);
+    }
+  }
+
+  /**
+   * Safely serializes write operations to prevent concurrent requests from
+   * corrupting or clobbering each other's data mutations.
+   */
+  public async transactionalUpdate<T>(mutation: () => T | Promise<T>): Promise<T> {
+    // Refresh latest remote state if Supabase is active
+    if (this.supabaseEnabled) {
+      await this.refreshFromSupabase();
+    }
+
+    const previousQueue = this.writeQueue;
+    let result!: T;
+
+    this.writeQueue = (async () => {
+      await previousQueue.catch(() => {});
+      result = await mutation();
+      await this.commitChanges();
+    })();
+
+    await this.writeQueue;
+    return result;
+  }
+
+  private async persistToSupabase(data: any): Promise<void> {
     const url = process.env.SUPABASE_URL;
     const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
     if (!url || !key) return;
@@ -556,9 +699,34 @@ class TutorialPortalStore {
         },
         body: JSON.stringify({ id: 'singleton', state: data, updated_at: new Date().toISOString() })
       });
-      if (!response.ok) console.error('[PortalStore] Supabase persistence failed:', await response.text());
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('[PortalStore] Supabase persistence failed:', errorText);
+        throw new Error(`Supabase persistence failed: ${response.status} ${errorText}`);
+      }
     } catch (err) {
       console.error('[PortalStore] Supabase persistence error:', err);
+      throw err;
+    }
+  }
+
+  public async refreshFromSupabase(): Promise<void> {
+    const url = process.env.SUPABASE_URL;
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!url || !key) return;
+    try {
+      const response = await fetch(
+        `${url}/rest/v1/sciencefix_portal_state?select=state&limit=1`,
+        { headers: { apikey: key, Authorization: `Bearer ${key}` } }
+      );
+      if (response.ok) {
+        const rows = await response.json();
+        if (Array.isArray(rows) && rows[0]?.state) {
+          this.hydrate(rows[0].state);
+        }
+      }
+    } catch (err) {
+      console.warn('[PortalStore] Could not refresh state from Supabase:', err);
     }
   }
 
@@ -612,7 +780,17 @@ class TutorialPortalStore {
     this.followUps = data.followUps || [];
     activeSessions.clear();
     if (Array.isArray(data.sessionsMap)) {
-      data.sessionsMap.forEach(([k, v]: [string, SessionRecord]) => activeSessions.set(k, v));
+      const now = Date.now();
+      data.sessionsMap.forEach(([k, v]: [string, SessionRecord]) => {
+        if (v && v.expiresAt > now) activeSessions.set(k, v);
+      });
+    }
+    pinRateLimits.clear();
+    if (Array.isArray(data.rateLimits)) {
+      const now = Date.now();
+      data.rateLimits.forEach(([k, v]: [string, RateLimitRecord]) => {
+        if (v && (v.lockoutUntil > now || v.attempts > 0)) pinRateLimits.set(k, v);
+      });
     }
   }
 
@@ -636,7 +814,15 @@ class TutorialPortalStore {
     token?: string; 
     error?: string 
   } {
+    if (!accessCode || typeof accessCode !== 'string') {
+      return { success: false, error: 'A valid student PIN or access code is required.' };
+    }
+
     const cleanCode = accessCode.trim().toUpperCase();
+    if (!/^[A-Z0-9]{4,10}$/.test(cleanCode)) {
+      return { success: false, error: 'PIN format is invalid. Must be 4 to 10 alphanumeric characters.' };
+    }
+
     const rate = pinRateLimits.get(ipAddress) || { attempts: 0, lockoutUntil: 0 };
 
     if (Date.now() < rate.lockoutUntil) {
@@ -656,19 +842,23 @@ class TutorialPortalStore {
       if (rate.attempts >= 5) {
         rate.lockoutUntil = Date.now() + 15 * 60 * 1000; // 15 min lockout
         pinRateLimits.set(ipAddress, rate);
+        this.saveToDisk();
         return { 
           success: false, 
           error: 'Too many incorrect attempts. Account locked for 15 minutes.' 
         };
       }
       pinRateLimits.set(ipAddress, rate);
+      this.saveToDisk();
       return { success: false, error: 'Invalid student access code or PIN.' };
     }
 
     // Success: Reset rate limit
-    pinRateLimits.delete(ipAddress);
+    if (pinRateLimits.has(ipAddress)) {
+      pinRateLimits.delete(ipAddress);
+    }
 
-    // Create secure session token
+    // Create cryptographically secure session token (256-bit entropy)
     const token = crypto.randomBytes(32).toString('hex');
     activeSessions.set(token, {
       studentId: student.id,
@@ -681,18 +871,37 @@ class TutorialPortalStore {
   }
 
   public getStudentByToken(token: string): TutorialStudent | null {
-    if (!token) return null;
-    const session = activeSessions.get(token);
+    if (!token || typeof token !== 'string' || token.trim().length < 32) return null;
+    const session = activeSessions.get(token.trim());
     if (!session || Date.now() > session.expiresAt) {
-      if (session) activeSessions.delete(token);
+      if (session) {
+        activeSessions.delete(token.trim());
+        this.saveToDisk();
+      }
       return null;
     }
-    return this.students.get(session.studentId) || null;
+    const student = this.students.get(session.studentId);
+    if (!student || !student.isActive) {
+      activeSessions.delete(token.trim());
+      this.saveToDisk();
+      return null;
+    }
+    return student;
+  }
+
+  public logoutSession(token: string): boolean {
+    if (!token || typeof token !== 'string') return false;
+    const exists = activeSessions.has(token.trim());
+    if (exists) {
+      activeSessions.delete(token.trim());
+      this.saveToDisk();
+      return true;
+    }
+    return false;
   }
 
   public verifyTeacherKey(key: string): boolean {
-    const configured = process.env.ADMIN_DASHBOARD_KEY || 'sciencefix-teacher';
-    return Boolean(key && key.trim() === configured);
+    return verifyAdminKey(key);
   }
 
   // 2. Student Home Dashboard Data
@@ -739,9 +948,9 @@ class TutorialPortalStore {
       todayPractice = this.generateDailyFix(studentId);
     }
 
-    const pendingAssignments = this.assignments.filter(
-      a => a.studentId === studentId && a.status === 'pending'
-    );
+    const pendingAssignments = this.assignments
+      .filter(a => a.studentId === studentId && a.status === 'pending')
+      .map(sanitizeAssignmentForStudent);
 
     const todayReading = this.readingTasks.find(
       r => r.studentId === studentId && r.status === 'pending'
@@ -792,7 +1001,7 @@ class TutorialPortalStore {
       streak,
       profile,
       learningPlan,
-      todayPractice,
+      todayPractice: todayPractice ? sanitizePracticeForStudent(todayPractice) : null,
       pendingAssignments,
       todayReading,
       recentScore,
@@ -897,7 +1106,7 @@ class TutorialPortalStore {
 
     this.dailyPractices.push(newPractice);
     this.saveToDisk();
-    return newPractice;
+    return sanitizePracticeForStudent(newPractice);
   }
 
   // 5. Server-Authoritative Assignment & Practice Submission Marking
@@ -906,14 +1115,55 @@ class TutorialPortalStore {
     studentId: string,
     submissions: StudentAnswerSubmission[]
   ): AssignmentResult {
-    const assignment = this.assignments.find(a => a.id === assignmentId && a.studentId === studentId);
-    if (!assignment) {
-      throw new Error('Assignment not found for this student.');
+    if (!assignmentId || typeof assignmentId !== 'string') {
+      throw new Error('Valid assignment ID is required.');
+    }
+    if (!studentId || typeof studentId !== 'string') {
+      throw new Error('Valid student ID is required.');
+    }
+    if (!Array.isArray(submissions) || submissions.length === 0) {
+      throw new Error('Submissions array cannot be empty.');
+    }
+
+    // Strict ownership verification: find assignment by ID
+    const targetAssignment = this.assignments.find(a => a.id === assignmentId);
+    if (!targetAssignment) {
+      throw new Error('Assignment not found.');
+    }
+
+    // Prevent cross-student submissions
+    if (targetAssignment.studentId !== studentId) {
+      throw new Error('Forbidden: You are not authorized to submit this assignment.');
+    }
+
+    // Check submission status: prevent resubmissions of already completed assignments
+    if (targetAssignment.status === 'completed') {
+      throw new Error('Assignment has already been completed.');
+    }
+
+    const seenQuestionIds = new Set<string>();
+    const validQuestionIds = new Set(targetAssignment.questions.map(q => q.id));
+    for (const sub of submissions) {
+      if (!sub || typeof sub !== 'object') {
+        throw new Error('Each submission item must be a valid object.');
+      }
+      if (!sub.questionId || !validQuestionIds.has(sub.questionId)) {
+        throw new Error(`Submission references invalid or unknown question: ${sub?.questionId}`);
+      }
+      if (seenQuestionIds.has(sub.questionId)) {
+        throw new Error(`Duplicate submission detected for question ID: ${sub.questionId}`);
+      }
+      seenQuestionIds.add(sub.questionId);
+      const question = targetAssignment.questions.find(q => q.id === sub.questionId)!;
+      const validOptionIds = new Set(question.options.map(o => o.id));
+      if (sub.selectedOptionId && !validOptionIds.has(sub.selectedOptionId)) {
+        throw new Error(`Invalid option selected for question ${sub.questionId}.`);
+      }
     }
 
     let earnedScore = 0;
-    const maxScore = assignment.questions.length * 5;
-    const questionResults = assignment.questions.map(q => {
+    const maxScore = targetAssignment.questions.length * 5;
+    const questionResults = targetAssignment.questions.map(q => {
       const sub = submissions.find(s => s.questionId === q.id);
       const isCorrect = sub?.selectedOptionId === q.correctOptionId;
       const pts = isCorrect ? 5 : (sub?.selectedOptionId ? 1 : 0);
@@ -932,14 +1182,14 @@ class TutorialPortalStore {
     const percentage = Math.round((earnedScore / maxScore) * 100);
     const passed = percentage >= 60;
 
-    assignment.status = 'completed';
-    assignment.completedAt = new Date().toISOString();
-    assignment.score = earnedScore;
-    assignment.maxScore = maxScore;
-    assignment.percentage = percentage;
+    targetAssignment.status = 'completed';
+    targetAssignment.completedAt = new Date().toISOString();
+    targetAssignment.score = earnedScore;
+    targetAssignment.maxScore = maxScore;
+    targetAssignment.percentage = percentage;
 
     // Update Topic Mastery
-    this.recordTopicMastery(studentId, assignment.subject, assignment.topic, percentage, assignment.questions.length, questionResults.filter(r => r.isCorrect).length);
+    this.recordTopicMastery(studentId, targetAssignment.subject, targetAssignment.topic, percentage, targetAssignment.questions.length, questionResults.filter(r => r.isCorrect).length);
 
     // Update Streak
     this.incrementStreak(studentId);
@@ -949,10 +1199,10 @@ class TutorialPortalStore {
       this.createFollowUp({
         studentId,
         studentName: this.students.get(studentId)?.name || 'Student',
-        issue: `Low score on assignment: "${assignment.title}" (${percentage}%)`,
+        issue: `Low score on assignment: "${targetAssignment.title}" (${percentage}%)`,
         triggerType: 'repeated_low_score',
         priority: 'high',
-        recommendedAction: `Schedule 1-on-1 review for ${assignment.topic}.`
+        recommendedAction: `Schedule 1-on-1 review for ${targetAssignment.topic}.`
       });
     }
 
@@ -966,9 +1216,9 @@ class TutorialPortalStore {
       percentage,
       passed,
       questionResults,
-      strengths: passed ? [`Solid performance in ${assignment.topic}`] : [],
-      areasToPractise: !passed ? [`Review foundational principles of ${assignment.topic}`] : [],
-      completedAt: assignment.completedAt
+      strengths: passed ? [`Solid performance in ${targetAssignment.topic}`] : [],
+      areasToPractise: !passed ? [`Review foundational principles of ${targetAssignment.topic}`] : [],
+      completedAt: targetAssignment.completedAt
     };
   }
 
@@ -977,9 +1227,49 @@ class TutorialPortalStore {
     studentId: string,
     submissions: StudentAnswerSubmission[]
   ): AssignmentResult {
-    const practice = this.dailyPractices.find(p => p.id === practiceId && p.studentId === studentId);
+    if (!practiceId || typeof practiceId !== 'string') {
+      throw new Error('Valid practice ID is required.');
+    }
+    if (!studentId || typeof studentId !== 'string') {
+      throw new Error('Valid student ID is required.');
+    }
+    if (!Array.isArray(submissions) || submissions.length === 0) {
+      throw new Error('Submissions array cannot be empty.');
+    }
+
+    const practice = this.dailyPractices.find(p => p.id === practiceId);
     if (!practice) {
       throw new Error('Daily Fix practice not found.');
+    }
+
+    // Prevent cross-student submissions
+    if (practice.studentId !== studentId) {
+      throw new Error('Forbidden: You are not authorized to submit this practice.');
+    }
+
+    // Check submission status: prevent resubmissions
+    if (practice.status === 'completed') {
+      throw new Error('Daily Fix practice has already been completed.');
+    }
+
+    const seenQuestionIds = new Set<string>();
+    const validQuestionIds = new Set(practice.questions.map(q => q.id));
+    for (const sub of submissions) {
+      if (!sub || typeof sub !== 'object') {
+        throw new Error('Each submission item must be a valid object.');
+      }
+      if (!sub.questionId || !validQuestionIds.has(sub.questionId)) {
+        throw new Error(`Submission references invalid or unknown question: ${sub?.questionId}`);
+      }
+      if (seenQuestionIds.has(sub.questionId)) {
+        throw new Error(`Duplicate submission detected for question ID: ${sub.questionId}`);
+      }
+      seenQuestionIds.add(sub.questionId);
+      const question = practice.questions.find(q => q.id === sub.questionId)!;
+      const validOptionIds = new Set(question.options.map(o => o.id));
+      if (sub.selectedOptionId && !validOptionIds.has(sub.selectedOptionId)) {
+        throw new Error(`Invalid option selected for question ${sub.questionId}.`);
+      }
     }
 
     let earnedScore = 0;
@@ -1117,6 +1407,15 @@ class TutorialPortalStore {
 
   // 8. Teaching Session Logging & Learning Plan Updates
   public logTeachingSession(data: Omit<TeachingSessionLog, 'id' | 'createdAt'>): TeachingSessionLog {
+    if (!data || typeof data !== 'object') {
+      throw new Error('Teaching session data object is required.');
+    }
+    if (!data.studentId || typeof data.studentId !== 'string' || !this.students.has(data.studentId)) {
+      throw new Error('Valid student ID is required and student must exist.');
+    }
+    if (!data.subject || typeof data.subject !== 'string' || !data.topic || typeof data.topic !== 'string') {
+      throw new Error('Valid subject and topic are required.');
+    }
     const session: TeachingSessionLog = {
       ...data,
       id: `sess-${Date.now()}`,
@@ -1152,7 +1451,7 @@ class TutorialPortalStore {
       this.createFollowUp({
         studentId: data.studentId,
         studentName: this.students.get(data.studentId)?.name || 'Student',
-        issue: `Struggled with ${data.topic}: "${data.struggles.slice(0, 80)}"`,
+        issue: `Struggled with ${data.topic}: "${(data.struggles || '').slice(0, 80)}"`,
         triggerType: 'declining_performance',
         priority: 'high',
         recommendedAction: data.recommendedNextStep
@@ -1164,6 +1463,29 @@ class TutorialPortalStore {
   }
 
   public createAssignment(data: Omit<StudentAssignment, 'id' | 'createdAt' | 'status'>): StudentAssignment {
+    if (!data || typeof data !== 'object') {
+      throw new Error('Assignment data object is required.');
+    }
+    if (!data.studentId || typeof data.studentId !== 'string' || !this.students.has(data.studentId)) {
+      throw new Error('A valid, existing student ID is required.');
+    }
+    if (!data.title || typeof data.title !== 'string' || !data.title.trim()) {
+      throw new Error('Assignment title is required.');
+    }
+    if (!data.subject || typeof data.subject !== 'string') {
+      throw new Error('Assignment subject is required.');
+    }
+    if (!data.topic || typeof data.topic !== 'string') {
+      throw new Error('Assignment topic is required.');
+    }
+    if (!Array.isArray(data.questions) || data.questions.length === 0) {
+      throw new Error('Assignment must contain at least one question.');
+    }
+    for (const q of data.questions) {
+      if (!q.id || !q.text || !Array.isArray(q.options) || q.options.length < 2 || !q.correctOptionId) {
+        throw new Error('Each assignment question must have id, text, options, and correctOptionId.');
+      }
+    }
     const assignment: StudentAssignment = {
       ...data,
       id: `assign-${Date.now()}`,
@@ -1188,6 +1510,7 @@ class TutorialPortalStore {
   }
 
   public resolveFollowUp(followUpId: string): boolean {
+    if (!followUpId || typeof followUpId !== 'string') return false;
     const fu = this.followUps.find(f => f.id === followUpId);
     if (!fu) return false;
     fu.status = 'resolved';
@@ -1283,10 +1606,10 @@ class TutorialPortalStore {
     startingLevel?: 'Z' | 'F' | 'P' | 'C';
     targetPathway?: string;
   }): { student: TutorialStudent; token: string; accessCode: string; profile: StudentProfile; learningPlan: StudentLearningPlan } {
-    const studentId = 'student-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
-    let pin = Math.floor(1000 + Math.random() * 9000).toString();
+    const studentId = 'student-' + Date.now().toString(36) + crypto.randomBytes(3).toString('hex');
+    let pin = crypto.randomInt(1000, 10000).toString();
     while (Array.from(this.students.values()).some(s => s.accessCode === pin)) {
-      pin = Math.floor(1000 + Math.random() * 9000).toString();
+      pin = crypto.randomInt(1000, 10000).toString();
     }
 
     const student: TutorialStudent = {
@@ -1406,7 +1729,9 @@ class TutorialPortalStore {
   }
 
   public getAllAssignmentsForStudent(studentId: string): StudentAssignment[] {
-    return this.assignments.filter(a => a.studentId === studentId);
+    return this.assignments
+      .filter(a => a.studentId === studentId)
+      .map(sanitizeAssignmentForStudent);
   }
 
   public getTopicMasteryForStudent(studentId: string): TopicMasteryRecord[] {
@@ -1417,7 +1742,19 @@ class TutorialPortalStore {
     return this.readingTasks.find(r => r.id === taskId);
   }
 
+  public getAssignmentForStudent(assignmentId: string, studentId: string): StudentAssignment | null {
+    if (!assignmentId || !studentId) return null;
+    const a = this.assignments.find(a => a.id === assignmentId);
+    if (!a || a.studentId !== studentId) return null;
+    return sanitizeAssignmentForStudent(a);
+  }
+
   public getAssignmentById(assignmentId: string): StudentAssignment | undefined {
+    const a = this.assignments.find(a => a.id === assignmentId);
+    return a ? sanitizeAssignmentForStudent(a) : undefined;
+  }
+
+  public getRawAssignmentByIdForTeacher(assignmentId: string): StudentAssignment | undefined {
     return this.assignments.find(a => a.id === assignmentId);
   }
 

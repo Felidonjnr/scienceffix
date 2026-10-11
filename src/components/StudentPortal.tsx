@@ -156,6 +156,7 @@ export default function StudentPortal({ onBackToHome }: StudentPortalProps) {
   };
 
   const handleLogout = () => {
+    const activeToken = token;
     localStorage.removeItem('sciencefix_portal_token');
     setToken(null);
     setStudent(null);
@@ -163,6 +164,15 @@ export default function StudentPortal({ onBackToHome }: StudentPortalProps) {
     setActiveDailyFix(null);
     setActiveReadingTask(null);
     setActiveAssignment(null);
+    if (activeToken) {
+      void fetch('/api/portal/auth/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${activeToken}`
+        }
+      }).catch(() => {});
+    }
   };
 
   const handleRegister = async (e: React.FormEvent) => {

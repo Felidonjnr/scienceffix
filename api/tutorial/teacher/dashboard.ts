@@ -1,4 +1,4 @@
-import { portalStore } from '../../../src/server/portalStore';
+import { portalStore, verifyAdminKey } from '../../../src/server/portalStore';
 
 export default async function handler(req: any, res: any) {
   if (req.method !== 'GET') {
@@ -6,13 +6,10 @@ export default async function handler(req: any, res: any) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const configured = process.env.ADMIN_DASHBOARD_KEY;
   const supplied = req.headers['x-admin-key'];
-  if (!configured || typeof supplied !== 'string' || supplied !== configured) {
+  if (!verifyAdminKey(supplied)) {
     return res.status(401).json({
-      error: configured
-        ? 'Unauthorized. Check the admin key.'
-        : 'ADMIN_DASHBOARD_KEY is not configured for this Vercel deployment.'
+      error: 'Unauthorized: Invalid admin credentials.'
     });
   }
 

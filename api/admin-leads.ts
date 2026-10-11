@@ -1,10 +1,11 @@
+import { verifyAdminKey } from '../src/server/portalStore';
+
 export default async function handler(req: any, res: any) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
 
-  const configuredKey = process.env.ADMIN_DASHBOARD_KEY;
   const suppliedKey = req.headers['x-admin-key'];
-  if (!configuredKey || typeof suppliedKey !== 'string' || suppliedKey !== configuredKey) {
-    return res.status(401).json({ error: 'Unauthorized' });
+  if (!verifyAdminKey(suppliedKey)) {
+    return res.status(401).json({ error: 'Unauthorized: Invalid admin credentials.' });
   }
 
   const supabaseUrl = process.env.SUPABASE_URL;

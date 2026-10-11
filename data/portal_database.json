@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-08T23:01:32.585Z",
+  "updatedAt": "2026-10-10T19:21:32.527Z",
   "students": [
     [
       "student-david",
@@ -52,110 +52,113 @@
         "isActive": true,
         "currentGoal": "Pharmacy & Health Sciences"
       }
+    ],
+    [
+      "student-mv1h3qcs5uz0",
+      {
+        "id": "student-mv1h3qcs5uz0",
+        "name": "Ada Lovelace",
+        "accessCode": "6456",
+        "phone": "",
+        "avatarSeed": "Ada",
+        "createdAt": "2026-10-09T21:24:16.300Z",
+        "isActive": true,
+        "currentGoal": "Pharmacy"
+      }
+    ],
+    [
+      "student-mv1h3xoajj6w",
+      {
+        "id": "student-mv1h3xoajj6w",
+        "name": "Michael Faraday",
+        "accessCode": "2528",
+        "phone": "",
+        "avatarSeed": "Michael",
+        "createdAt": "2026-10-09T21:24:25.786Z",
+        "isActive": true,
+        "currentGoal": "Electrical Science"
+      }
+    ],
+    [
+      "student-mv1h4s3fjry6",
+      {
+        "id": "student-mv1h4s3fjry6",
+        "name": "Marie Curie",
+        "accessCode": "6571",
+        "phone": "",
+        "avatarSeed": "Marie",
+        "createdAt": "2026-10-09T21:25:05.211Z",
+        "isActive": true,
+        "currentGoal": "Radiology"
+      }
+    ],
+    [
+      "student-mv1h59y25kng",
+      {
+        "id": "student-mv1h59y25kng",
+        "name": "Rosalind Franklin",
+        "accessCode": "4109",
+        "phone": "08123456789",
+        "avatarSeed": "Rosalind",
+        "createdAt": "2026-10-09T21:25:28.346Z",
+        "isActive": true,
+        "currentGoal": "Biochemistry"
+      }
+    ],
+    [
+      "student-mv2o23pw7wu8",
+      {
+        "id": "student-mv2o23pw7wu8",
+        "name": "Test Student",
+        "accessCode": "7307",
+        "phone": "",
+        "avatarSeed": "Test",
+        "createdAt": "2026-10-10T17:26:43.796Z",
+        "isActive": true,
+        "currentGoal": "Science Foundation Transition"
+      }
+    ],
+    [
+      "student-mv2o23q4oy5t",
+      {
+        "id": "student-mv2o23q4oy5t",
+        "name": "Audit Test Student",
+        "accessCode": "8275",
+        "phone": "",
+        "avatarSeed": "Audit",
+        "createdAt": "2026-10-10T17:26:43.804Z",
+        "isActive": true,
+        "currentGoal": "Science Foundation Transition"
+      }
+    ],
+    [
+      "student-mv2o3yxvcb9a",
+      {
+        "id": "student-mv2o3yxvcb9a",
+        "name": "Test Student",
+        "accessCode": "2137",
+        "phone": "",
+        "avatarSeed": "Test",
+        "createdAt": "2026-10-10T17:28:10.915Z",
+        "isActive": true,
+        "currentGoal": "Science Foundation Transition"
+      }
+    ],
+    [
+      "student-mv2o3yy2elcj",
+      {
+        "id": "student-mv2o3yy2elcj",
+        "name": "Audit Test Student",
+        "accessCode": "8266",
+        "phone": "",
+        "avatarSeed": "Audit",
+        "createdAt": "2026-10-10T17:28:10.922Z",
+        "isActive": true,
+        "currentGoal": "Science Foundation Transition"
+      }
     ]
   ],
-  "profiles": [
-    [
-      "student-david",
-      {
-        "studentId": "student-david",
-        "subjects": [
-          "Chemistry",
-          "Biology"
-        ],
-        "overallLevel": "F",
-        "strengths": [
-          "States of Matter",
-          "Conservation of Mass",
-          "Cell Organization"
-        ],
-        "needsImprovement": [
-          "Electron Configuration",
-          "Chemical Bonding",
-          "Solution Molarity"
-        ],
-        "targetPathway": "Nursing & Midwifery",
-        "dailyQuestionTarget": 5,
-        "dailyReadingTargetMinutes": 15,
-        "teacherNotes": "David grasps intuitive analogies well but hesitates when notation becomes symbolic (e.g. 1s² 2s² 2p⁶). Needs deliberate reinforcement on subshell capacities before proceeding to covalent bonding.",
-        "updatedAt": "2026-10-08T20:59:44.894Z"
-      }
-    ],
-    [
-      "student-aisha",
-      {
-        "studentId": "student-aisha",
-        "subjects": [
-          "Mathematics",
-          "Chemistry"
-        ],
-        "overallLevel": "Z",
-        "strengths": [
-          "Direct Proportions",
-          "Everyday Arithmetic"
-        ],
-        "needsImprovement": [
-          "Linear Equation Balancing",
-          "Negative Numbers",
-          "Fractions with Unlike Denominators"
-        ],
-        "targetPathway": "Pharmacy & Health Sciences",
-        "dailyQuestionTarget": 5,
-        "dailyReadingTargetMinutes": 20,
-        "teacherNotes": "Aisha switched from Commercial subjects. She has strong motivation but missed early algebra foundations. Prefers step-by-step worked examples before attempting independent practice.",
-        "updatedAt": "2026-10-08T20:59:44.894Z"
-      }
-    ],
-    [
-      "student-emeka",
-      {
-        "studentId": "student-emeka",
-        "subjects": [
-          "Physics",
-          "Mathematics"
-        ],
-        "overallLevel": "P",
-        "strengths": [
-          "Formula Execution (W=Fd, V=IR)",
-          "Algebraic Manipulation"
-        ],
-        "needsImprovement": [
-          "Motion Graphs Interpretation",
-          "Newton’s Third Law Interaction Pairs",
-          "Vector Resolution"
-        ],
-        "targetPathway": "Mechanical / Electrical Engineering",
-        "dailyQuestionTarget": 8,
-        "dailyReadingTargetMinutes": 20,
-        "teacherNotes": "Emeka relies heavily on formula plugging without visualizing the underlying physical interaction. We need to detach him from mechanical calculation toward qualitative reasoning.",
-        "updatedAt": "2026-10-08T20:59:44.894Z"
-      }
-    ],
-    [
-      "student-mv00sqelj4f3",
-      {
-        "studentId": "student-mv00sqelj4f3",
-        "subjects": [
-          "Chemistry",
-          "Biology"
-        ],
-        "overallLevel": "F",
-        "strengths": [
-          "Curiosity",
-          "Willingness to Rebuild"
-        ],
-        "needsImprovement": [
-          "Foundational Chemistry Concepts",
-          "Foundational Biology Concepts"
-        ],
-        "targetPathway": "Pharmacy & Health Sciences",
-        "dailyQuestionTarget": 5,
-        "dailyReadingTargetMinutes": 15,
-        "teacherNotes": "New learner enrolled. Target pathway: Pharmacy & Health Sciences. Starting level: F.",
-        "updatedAt": "2026-10-08T21:00:03.117Z"
-      }
-    ]
-  ],
+  "profiles": [],
   "plans": [
     [
       "student-david",
@@ -309,6 +312,527 @@
         ],
         "updatedAt": "2026-10-08T21:00:03.117Z"
       }
+    ],
+    [
+      "student-mv1h3qcs5uz0",
+      {
+        "studentId": "student-mv1h3qcs5uz0",
+        "subjects": [
+          {
+            "subject": "Chemistry",
+            "currentTopic": "Atomic Structure",
+            "targetTopics": [
+              "Atomic Structure",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Atomic Structure"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Biology",
+            "currentTopic": "Cell Biology",
+            "targetTopics": [
+              "Cell Biology",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Cell Biology"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Mathematics",
+            "currentTopic": "Linear Equations",
+            "targetTopics": [
+              "Linear Equations",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Linear Equations"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          }
+        ],
+        "nextRecommendedAction": "Start your first Daily Fix clinic in Chemistry.",
+        "learningGoals": [
+          "Rebuild foundational science intuitions from first principles",
+          "Establish a daily 15-minute diagnostic and reading habit",
+          "Prepare thoroughly for science progression"
+        ],
+        "updatedAt": "2026-10-09T21:24:16.300Z"
+      }
+    ],
+    [
+      "student-mv1h3xoajj6w",
+      {
+        "studentId": "student-mv1h3xoajj6w",
+        "subjects": [
+          {
+            "subject": "Chemistry",
+            "currentTopic": "Atomic Structure",
+            "targetTopics": [
+              "Atomic Structure",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Atomic Structure"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Biology",
+            "currentTopic": "Cell Biology",
+            "targetTopics": [
+              "Cell Biology",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Cell Biology"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Mathematics",
+            "currentTopic": "Linear Equations",
+            "targetTopics": [
+              "Linear Equations",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Linear Equations"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          }
+        ],
+        "nextRecommendedAction": "Start your first Daily Fix clinic in Chemistry.",
+        "learningGoals": [
+          "Rebuild foundational science intuitions from first principles",
+          "Establish a daily 15-minute diagnostic and reading habit",
+          "Prepare thoroughly for Electrical Science"
+        ],
+        "updatedAt": "2026-10-09T21:24:25.786Z"
+      }
+    ],
+    [
+      "student-mv1h4s3fjry6",
+      {
+        "studentId": "student-mv1h4s3fjry6",
+        "subjects": [
+          {
+            "subject": "Chemistry",
+            "currentTopic": "Atomic Structure",
+            "targetTopics": [
+              "Atomic Structure",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Atomic Structure"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Biology",
+            "currentTopic": "Cell Biology",
+            "targetTopics": [
+              "Cell Biology",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Cell Biology"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Mathematics",
+            "currentTopic": "Linear Equations",
+            "targetTopics": [
+              "Linear Equations",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Linear Equations"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          }
+        ],
+        "nextRecommendedAction": "Start your first Daily Fix clinic in Chemistry.",
+        "learningGoals": [
+          "Rebuild foundational science intuitions from first principles",
+          "Establish a daily 15-minute diagnostic and reading habit",
+          "Prepare thoroughly for science progression"
+        ],
+        "updatedAt": "2026-10-09T21:25:05.211Z"
+      }
+    ],
+    [
+      "student-mv1h59y25kng",
+      {
+        "studentId": "student-mv1h59y25kng",
+        "subjects": [
+          {
+            "subject": "Chemistry",
+            "targetTopics": [
+              "Atomic Structure",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Atomic Structure"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Biology",
+            "currentTopic": "Cell Biology",
+            "targetTopics": [
+              "Cell Biology",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Cell Biology"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Mathematics",
+            "currentTopic": "Linear Equations",
+            "targetTopics": [
+              "Linear Equations",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Linear Equations"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          }
+        ],
+        "learningGoals": [
+          "Rebuild foundational science intuitions from first principles",
+          "Establish a daily 15-minute diagnostic and reading habit",
+          "Prepare thoroughly for Biochemistry"
+        ],
+        "updatedAt": "2026-10-09T21:26:13.537Z"
+      }
+    ],
+    [
+      "student-mv2o23pw7wu8",
+      {
+        "studentId": "student-mv2o23pw7wu8",
+        "subjects": [
+          {
+            "subject": "Chemistry",
+            "currentTopic": "Atomic Structure",
+            "targetTopics": [
+              "Atomic Structure",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Atomic Structure"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Biology",
+            "currentTopic": "Cell Biology",
+            "targetTopics": [
+              "Cell Biology",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Cell Biology"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Mathematics",
+            "currentTopic": "Linear Equations",
+            "targetTopics": [
+              "Linear Equations",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Linear Equations"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          }
+        ],
+        "nextRecommendedAction": "Start your first Daily Fix clinic in Chemistry.",
+        "learningGoals": [
+          "Rebuild foundational science intuitions from first principles",
+          "Establish a daily 15-minute diagnostic and reading habit",
+          "Prepare thoroughly for science progression"
+        ],
+        "updatedAt": "2026-10-10T17:26:43.796Z"
+      }
+    ],
+    [
+      "student-mv2o23q4oy5t",
+      {
+        "studentId": "student-mv2o23q4oy5t",
+        "subjects": [
+          {
+            "subject": "Chemistry",
+            "currentTopic": "Atomic Structure",
+            "targetTopics": [
+              "Atomic Structure",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Atomic Structure"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Biology",
+            "currentTopic": "Cell Biology",
+            "targetTopics": [
+              "Cell Biology",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Cell Biology"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Mathematics",
+            "currentTopic": "Linear Equations",
+            "targetTopics": [
+              "Linear Equations",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Linear Equations"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "targetTopics": [],
+            "weakTopics": [],
+            "completedTopics": [],
+            "preferredDifficulty": 2
+          }
+        ],
+        "learningGoals": [
+          "Rebuild foundational science intuitions from first principles",
+          "Establish a daily 15-minute diagnostic and reading habit",
+          "Prepare thoroughly for science progression"
+        ],
+        "updatedAt": "2026-10-10T17:26:43.808Z"
+      }
+    ],
+    [
+      "student-mv2o3yxvcb9a",
+      {
+        "studentId": "student-mv2o3yxvcb9a",
+        "subjects": [
+          {
+            "subject": "Chemistry",
+            "currentTopic": "Atomic Structure",
+            "targetTopics": [
+              "Atomic Structure",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Atomic Structure"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Biology",
+            "currentTopic": "Cell Biology",
+            "targetTopics": [
+              "Cell Biology",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Cell Biology"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Mathematics",
+            "currentTopic": "Linear Equations",
+            "targetTopics": [
+              "Linear Equations",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Linear Equations"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          }
+        ],
+        "nextRecommendedAction": "Start your first Daily Fix clinic in Chemistry.",
+        "learningGoals": [
+          "Rebuild foundational science intuitions from first principles",
+          "Establish a daily 15-minute diagnostic and reading habit",
+          "Prepare thoroughly for science progression"
+        ],
+        "updatedAt": "2026-10-10T17:28:10.915Z"
+      }
+    ],
+    [
+      "student-mv2o3yy2elcj",
+      {
+        "studentId": "student-mv2o3yy2elcj",
+        "subjects": [
+          {
+            "subject": "Chemistry",
+            "currentTopic": "Atomic Structure",
+            "targetTopics": [
+              "Atomic Structure",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Atomic Structure"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Biology",
+            "currentTopic": "Cell Biology",
+            "targetTopics": [
+              "Cell Biology",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Cell Biology"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Mathematics",
+            "currentTopic": "Linear Equations",
+            "targetTopics": [
+              "Linear Equations",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Linear Equations"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "targetTopics": [],
+            "weakTopics": [],
+            "completedTopics": [],
+            "preferredDifficulty": 2
+          }
+        ],
+        "learningGoals": [
+          "Rebuild foundational science intuitions from first principles",
+          "Establish a daily 15-minute diagnostic and reading habit",
+          "Prepare thoroughly for science progression"
+        ],
+        "updatedAt": "2026-10-10T17:28:10.927Z"
+      }
+    ],
+    [
+      "student-mv2s3uepce062c",
+      {
+        "studentId": "student-mv2s3uepce062c",
+        "subjects": [
+          {
+            "subject": "Chemistry",
+            "currentTopic": "Atomic Structure",
+            "targetTopics": [
+              "Atomic Structure",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Atomic Structure"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Biology",
+            "currentTopic": "Cell Biology",
+            "targetTopics": [
+              "Cell Biology",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Cell Biology"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          },
+          {
+            "subject": "Mathematics",
+            "currentTopic": "Linear Equations",
+            "targetTopics": [
+              "Linear Equations",
+              "Fundamental Principles",
+              "Everyday Applications"
+            ],
+            "weakTopics": [
+              "Linear Equations"
+            ],
+            "completedTopics": [],
+            "preferredDifficulty": 1
+          }
+        ],
+        "nextRecommendedAction": "Start your first Daily Fix clinic in Chemistry.",
+        "learningGoals": [
+          "Rebuild foundational science intuitions from first principles",
+          "Establish a daily 15-minute diagnostic and reading habit",
+          "Prepare thoroughly for science progression"
+        ],
+        "updatedAt": "2026-10-10T19:20:03.506Z"
+      }
     ]
   ],
   "streaks": [
@@ -316,10 +840,10 @@
       "student-david",
       {
         "studentId": "student-david",
-        "currentStreakDays": 4,
+        "currentStreakDays": 5,
         "longestStreakDays": 7,
-        "lastActiveDate": "2026-10-08",
-        "todayCompleted": false
+        "lastActiveDate": "2026-10-10",
+        "todayCompleted": true
       }
     ],
     [
@@ -351,9 +875,126 @@
         "lastActiveDate": "2026-10-08",
         "todayCompleted": false
       }
+    ],
+    [
+      "student-mv1h3qcs5uz0",
+      {
+        "studentId": "student-mv1h3qcs5uz0",
+        "currentStreakDays": 1,
+        "longestStreakDays": 1,
+        "lastActiveDate": "2026-10-09",
+        "todayCompleted": false
+      }
+    ],
+    [
+      "student-mv1h3xoajj6w",
+      {
+        "studentId": "student-mv1h3xoajj6w",
+        "currentStreakDays": 1,
+        "longestStreakDays": 1,
+        "lastActiveDate": "2026-10-09",
+        "todayCompleted": false
+      }
+    ],
+    [
+      "student-mv1h4s3fjry6",
+      {
+        "studentId": "student-mv1h4s3fjry6",
+        "currentStreakDays": 1,
+        "longestStreakDays": 1,
+        "lastActiveDate": "2026-10-09",
+        "todayCompleted": false
+      }
+    ],
+    [
+      "student-mv1h59y25kng",
+      {
+        "studentId": "student-mv1h59y25kng",
+        "currentStreakDays": 1,
+        "longestStreakDays": 1,
+        "lastActiveDate": "2026-10-09",
+        "todayCompleted": true
+      }
+    ],
+    [
+      "student-mv2o23pw7wu8",
+      {
+        "studentId": "student-mv2o23pw7wu8",
+        "currentStreakDays": 1,
+        "longestStreakDays": 1,
+        "lastActiveDate": "2026-10-10",
+        "todayCompleted": false
+      }
+    ],
+    [
+      "student-mv2o23q4oy5t",
+      {
+        "studentId": "student-mv2o23q4oy5t",
+        "currentStreakDays": 1,
+        "longestStreakDays": 1,
+        "lastActiveDate": "2026-10-10",
+        "todayCompleted": false
+      }
+    ],
+    [
+      "student-mv2o3yxvcb9a",
+      {
+        "studentId": "student-mv2o3yxvcb9a",
+        "currentStreakDays": 1,
+        "longestStreakDays": 1,
+        "lastActiveDate": "2026-10-10",
+        "todayCompleted": false
+      }
+    ],
+    [
+      "student-mv2o3yy2elcj",
+      {
+        "studentId": "student-mv2o3yy2elcj",
+        "currentStreakDays": 1,
+        "longestStreakDays": 1,
+        "lastActiveDate": "2026-10-10",
+        "todayCompleted": false
+      }
+    ],
+    [
+      "student-mv2s3uepce062c",
+      {
+        "studentId": "student-mv2s3uepce062c",
+        "currentStreakDays": 1,
+        "longestStreakDays": 1,
+        "lastActiveDate": "2026-10-10",
+        "todayCompleted": true
+      }
     ]
   ],
   "sessions": [
+    {
+      "studentId": "student-mv2o3yy2elcj",
+      "summary": "Lesson on Cell Biology",
+      "topicsCovered": [
+        "Osmosis"
+      ],
+      "id": "sess-1791653290927",
+      "createdAt": "2026-10-10T17:28:10.927Z"
+    },
+    {
+      "studentId": "student-mv2o23q4oy5t",
+      "summary": "Lesson on Cell Biology",
+      "topicsCovered": [
+        "Osmosis"
+      ],
+      "id": "sess-1791653203808",
+      "createdAt": "2026-10-10T17:26:43.808Z"
+    },
+    {
+      "studentId": "student-mv1h59y25kng",
+      "subject": "Chemistry",
+      "topicCovered": "Atomic Structure",
+      "lessonSummary": "Reviewed subshells and electron shells",
+      "homeworkAssigned": "Practice 5 questions",
+      "id": "sess-1791581173537",
+      "createdAt": "2026-10-09T21:26:13.537Z"
+    },
     {
       "id": "sess-david-1",
       "studentId": "student-david",
@@ -392,6 +1033,197 @@
     }
   ],
   "assignments": [
+    {
+      "title": "Audit Assignment",
+      "studentId": "student-mv2o3yy2elcj",
+      "questions": [
+        {
+          "id": "q1",
+          "text": "Test?",
+          "correctAnswer": "A"
+        }
+      ],
+      "id": "assign-1791653290925",
+      "status": "pending",
+      "createdAt": "2026-10-10T17:28:10.925Z"
+    },
+    {
+      "title": "Audit Assignment",
+      "studentId": "student-mv2o23q4oy5t",
+      "questions": [
+        {
+          "id": "q1",
+          "text": "Test?",
+          "correctAnswer": "A"
+        }
+      ],
+      "id": "assign-1791653203806",
+      "status": "pending",
+      "createdAt": "2026-10-10T17:26:43.806Z"
+    },
+    {
+      "studentId": "student-mv1h59y25kng",
+      "title": "Atomic Structure Assignment",
+      "subject": "Chemistry",
+      "topic": "Atomic Structure",
+      "instructions": "Please solve step by step",
+      "questions": [
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "id": "assign-1791581138264",
+      "status": "completed",
+      "createdAt": "2026-10-09T21:25:38.264Z",
+      "completedAt": "2026-10-09T21:25:49.789Z",
+      "score": 5,
+      "maxScore": 5,
+      "percentage": 100
+    },
+    {
+      "studentId": "student-mv1h3xoajj6w",
+      "title": "Atomic Structure Assignment",
+      "subject": "Chemistry",
+      "topic": "Atomic Structure",
+      "instructions": "Complete the questions carefully. Your result will guide the next tutorial step.",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        }
+      ],
+      "difficulty": 1.6666666666666667,
+      "dueDate": "2026-10-12T21:24:25.790Z",
+      "estimatedMinutes": 10,
+      "id": "assign-1791581065790",
+      "status": "pending",
+      "createdAt": "2026-10-09T21:24:25.790Z"
+    },
     {
       "id": "assign-david-1",
       "studentId": "student-david",
@@ -1461,6 +2293,2830 @@
         }
       ],
       "status": "pending"
+    },
+    {
+      "id": "daily-student-mv1h3qcs5uz0-mv1h3qct",
+      "studentId": "student-mv1h3qcs5uz0",
+      "date": "2026-10-09",
+      "subject": "Chemistry",
+      "focusTopic": "Atomic Structure",
+      "reason": "current_focus",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "daily-student-mv1h3qcs5uz0-2026-10-09-1791581056306",
+      "studentId": "student-mv1h3qcs5uz0",
+      "date": "2026-10-09",
+      "subject": "Chemistry",
+      "focusTopic": "Atomic Structure",
+      "reason": "weak_area_reinforcement",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "daily-student-mv1h3xoajj6w-mv1h3xoa",
+      "studentId": "student-mv1h3xoajj6w",
+      "date": "2026-10-09",
+      "subject": "Chemistry",
+      "focusTopic": "Atomic Structure",
+      "reason": "current_focus",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "daily-student-mv1h4s3fjry6-mv1h4s3f",
+      "studentId": "student-mv1h4s3fjry6",
+      "date": "2026-10-09",
+      "subject": "Chemistry",
+      "focusTopic": "Atomic Structure",
+      "reason": "current_focus",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "daily-student-mv1h59y25kng-mv1h59y2",
+      "studentId": "student-mv1h59y25kng",
+      "date": "2026-10-09",
+      "subject": "Chemistry",
+      "focusTopic": "Atomic Structure",
+      "reason": "current_focus",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "daily-student-mv1h59y25kng-2026-10-09-1791581157127",
+      "studentId": "student-mv1h59y25kng",
+      "date": "2026-10-09",
+      "subject": "Chemistry",
+      "focusTopic": "Atomic Structure",
+      "reason": "weak_area_reinforcement",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "completed",
+      "completedAt": "2026-10-09T21:26:01.717Z",
+      "score": 25,
+      "maxScore": 25,
+      "percentage": 100
+    },
+    {
+      "id": "daily-student-mv2o23pw7wu8-mv2o23pw",
+      "studentId": "student-mv2o23pw7wu8",
+      "date": "2026-10-10",
+      "subject": "Chemistry",
+      "focusTopic": "Atomic Structure",
+      "reason": "current_focus",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "daily-student-mv2o23pw7wu8-2026-10-10-1791653203800",
+      "studentId": "student-mv2o23pw7wu8",
+      "date": "2026-10-10",
+      "subject": "Chemistry",
+      "focusTopic": "Atomic Structure",
+      "reason": "weak_area_reinforcement",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "daily-student-mv2o23q4oy5t-mv2o23q4",
+      "studentId": "student-mv2o23q4oy5t",
+      "date": "2026-10-10",
+      "subject": "Chemistry",
+      "focusTopic": "Atomic Structure",
+      "reason": "current_focus",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "daily-student-mv2o3yxvcb9a-mv2o3yxv",
+      "studentId": "student-mv2o3yxvcb9a",
+      "date": "2026-10-10",
+      "subject": "Chemistry",
+      "focusTopic": "Atomic Structure",
+      "reason": "current_focus",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "daily-student-mv2o3yxvcb9a-2026-10-10-1791653290918",
+      "studentId": "student-mv2o3yxvcb9a",
+      "date": "2026-10-10",
+      "subject": "Chemistry",
+      "focusTopic": "Atomic Structure",
+      "reason": "weak_area_reinforcement",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "daily-student-mv2o3yy2elcj-mv2o3yy2",
+      "studentId": "student-mv2o3yy2elcj",
+      "date": "2026-10-10",
+      "subject": "Chemistry",
+      "focusTopic": "Atomic Structure",
+      "reason": "current_focus",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "daily-student-mv2ou5cpf03f-mv2ou5cq",
+      "studentId": "student-mv2ou5cpf03f",
+      "date": "2026-10-10",
+      "subject": "Chemistry",
+      "focusTopic": "Atomic Structure",
+      "reason": "current_focus",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "daily-student-david-2026-10-10-1791658631134",
+      "studentId": "student-david",
+      "date": "2026-10-10",
+      "subject": "Chemistry",
+      "focusTopic": "Electron Configuration",
+      "reason": "weak_area_reinforcement",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "daily-student-david-2026-10-10-1791658669546",
+      "studentId": "student-david",
+      "date": "2026-10-10",
+      "subject": "Chemistry",
+      "focusTopic": "Electron Configuration",
+      "reason": "weak_area_reinforcement",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "completed",
+      "completedAt": "2026-10-10T18:58:05.705Z",
+      "score": 5,
+      "maxScore": 25,
+      "percentage": 20
+    },
+    {
+      "id": "daily-student-mv2s3uepce062c-mv2s3ueq",
+      "studentId": "student-mv2s3uepce062c",
+      "date": "2026-10-10",
+      "subject": "Chemistry",
+      "focusTopic": "Atomic Structure",
+      "reason": "current_focus",
+      "questions": [
+        {
+          "id": "CHE_Z_01",
+          "text": "When you boil a pot of water to make eba and the water disappears as steam, what is that steam actually made of?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It has broken down into Hydrogen and Oxygen gases.",
+              "points": 0
+            },
+            {
+              "id": "b",
+              "text": "It is still water (H2O), just spread far apart in a gas form.",
+              "points": 5
+            },
+            {
+              "id": "c",
+              "text": "The water has been completely destroyed by the heat.",
+              "points": 0
+            },
+            {
+              "id": "d",
+              "text": "It is just hot air rising from the pot.",
+              "points": 1
+            }
+          ],
+          "correctOptionId": "b",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "States of Matter",
+          "difficulty": 1,
+          "learningObjective": "Master States of Matter principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_02",
+          "text": "If you leave an iron cutlass outside in the rain, it rusts. How does the weight of the rusty cutlass compare to when it was new?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It is lighter because the rust eats away the iron.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It is exactly the same weight, just a different color.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It is heavier because oxygen from the air has combined with the iron.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It is lighter because water washed away the metal.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Chemical Changes",
+          "difficulty": 1,
+          "learningObjective": "Master Chemical Changes principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_03",
+          "text": "When you stir sugar into a cup of hot tea and it disappears, what happened to the sugar?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "The sugar melted into a liquid.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "The sugar was destroyed by the hot water.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "The sugar particles separated and mixed evenly with the water particles.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "The sugar turned into sweet energy.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Solutions & Mixtures",
+          "difficulty": 3,
+          "learningObjective": "Master Solutions & Mixtures principles and problem solving."
+        },
+        {
+          "id": "CHE_Z_04",
+          "text": "When firewood burns down to a small pile of ashes, where did most of the wood go?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "It was consumed and turned into pure heat and light.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "It turned into the ash on the ground.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "It escaped into the air as invisible gases like carbon dioxide.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "It simply ceased to exist.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Combustion",
+          "difficulty": 2,
+          "learningObjective": "Master Combustion principles and problem solving."
+        },
+        {
+          "id": "CHE_F_01",
+          "text": "An atom is made of protons, neutrons, and electrons. Which particles are found inside the nucleus at the very center?",
+          "type": "multiple_choice",
+          "options": [
+            {
+              "id": "a",
+              "text": "Only protons.",
+              "points": 1
+            },
+            {
+              "id": "b",
+              "text": "Protons and electrons.",
+              "points": 0
+            },
+            {
+              "id": "c",
+              "text": "Protons and neutrons.",
+              "points": 5
+            },
+            {
+              "id": "d",
+              "text": "Neutrons and electrons.",
+              "points": 0
+            }
+          ],
+          "correctOptionId": "c",
+          "explanation": "Review fundamental definitions and step-by-step physical relationships.",
+          "subject": "Chemistry",
+          "topic": "Atomic Structure",
+          "difficulty": 2,
+          "learningObjective": "Master Atomic Structure principles and problem solving."
+        }
+      ],
+      "status": "pending"
     }
   ],
   "readingTasks": [
@@ -1571,6 +5227,332 @@
         "explanation": "True mastery requires repairing the foundational concepts and relationships underneath the formulas."
       },
       "status": "pending"
+    },
+    {
+      "id": "read-student-mv1h3qcs5uz0-welcome",
+      "studentId": "student-mv1h3qcs5uz0",
+      "subject": "Chemistry",
+      "topic": "Learning Science as an Adult",
+      "title": "How Scientific Models Work: From Intuition to Evidence",
+      "content": "Welcome to Science Transition Academy. When returning to science after months or years, the most critical shift is moving away from memorising formulas without meaning.\n\nScience is not a collection of disconnected facts to be memorized for a single test. It is an interlocking web of mental models that explain why things happen.\n\n• In Physics, we observe motion and ask: what forces are acting, and why?\n• In Chemistry, we observe substances and ask: how are the electrons and atoms arranged?\n• In Biology, we observe life and ask: how do cells and systems maintain energy and balance?\n\nTake your time with each question. If you make a mistake, read the full explanation to repair the mental model.",
+      "targetDurationMinutes": 10,
+      "recallQuestion": {
+        "questionText": "What is the most effective way to rebuild science knowledge according to the Academy model?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cramming exam past questions without explanations",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Rebuilding core mental models and understanding the reasoning underneath",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Memorizing formulas without checking relationships",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Skipping mathematics when studying chemistry and physics",
+            "isCorrect": false
+          }
+        ],
+        "explanation": "True mastery requires repairing the foundational concepts and relationships underneath the formulas."
+      },
+      "status": "pending"
+    },
+    {
+      "id": "read-student-mv1h3xoajj6w-welcome",
+      "studentId": "student-mv1h3xoajj6w",
+      "subject": "Chemistry",
+      "topic": "Learning Science as an Adult",
+      "title": "How Scientific Models Work: From Intuition to Evidence",
+      "content": "Welcome to Science Transition Academy. When returning to science after months or years, the most critical shift is moving away from memorising formulas without meaning.\n\nScience is not a collection of disconnected facts to be memorized for a single test. It is an interlocking web of mental models that explain why things happen.\n\n• In Physics, we observe motion and ask: what forces are acting, and why?\n• In Chemistry, we observe substances and ask: how are the electrons and atoms arranged?\n• In Biology, we observe life and ask: how do cells and systems maintain energy and balance?\n\nTake your time with each question. If you make a mistake, read the full explanation to repair the mental model.",
+      "targetDurationMinutes": 10,
+      "recallQuestion": {
+        "questionText": "What is the most effective way to rebuild science knowledge according to the Academy model?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cramming exam past questions without explanations",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Rebuilding core mental models and understanding the reasoning underneath",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Memorizing formulas without checking relationships",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Skipping mathematics when studying chemistry and physics",
+            "isCorrect": false
+          }
+        ],
+        "explanation": "True mastery requires repairing the foundational concepts and relationships underneath the formulas."
+      },
+      "status": "pending"
+    },
+    {
+      "id": "read-student-mv1h4s3fjry6-welcome",
+      "studentId": "student-mv1h4s3fjry6",
+      "subject": "Chemistry",
+      "topic": "Learning Science as an Adult",
+      "title": "How Scientific Models Work: From Intuition to Evidence",
+      "content": "Welcome to Science Transition Academy. When returning to science after months or years, the most critical shift is moving away from memorising formulas without meaning.\n\nScience is not a collection of disconnected facts to be memorized for a single test. It is an interlocking web of mental models that explain why things happen.\n\n• In Physics, we observe motion and ask: what forces are acting, and why?\n• In Chemistry, we observe substances and ask: how are the electrons and atoms arranged?\n• In Biology, we observe life and ask: how do cells and systems maintain energy and balance?\n\nTake your time with each question. If you make a mistake, read the full explanation to repair the mental model.",
+      "targetDurationMinutes": 10,
+      "recallQuestion": {
+        "questionText": "What is the most effective way to rebuild science knowledge according to the Academy model?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cramming exam past questions without explanations",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Rebuilding core mental models and understanding the reasoning underneath",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Memorizing formulas without checking relationships",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Skipping mathematics when studying chemistry and physics",
+            "isCorrect": false
+          }
+        ],
+        "explanation": "True mastery requires repairing the foundational concepts and relationships underneath the formulas."
+      },
+      "status": "pending"
+    },
+    {
+      "id": "read-student-mv1h59y25kng-welcome",
+      "studentId": "student-mv1h59y25kng",
+      "subject": "Chemistry",
+      "topic": "Learning Science as an Adult",
+      "title": "How Scientific Models Work: From Intuition to Evidence",
+      "content": "Welcome to Science Transition Academy. When returning to science after months or years, the most critical shift is moving away from memorising formulas without meaning.\n\nScience is not a collection of disconnected facts to be memorized for a single test. It is an interlocking web of mental models that explain why things happen.\n\n• In Physics, we observe motion and ask: what forces are acting, and why?\n• In Chemistry, we observe substances and ask: how are the electrons and atoms arranged?\n• In Biology, we observe life and ask: how do cells and systems maintain energy and balance?\n\nTake your time with each question. If you make a mistake, read the full explanation to repair the mental model.",
+      "targetDurationMinutes": 10,
+      "recallQuestion": {
+        "questionText": "What is the most effective way to rebuild science knowledge according to the Academy model?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cramming exam past questions without explanations",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Rebuilding core mental models and understanding the reasoning underneath",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Memorizing formulas without checking relationships",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Skipping mathematics when studying chemistry and physics",
+            "isCorrect": false
+          }
+        ],
+        "explanation": "True mastery requires repairing the foundational concepts and relationships underneath the formulas."
+      },
+      "status": "completed",
+      "completedAt": "2026-10-09T21:26:09.380Z",
+      "actualDurationMinutes": 12
+    },
+    {
+      "id": "read-student-mv2o23pw7wu8-welcome",
+      "studentId": "student-mv2o23pw7wu8",
+      "subject": "Chemistry",
+      "topic": "Learning Science as an Adult",
+      "title": "How Scientific Models Work: From Intuition to Evidence",
+      "content": "Welcome to Science Transition Academy. When returning to science after months or years, the most critical shift is moving away from memorising formulas without meaning.\n\nScience is not a collection of disconnected facts to be memorized for a single test. It is an interlocking web of mental models that explain why things happen.\n\n• In Physics, we observe motion and ask: what forces are acting, and why?\n• In Chemistry, we observe substances and ask: how are the electrons and atoms arranged?\n• In Biology, we observe life and ask: how do cells and systems maintain energy and balance?\n\nTake your time with each question. If you make a mistake, read the full explanation to repair the mental model.",
+      "targetDurationMinutes": 10,
+      "recallQuestion": {
+        "questionText": "What is the most effective way to rebuild science knowledge according to the Academy model?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cramming exam past questions without explanations",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Rebuilding core mental models and understanding the reasoning underneath",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Memorizing formulas without checking relationships",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Skipping mathematics when studying chemistry and physics",
+            "isCorrect": false
+          }
+        ],
+        "explanation": "True mastery requires repairing the foundational concepts and relationships underneath the formulas."
+      },
+      "status": "pending"
+    },
+    {
+      "id": "read-student-mv2o23q4oy5t-welcome",
+      "studentId": "student-mv2o23q4oy5t",
+      "subject": "Chemistry",
+      "topic": "Learning Science as an Adult",
+      "title": "How Scientific Models Work: From Intuition to Evidence",
+      "content": "Welcome to Science Transition Academy. When returning to science after months or years, the most critical shift is moving away from memorising formulas without meaning.\n\nScience is not a collection of disconnected facts to be memorized for a single test. It is an interlocking web of mental models that explain why things happen.\n\n• In Physics, we observe motion and ask: what forces are acting, and why?\n• In Chemistry, we observe substances and ask: how are the electrons and atoms arranged?\n• In Biology, we observe life and ask: how do cells and systems maintain energy and balance?\n\nTake your time with each question. If you make a mistake, read the full explanation to repair the mental model.",
+      "targetDurationMinutes": 10,
+      "recallQuestion": {
+        "questionText": "What is the most effective way to rebuild science knowledge according to the Academy model?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cramming exam past questions without explanations",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Rebuilding core mental models and understanding the reasoning underneath",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Memorizing formulas without checking relationships",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Skipping mathematics when studying chemistry and physics",
+            "isCorrect": false
+          }
+        ],
+        "explanation": "True mastery requires repairing the foundational concepts and relationships underneath the formulas."
+      },
+      "status": "pending"
+    },
+    {
+      "id": "read-student-mv2o3yxvcb9a-welcome",
+      "studentId": "student-mv2o3yxvcb9a",
+      "subject": "Chemistry",
+      "topic": "Learning Science as an Adult",
+      "title": "How Scientific Models Work: From Intuition to Evidence",
+      "content": "Welcome to Science Transition Academy. When returning to science after months or years, the most critical shift is moving away from memorising formulas without meaning.\n\nScience is not a collection of disconnected facts to be memorized for a single test. It is an interlocking web of mental models that explain why things happen.\n\n• In Physics, we observe motion and ask: what forces are acting, and why?\n• In Chemistry, we observe substances and ask: how are the electrons and atoms arranged?\n• In Biology, we observe life and ask: how do cells and systems maintain energy and balance?\n\nTake your time with each question. If you make a mistake, read the full explanation to repair the mental model.",
+      "targetDurationMinutes": 10,
+      "recallQuestion": {
+        "questionText": "What is the most effective way to rebuild science knowledge according to the Academy model?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cramming exam past questions without explanations",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Rebuilding core mental models and understanding the reasoning underneath",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Memorizing formulas without checking relationships",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Skipping mathematics when studying chemistry and physics",
+            "isCorrect": false
+          }
+        ],
+        "explanation": "True mastery requires repairing the foundational concepts and relationships underneath the formulas."
+      },
+      "status": "pending"
+    },
+    {
+      "id": "read-student-mv2o3yy2elcj-welcome",
+      "studentId": "student-mv2o3yy2elcj",
+      "subject": "Chemistry",
+      "topic": "Learning Science as an Adult",
+      "title": "How Scientific Models Work: From Intuition to Evidence",
+      "content": "Welcome to Science Transition Academy. When returning to science after months or years, the most critical shift is moving away from memorising formulas without meaning.\n\nScience is not a collection of disconnected facts to be memorized for a single test. It is an interlocking web of mental models that explain why things happen.\n\n• In Physics, we observe motion and ask: what forces are acting, and why?\n• In Chemistry, we observe substances and ask: how are the electrons and atoms arranged?\n• In Biology, we observe life and ask: how do cells and systems maintain energy and balance?\n\nTake your time with each question. If you make a mistake, read the full explanation to repair the mental model.",
+      "targetDurationMinutes": 10,
+      "recallQuestion": {
+        "questionText": "What is the most effective way to rebuild science knowledge according to the Academy model?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cramming exam past questions without explanations",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Rebuilding core mental models and understanding the reasoning underneath",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Memorizing formulas without checking relationships",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Skipping mathematics when studying chemistry and physics",
+            "isCorrect": false
+          }
+        ],
+        "explanation": "True mastery requires repairing the foundational concepts and relationships underneath the formulas."
+      },
+      "status": "pending"
+    },
+    {
+      "id": "read-student-mv2s3uepce062c-welcome",
+      "studentId": "student-mv2s3uepce062c",
+      "subject": "Chemistry",
+      "topic": "Learning Science as an Adult",
+      "title": "How Scientific Models Work: From Intuition to Evidence",
+      "content": "Welcome to Science Transition Academy. When returning to science after months or years, the most critical shift is moving away from memorising formulas without meaning.\n\nScience is not a collection of disconnected facts to be memorized for a single test. It is an interlocking web of mental models that explain why things happen.\n\n• In Physics, we observe motion and ask: what forces are acting, and why?\n• In Chemistry, we observe substances and ask: how are the electrons and atoms arranged?\n• In Biology, we observe life and ask: how do cells and systems maintain energy and balance?\n\nTake your time with each question. If you make a mistake, read the full explanation to repair the mental model.",
+      "targetDurationMinutes": 10,
+      "recallQuestion": {
+        "questionText": "What is the most effective way to rebuild science knowledge according to the Academy model?",
+        "options": [
+          {
+            "id": "a",
+            "text": "Cramming exam past questions without explanations",
+            "isCorrect": false
+          },
+          {
+            "id": "b",
+            "text": "Rebuilding core mental models and understanding the reasoning underneath",
+            "isCorrect": true
+          },
+          {
+            "id": "c",
+            "text": "Memorizing formulas without checking relationships",
+            "isCorrect": false
+          },
+          {
+            "id": "d",
+            "text": "Skipping mathematics when studying chemistry and physics",
+            "isCorrect": false
+          }
+        ],
+        "explanation": "True mastery requires repairing the foundational concepts and relationships underneath the formulas."
+      },
+      "status": "pending"
     }
   ],
   "masteryRecords": [
@@ -1621,9 +5603,56 @@
       "totalQuestions": 10,
       "lastTestedAt": "2026-10-07T20:59:44.895Z",
       "trend": "stable"
+    },
+    {
+      "id": "mst-student-mv1h59y25kng-1791581149790",
+      "studentId": "student-mv1h59y25kng",
+      "subject": "Chemistry",
+      "topic": "Atomic Structure",
+      "masteryPercent": 100,
+      "attemptCount": 2,
+      "correctCount": 6,
+      "totalQuestions": 6,
+      "lastTestedAt": "2026-10-09T21:26:01.717Z",
+      "trend": "stable"
+    },
+    {
+      "id": "mst-student-david-1791658685705",
+      "studentId": "student-david",
+      "subject": "Chemistry",
+      "topic": "Electron Configuration",
+      "masteryPercent": 20,
+      "attemptCount": 1,
+      "correctCount": 0,
+      "totalQuestions": 5,
+      "lastTestedAt": "2026-10-10T18:58:05.705Z",
+      "trend": "new"
+    },
+    {
+      "id": "mst-student-mv2s3uepce062c-1791660003515",
+      "studentId": "student-mv2s3uepce062c",
+      "subject": "Chemistry",
+      "topic": "Atoms",
+      "masteryPercent": 100,
+      "attemptCount": 1,
+      "correctCount": 1,
+      "totalQuestions": 1,
+      "lastTestedAt": "2026-10-10T19:20:03.515Z",
+      "trend": "new"
     }
   ],
   "followUps": [
+    {
+      "studentId": "student-david",
+      "studentName": "David Eze",
+      "issue": "Struggled with Daily Fix on Electron Configuration (20%)",
+      "triggerType": "repeated_low_score",
+      "priority": "medium",
+      "recommendedAction": "Add remedial notes for Electron Configuration in next lesson.",
+      "id": "fu-1791658685705-295",
+      "status": "open",
+      "createdAt": "2026-10-10T18:58:05.705Z"
+    },
     {
       "id": "fu-1",
       "studentId": "student-david",
@@ -1631,9 +5660,10 @@
       "issue": "Atomic Structure mastery dropped to 38% after session on subshells",
       "triggerType": "repeated_low_score",
       "priority": "high",
-      "status": "open",
+      "status": "resolved",
       "recommendedAction": "Reteach p-subshell electron capacity with visual orbital boxes before next quiz.",
-      "createdAt": "2026-10-07T20:59:44.895Z"
+      "createdAt": "2026-10-07T20:59:44.895Z",
+      "resolvedAt": "2026-10-09T21:26:17.250Z"
     },
     {
       "id": "fu-2",
@@ -1674,6 +5704,127 @@
       {
         "studentId": "student-david",
         "expiresAt": 1794092492585
+      }
+    ],
+    [
+      "9dc6668a2de51ed1f5351a850531c0b013020a08ac0cdb9acdb4e9dace2f00d0",
+      {
+        "studentId": "student-mv1h3qcs5uz0",
+        "expiresAt": 1794173056302
+      }
+    ],
+    [
+      "844b644e9125e04c86cb0214a2ac4a8841d344370e1f6c1784d97d364a581948",
+      {
+        "studentId": "student-mv1h3qcs5uz0",
+        "expiresAt": 1794173056303
+      }
+    ],
+    [
+      "d58d1b3df4c8f23dc88f0883ecc5cb43edbafe3dedc8f4507b29a25b2e98924b",
+      {
+        "studentId": "student-mv1h3xoajj6w",
+        "expiresAt": 1794173065787
+      }
+    ],
+    [
+      "c21db329b62c86b8293949950a6b033c2a1a267f08d5762a4b0afb58de99d3bd",
+      {
+        "studentId": "student-mv1h4s3fjry6",
+        "expiresAt": 1794173105211
+      }
+    ],
+    [
+      "b794b9f1cb42c381ac31a21ff85366e8122782df1686ddf4f2529e2d22883c24",
+      {
+        "studentId": "student-mv1h4s3fjry6",
+        "expiresAt": 1794173109090
+      }
+    ],
+    [
+      "82bdc306fbbe51bca580fa20eb6d653e132b335e3cec368e48034d9075978663",
+      {
+        "studentId": "student-mv1h59y25kng",
+        "expiresAt": 1794173128346
+      }
+    ],
+    [
+      "4cc25bfdd5d628e2d5fe464bd28547fd0144f29cb8818fad7a0d5b9cd2255fbe",
+      {
+        "studentId": "student-mv1h59y25kng",
+        "expiresAt": 1794173145153
+      }
+    ],
+    [
+      "a676395d20149aefcef4e54077f7777e454890e6be953e388fecba9cc7cf8f8b",
+      {
+        "studentId": "student-mv2o23pw7wu8",
+        "expiresAt": 1794245203797
+      }
+    ],
+    [
+      "c6f7c2b228c2b35428241f7546fbc8a210953c1914642ef9bbcfc9e8410c5167",
+      {
+        "studentId": "student-mv2o23q4oy5t",
+        "expiresAt": 1794245203804
+      }
+    ],
+    [
+      "0497b5c2b34e86b2eb5caab4b03fbd223fc1dfb0ecbc17be323fa3ad9e8d106e",
+      {
+        "studentId": "student-mv2o3yxvcb9a",
+        "expiresAt": 1794245290915
+      }
+    ],
+    [
+      "bc31e15c0d845a607d40dc8351d8726144886adf100d811e08a733124c1f52a7",
+      {
+        "studentId": "student-mv2o3yy2elcj",
+        "expiresAt": 1794245290922
+      }
+    ],
+    [
+      "b3f2e95c1bbc2e41e784cc95ad772d16a2b38cf22ea39c4a9d8b8d7f46c57bd9",
+      {
+        "studentId": "student-mv2ou5cpf03f",
+        "expiresAt": 1794246512282
+      }
+    ],
+    [
+      "5f71918ae63680342b304c393ebef6eb4d1c30b98676a1b1a37dba5be1baf9a0",
+      {
+        "studentId": "student-david",
+        "expiresAt": 1794250630711
+      }
+    ],
+    [
+      "9b5a08b35a2576b34da570b819734f60dc100f5dca9ff986074b2becf7900ae8",
+      {
+        "studentId": "student-david",
+        "expiresAt": 1794252081158
+      }
+    ],
+    [
+      "52fdf31e8d94ceddaf338b23254b5fc0d84e0e27200bf6f06c4360ef85df8ccb",
+      {
+        "studentId": "student-david",
+        "expiresAt": 1794252086997
+      }
+    ],
+    [
+      "e024f1ebe9e680e5f8c071afaf5c5ead3764fa723e5dbe193effa1dd2f25f519",
+      {
+        "studentId": "student-aisha",
+        "expiresAt": 1794252092527
+      }
+    ]
+  ],
+  "rateLimits": [
+    [
+      "198.51.100.99",
+      {
+        "attempts": 5,
+        "lockoutUntil": 1791660903527
       }
     ]
   ]

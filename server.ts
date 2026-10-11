@@ -4,7 +4,7 @@ import { createServer as createViteServer } from "vite";
 import OpenAI from "openai";
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
-import { portalStore } from "./src/server/portalStore";
+import { portalStore, verifyAdminKey } from "./src/server/portalStore";
 import tutorialRoutes from "./src/server/tutorialRoutes";
 import { QUESTIONS } from "./src/data/questions";
 
@@ -56,9 +56,7 @@ async function startServer() {
   });
 
   function adminAuthorized(req: express.Request) {
-    const configured = process.env.ADMIN_DASHBOARD_KEY;
-    const supplied = req.headers['x-admin-key'];
-    return Boolean(configured && typeof supplied === 'string' && supplied === configured);
+    return verifyAdminKey(req.headers['x-admin-key']);
   }
 
   const handleAdminLeads = async (req: express.Request, res: express.Response) => {
@@ -402,6 +400,21 @@ async function startServer() {
     });
   });
 
+  // Student Logout
+  app.post("/api/portal/auth/logout", (req, res) => {
+    const authHeader = req.headers.authorization;
+    let token = '';
+    if (typeof authHeader === 'string' && authHeader.startsWith('Bearer ')) {
+      token = authHeader.slice(7).trim();
+    } else if (typeof req.headers['x-portal-token'] === 'string') {
+      token = req.headers['x-portal-token'].trim();
+    }
+    if (token) {
+      portalStore.logoutSession(token);
+    }
+    return res.json({ success: true, message: "Logged out successfully." });
+  });
+
   // Student Dashboard data
   app.get("/api/portal/dashboard", (req, res) => {
     const student = getStudentAuth(req);
@@ -438,15 +451,17 @@ async function startServer() {
       return res.status(401).json({ error: "Unauthorized" });
     }
     const { practiceId, submissions } = req.body || {};
-    if (!practiceId || !Array.isArray(submissions)) {
-      return res.status(400).json({ error: "Practice ID and submissions array are required." });
+    if (!practiceId || typeof practiceId !== 'string' || !Array.isArray(submissions) || submissions.length === 0) {
+      return res.status(400).json({ error: "Practice ID and non-empty submissions array are required." });
     }
     try {
-      const result = portalStore.submitDailyPracticeAnswers(practiceId, student.id, submissions);
+      const result = portalStore.submitDailyPracticeAnswers(practiceId.trim(), student.id, submissions);
       return res.json(result);
     } catch (err: any) {
       console.error("Daily practice submit error:", err);
-      return res.status(400).json({ error: err.message || "Failed to mark daily practice." });
+      const msg = err?.message || "Failed to mark daily practice.";
+      const status = msg.includes("Unauthorized") || msg.includes("Forbidden") ? 403 : (msg.includes("not found") ? 404 : 400);
+      return res.status(status).json({ error: msg });
     }
   });
 
@@ -460,22 +475,39 @@ async function startServer() {
     return res.json({ assignments });
   });
 
+  // Get single assignment with strict ownership verification
+  app.get("/api/portal/assignments/:id", (req, res) => {
+    const student = getStudentAuth(req);
+    if (!student) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    const assignmentId = String(req.params.id || '').trim();
+    const assignment = portalStore.getAssignmentForStudent(assignmentId, student.id);
+    if (!assignment) {
+      return res.status(404).json({ error: "Assignment not found." });
+    }
+    return res.json({ assignment });
+  });
+
   // Submit Assignment
   app.post("/api/portal/assignments/:id/submit", (req, res) => {
     const student = getStudentAuth(req);
     if (!student) {
       return res.status(401).json({ error: "Unauthorized" });
     }
+    const assignmentId = String(req.params.id || '').trim();
     const { submissions } = req.body || {};
-    if (!Array.isArray(submissions)) {
-      return res.status(400).json({ error: "Submissions array is required." });
+    if (!assignmentId || !Array.isArray(submissions) || submissions.length === 0) {
+      return res.status(400).json({ error: "Valid assignment ID and non-empty submissions array are required." });
     }
     try {
-      const result = portalStore.submitAssignmentAnswers(req.params.id, student.id, submissions);
+      const result = portalStore.submitAssignmentAnswers(assignmentId, student.id, submissions);
       return res.json(result);
     } catch (err: any) {
       console.error("Assignment submit error:", err);
-      return res.status(400).json({ error: err.message || "Failed to mark assignment." });
+      const msg = err?.message || "Failed to mark assignment.";
+      const status = msg.includes("Unauthorized") || msg.includes("Forbidden") ? 403 : (msg.includes("not found") ? 404 : 400);
+      return res.status(status).json({ error: msg });
     }
   });
 
@@ -525,6 +557,22 @@ async function startServer() {
 
   // Personal tutorial workspace routes share the existing portal database/service layer.
   app.use("/api/tutorial", tutorialRoutes);
+
+  // Ensure unmatched /api routes return JSON 404 and never index.html
+  app.all('/api/*', (req, res) => {
+    res.status(404).json({ error: `API route not found: ${req.method} ${req.path}` });
+  });
+
+  // Global JSON error handler for /api routes
+  app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    if (req.path && req.path.startsWith('/api/')) {
+      console.error('[API Error Handler]', err);
+      return res.status(err.status || 500).json({
+        error: err.message || 'Internal server error in API.'
+      });
+    }
+    next(err);
+  });
 
   // Vite middleware for development
 
